@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+// Author: Tri-Luong Steven Dien
 public class PlayerController : MonoBehaviour
 {
+    // Changeable in the Unity Inspector
     public float mMovementSpeed;
     public float mJumpPower;
 
+    // Private variables
     private float mRotationDegreesPerSecond = 180f;
     private bool mGrounded = true;
 
