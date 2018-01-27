@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -151,6 +151,51 @@ Prefab:
     - target: {fileID: 4195294895880070, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114144637375117202, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+        type: 2}
+      propertyPath: mMaxSpeed
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114144637375117202, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+        type: 2}
+      propertyPath: speedreduction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114144637375117202, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+        type: 2}
+      propertyPath: mMovementSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 136668642361640542, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 136242613869847016, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114144637375117202, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+        type: 2}
+      propertyPath: mSpeedReduction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54977832831866388, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+        type: 2}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54977832831866388, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+        type: 2}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54977832831866388, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
@@ -300,7 +345,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 40
+  m_Intensity: 7
   m_Range: 10
   m_SpotAngle: 50
   m_CookieSize: 10
@@ -623,12 +668,12 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
