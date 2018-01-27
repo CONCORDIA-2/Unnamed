@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 0")) && mGrounded)
         {
             // Makes the character jump toward the Y axis
-            GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, mJumpPower, 0.0f), ForceMode.Impulse);
+            mRb.AddForce(new Vector3(0.0f, mJumpPower, 0.0f), ForceMode.Impulse);
             mGrounded = false;
         }
     }

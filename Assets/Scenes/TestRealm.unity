@@ -120,82 +120,47 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4195294895880070, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
+    - target: {fileID: 4200553954972610, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4195294895880070, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
+    - target: {fileID: 4200553954972610, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4195294895880070, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
+    - target: {fileID: 4200553954972610, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4195294895880070, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
+    - target: {fileID: 4200553954972610, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4195294895880070, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
+    - target: {fileID: 4200553954972610, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4195294895880070, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
+    - target: {fileID: 4200553954972610, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4195294895880070, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
+    - target: {fileID: 4200553954972610, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4195294895880070, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
+    - target: {fileID: 4200553954972610, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114144637375117202, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+    - target: {fileID: 114165295292353350, guid: 2309f536ac3e5f7438964c4cff9f88f5,
         type: 2}
-      propertyPath: mMaxSpeed
-      value: 2.2
+      propertyPath: mJumpPower
+      value: 120
       objectReference: {fileID: 0}
-    - target: {fileID: 114144637375117202, guid: 2309f536ac3e5f7438964c4cff9f88f5,
-        type: 2}
-      propertyPath: speedreduction
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114144637375117202, guid: 2309f536ac3e5f7438964c4cff9f88f5,
-        type: 2}
-      propertyPath: mMovementSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 136668642361640542, guid: 2309f536ac3e5f7438964c4cff9f88f5,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 136242613869847016, guid: 2309f536ac3e5f7438964c4cff9f88f5,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114144637375117202, guid: 2309f536ac3e5f7438964c4cff9f88f5,
-        type: 2}
-      propertyPath: mSpeedReduction
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 54977832831866388, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+    - target: {fileID: 54785072565233660, guid: 2309f536ac3e5f7438964c4cff9f88f5,
         type: 2}
       propertyPath: m_Drag
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 54977832831866388, guid: 2309f536ac3e5f7438964c4cff9f88f5,
-        type: 2}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 54977832831866388, guid: 2309f536ac3e5f7438964c4cff9f88f5,
-        type: 2}
-      propertyPath: m_AngularDrag
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
@@ -435,7 +400,7 @@ MeshFilter:
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1302862775 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 4195294895880070, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+  m_PrefabParentObject: {fileID: 4200553954972610, guid: 2309f536ac3e5f7438964c4cff9f88f5,
     type: 2}
   m_PrefabInternal: {fileID: 165290146}
 --- !u!1 &1313559295
