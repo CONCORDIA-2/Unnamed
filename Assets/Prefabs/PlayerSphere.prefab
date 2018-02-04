@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 135311821477080690}
   - component: {fileID: 23970814093850014}
   - component: {fileID: 54616734080131680}
+  - component: {fileID: 95816976848735744}
   - component: {fileID: 114498583913923858}
   m_Layer: 0
   m_Name: PlayerSphere
@@ -246,6 +247,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!95 &95816976848735744
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1253696358511848}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 266d115a4510f414cba8d2c1efd6c66e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114498583913923858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -280,7 +298,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1000816093841344}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -293,7 +311,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1922313923687864}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
