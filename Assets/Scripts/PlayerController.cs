@@ -7,11 +7,23 @@ public class PlayerController : MonoBehaviour
     public float mMovementSpeed;
     public float mJumpPower;
     public float mMaxSpeed;
+    public Transform[] mClimbWaypoints;
 
     // Private variables
     private float mRotationDegreesPerSecond = 220f;
     private bool mGrounded = true;
     private Rigidbody mRb;
+
+    // Climbing system variables
+    private Vector3[] mWaypoints;
+    private Vector3 mStartPos;
+    private Vector3 mEndPos;
+    private int mCurrentStartPoint;
+    private float mStartTime;
+    private float mClimbSpeed = 1.0f;
+    private float mJourneyLength;
+    private bool mIsClimbing = false;
+    private bool mAllowToClimb = false;
 
     void Start()
     {
@@ -25,7 +37,19 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-    	Jump();
+        Jump();
+
+        // If the player is allowed to climb up (Entered a wall detection collider), pressing 'U' will make the player "climb up"
+        if (Input.GetKeyDown(KeyCode.U) & mAllowToClimb)
+        {
+            RegisterWaypoints();
+            mRb.isKinematic = true;
+            mIsClimbing = true;
+        }
+
+        // Linearly interpolate using the waypoints
+        if (mIsClimbing && mAllowToClimb)
+            ClimbUp();
     }
 
     private void Move()
@@ -88,7 +112,75 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        // Checks if the character is touching a "jumpable" object (box, terrain, etc)
+        if (other.gameObject.tag == "Climbable")
+        {
+            mAllowToClimb = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        // Checks if the character is touching a "jumpable" object (box, terrain, etc)
+        if (other.gameObject.tag == "Climbable" && !mIsClimbing)
+        {
+            mAllowToClimb = false;
+        }
+    }
+
     float Remap (float val, float min1, float max1, float min2, float max2) {
         return (val - min1) / (max1 - min1) * (max2 - min2) + min2;
+    }
+
+    // Updates the next set of waypoints (start and finish)
+    private void SetPoints()
+    {
+        // If check to make sure, it is not out of bounds
+        if (mCurrentStartPoint + 1 < mWaypoints.Length)
+        {
+            mStartPos = mWaypoints[mCurrentStartPoint];
+            mEndPos = mWaypoints[mCurrentStartPoint + 1];
+            mStartTime = Time.time;
+            mJourneyLength = Vector3.Distance(mStartPos, mEndPos);
+        }
+        else if (mCurrentStartPoint + 1 == mWaypoints.Length) 
+        {
+            // The climbing is done, put to false all the climbing bool variables and disable the 'Is Kinematic'
+            mIsClimbing = false;
+            mAllowToClimb = false;
+            mRb.isKinematic = false;
+        }
+    }
+
+    // Linearly intepolate between two vectors (Climbing up)
+    private void ClimbUp()
+    {
+        float distCovered = (Time.time - mStartTime) * mClimbSpeed;
+        float fracJourney = distCovered / mJourneyLength;
+
+        transform.position = Vector3.Lerp(mStartPos, mEndPos, fracJourney);
+
+        if (fracJourney >= 1f && mCurrentStartPoint + 1 < mWaypoints.Length)
+        {
+            mCurrentStartPoint++;
+            SetPoints();
+        }
+    }
+
+    // Register the climb waypoints
+    private void RegisterWaypoints()
+    {
+        mWaypoints = new Vector3[mClimbWaypoints.Length];
+
+        for (int i = 0; i < mWaypoints.Length; ++i)
+            if (i == 0 || i == mWaypoints.Length - 1)
+                mWaypoints[i] = mClimbWaypoints[i].position;
+            else
+                mWaypoints[i] = mClimbWaypoints[i].position - new Vector3(0.0f, mWaypoints[i - 1].y, 0.0f);
+
+        mCurrentStartPoint = 0;
+        SetPoints();
     }
 }
