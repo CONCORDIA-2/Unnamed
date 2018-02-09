@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Jumpable
   - Climbable
+  - Pickable
   layers:
   - Default
   - TransparentFX

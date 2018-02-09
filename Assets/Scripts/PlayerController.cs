@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float mJumpPower;
     public float mMaxSpeed;
     public Transform[] mClimbWaypoints;
+    public Transform mCharacterHands;
 
     // Private variables
     private float mRotationDegreesPerSecond = 220f;
@@ -24,6 +25,11 @@ public class PlayerController : MonoBehaviour
     private float mJourneyLength;
     private bool mIsClimbing = false;
     private bool mAllowToClimb = false;
+
+    // Pickup | Dropdown Objects
+    private bool mHoldingObject = false;
+    private GameObject mObjectInHands;
+    private GameObject mObjectInRange;
 
     void Start()
     {
@@ -50,6 +56,12 @@ public class PlayerController : MonoBehaviour
         // Linearly interpolate using the waypoints
         if (mIsClimbing && mAllowToClimb)
             ClimbUp();
+
+        if (mObjectInRange && Input.GetKeyDown(KeyCode.E))
+            PickupObject();
+
+        if (mObjectInHands && Input.GetKeyDown(KeyCode.R))
+            DropDownObject();
     }
 
     private void Move()
@@ -107,27 +119,27 @@ public class PlayerController : MonoBehaviour
     {
         // Checks if the character is touching a "jumpable" object (box, terrain, etc)
         if (collision.collider.gameObject.tag == "Jumpable")
-        {
             mGrounded = true;
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         // Checks if the character is touching a "jumpable" object (box, terrain, etc)
         if (other.gameObject.tag == "Climbable")
-        {
             mAllowToClimb = true;
-        }
+
+        if (other.gameObject.tag == "Pickable")
+            mObjectInRange = other.transform.parent.gameObject;
     }
 
     void OnTriggerExit(Collider other)
     {
         // Checks if the character is touching a "jumpable" object (box, terrain, etc)
         if (other.gameObject.tag == "Climbable" && !mIsClimbing)
-        {
             mAllowToClimb = false;
-        }
+
+        if (other.gameObject.tag == "Pickable")
+            mObjectInRange = null;
     }
 
     float Remap (float val, float min1, float max1, float min2, float max2) {
@@ -182,5 +194,23 @@ public class PlayerController : MonoBehaviour
 
         mCurrentStartPoint = 0;
         SetPoints();
+    }
+
+    // Pickup a nearby object
+    private void PickupObject()
+    {
+        mObjectInHands = mObjectInRange;
+        mObjectInHands.GetComponentInParent<Rigidbody>().isKinematic = true;
+        mObjectInHands.transform.parent = mCharacterHands;
+        mObjectInHands.transform.localPosition = Vector3.zero;
+        mHoldingObject = true;
+    }
+
+    // Dropdown the object in hands
+    private void DropDownObject()
+    {
+        mObjectInHands.transform.parent = null;
+        mObjectInHands.GetComponentInParent<Rigidbody>().isKinematic = false;
+        mHoldingObject = false;
     }
 }
