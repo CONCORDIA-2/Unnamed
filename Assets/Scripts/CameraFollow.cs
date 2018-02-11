@@ -11,16 +11,19 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
+        // Stick the camera to the same x axis as the character
+        transform.position = new Vector3(mTarget.position.x, transform.position.y, transform.position.z);
+
         // Gets the distance between the player character and the position of the main camera
         mDistanceBetweenCameraAndTarget = transform.position - mTarget.position;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         // Gets the future camera position
         Vector3 targetCamPos = mTarget.position + mDistanceBetweenCameraAndTarget;
         
         // Smoothly follow the player character
-        transform.position = Vector3.Lerp(transform.position, targetCamPos, Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, targetCamPos, Time.deltaTime * 2f);
     }
 }

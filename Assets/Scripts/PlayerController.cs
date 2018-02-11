@@ -7,24 +7,18 @@ public class PlayerController : MonoBehaviour
     public float mMovementSpeed;
     public float mJumpPower;
     public float mMaxSpeed;
-    public Transform[] mClimbWaypoints;
+    public Transform mClimbLandingSpot;
     public Transform mCharacterHands;
 
     // Private variables
     private float mRotationDegreesPerSecond = 220f;
-    private bool mGrounded = true;
     private Rigidbody mRb;
+    private float mDistanceToGround;
 
     // Climbing system variables
-    private Vector3[] mWaypoints;
-    private Vector3 mStartPos;
-    private Vector3 mEndPos;
-    private int mCurrentStartPoint;
-    private float mStartTime;
-    private float mClimbSpeed = 1.0f;
-    private float mJourneyLength;
-    private bool mIsClimbing = false;
     private bool mAllowToClimb = false;
+    private bool mIsHanging = false;
+    private bool mWasJumping = false;
 
     // Pickup | Dropdown Objects
     private bool mHoldingObject = false;
@@ -34,11 +28,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
     	mRb = GetComponent<Rigidbody>();
+        mDistanceToGround = GetComponent<Collider>().bounds.extents.y;
     }
 
     void FixedUpdate()
     {
-        Move();
+        if (!mIsHanging)
+            Move();
     }
 
     void Update()
@@ -46,15 +42,7 @@ public class PlayerController : MonoBehaviour
         Jump();
 
         // If the player is allowed to climb up (Entered a wall detection collider), pressing 'U' will make the player "climb up"
-        if (Input.GetKeyDown(KeyCode.U) & mAllowToClimb)
-        {
-            RegisterWaypoints();
-            mRb.isKinematic = true;
-            mIsClimbing = true;
-        }
-
-        // Linearly interpolate using the waypoints
-        if (mIsClimbing && mAllowToClimb)
+        if (mAllowToClimb && Input.GetKeyDown(KeyCode.U))
             ClimbUp();
 
         if (mObjectInRange && Input.GetKeyDown(KeyCode.E))
@@ -107,26 +95,32 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         // If the player has pressed the spacebar and its character is grounded
-        if ((Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 0")) && mGrounded)
+        if ((Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 0")) && CheckIfGrounded())
         {
             // Makes the character jump toward the Y axis
             mRb.AddForce(new Vector3(0.0f, mJumpPower, 0.0f), ForceMode.Impulse);
-            mGrounded = false;
+            mWasJumping = true;
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    private bool CheckIfGrounded()
     {
-        // Checks if the character is touching a "jumpable" object (box, terrain, etc)
-        if (collision.collider.gameObject.tag == "Jumpable")
-            mGrounded = true;
+        return Physics.Raycast(transform.position, -Vector3.up, mDistanceToGround);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         // Checks if the character is touching a "jumpable" object (box, terrain, etc)
         if (other.gameObject.tag == "Climbable")
+        {
             mAllowToClimb = true;
+
+            if (mWasJumping)
+            {
+                FreezePosY();
+                mIsHanging = true;
+            }
+        }
 
         if (other.gameObject.tag == "Pickable")
             mObjectInRange = other.transform.parent.gameObject;
@@ -135,7 +129,7 @@ public class PlayerController : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         // Checks if the character is touching a "jumpable" object (box, terrain, etc)
-        if (other.gameObject.tag == "Climbable" && !mIsClimbing)
+        if (other.gameObject.tag == "Climbable")
             mAllowToClimb = false;
 
         if (other.gameObject.tag == "Pickable")
@@ -144,56 +138,6 @@ public class PlayerController : MonoBehaviour
 
     float Remap (float val, float min1, float max1, float min2, float max2) {
         return (val - min1) / (max1 - min1) * (max2 - min2) + min2;
-    }
-
-    // Updates the next set of waypoints (start and finish)
-    private void SetPoints()
-    {
-        // If check to make sure, it is not out of bounds
-        if (mCurrentStartPoint + 1 < mWaypoints.Length)
-        {
-            mStartPos = mWaypoints[mCurrentStartPoint];
-            mEndPos = mWaypoints[mCurrentStartPoint + 1];
-            mStartTime = Time.time;
-            mJourneyLength = Vector3.Distance(mStartPos, mEndPos);
-        }
-        else if (mCurrentStartPoint + 1 == mWaypoints.Length) 
-        {
-            // The climbing is done, put to false all the climbing bool variables and disable the 'Is Kinematic'
-            mIsClimbing = false;
-            mAllowToClimb = false;
-            mRb.isKinematic = false;
-        }
-    }
-
-    // Linearly intepolate between two vectors (Climbing up)
-    private void ClimbUp()
-    {
-        float distCovered = (Time.time - mStartTime) * mClimbSpeed;
-        float fracJourney = distCovered / mJourneyLength;
-
-        transform.position = Vector3.Lerp(mStartPos, mEndPos, fracJourney);
-
-        if (fracJourney >= 1f && mCurrentStartPoint + 1 < mWaypoints.Length)
-        {
-            mCurrentStartPoint++;
-            SetPoints();
-        }
-    }
-
-    // Register the climb waypoints
-    private void RegisterWaypoints()
-    {
-        mWaypoints = new Vector3[mClimbWaypoints.Length];
-
-        for (int i = 0; i < mWaypoints.Length; ++i)
-            if (i == 0 || i == mWaypoints.Length - 1)
-                mWaypoints[i] = mClimbWaypoints[i].position;
-            else
-                mWaypoints[i] = mClimbWaypoints[i].position - new Vector3(0.0f, mWaypoints[i - 1].y, 0.0f);
-
-        mCurrentStartPoint = 0;
-        SetPoints();
     }
 
     // Pickup a nearby object
@@ -212,5 +156,29 @@ public class PlayerController : MonoBehaviour
         mObjectInHands.transform.parent = null;
         mObjectInHands.GetComponentInParent<Rigidbody>().isKinematic = false;
         mHoldingObject = false;
+    }
+
+    private void ClimbUp()
+    {
+        transform.position = mClimbLandingSpot.position;
+        UnfreezePosY();
+        mWasJumping = false;
+        mIsHanging = false;
+    }
+
+    private void FreezePosY()
+    {
+        mRb.constraints = RigidbodyConstraints.FreezePositionY
+            | RigidbodyConstraints.FreezePositionX
+            | RigidbodyConstraints.FreezePositionZ
+            | RigidbodyConstraints.FreezeRotationX
+            | RigidbodyConstraints.FreezeRotationZ;
+    }
+
+    private void UnfreezePosY()
+    {
+        mRb.constraints = RigidbodyConstraints.None;
+        mRb.constraints = RigidbodyConstraints.FreezeRotationX| RigidbodyConstraints.FreezeRotationZ;
+        mWasJumping = false;
     }
 }
