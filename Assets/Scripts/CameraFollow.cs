@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     // Private variables
     private Vector3 mDistanceBetweenCameraAndTarget;
 
-    void Start()
+    private void Start()
     {
         // Stick the camera to the same x axis as the character
         transform.position = new Vector3(mTarget.position.x, transform.position.y, transform.position.z);
@@ -18,7 +18,7 @@ public class CameraFollow : MonoBehaviour
         mDistanceBetweenCameraAndTarget = transform.position - mTarget.position;
     }
 
-    void Update()
+    private void Update()
     {
         // Gets the future camera position
         Vector3 targetCamPos = mTarget.position + mDistanceBetweenCameraAndTarget;
