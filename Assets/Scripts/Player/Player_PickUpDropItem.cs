@@ -22,16 +22,23 @@ public class Player_PickUpDropItem : MonoBehaviour
             DropDownObject();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void FixedUpdate()
     {
-        if (other.tag == "Pickable")
-            mObjectInRange = other.gameObject;
+        CheckIfNearItem();
     }
 
-    private void OnTriggerExit(Collider other)
+    private void CheckIfNearItem()
     {
-        if (other.tag == "Pickable")
-            mObjectInRange = null;
+        RaycastHit rayItemHit;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayItemHit, 1.0f))
+            if (rayItemHit.transform.gameObject.tag == "Pickable")
+            {
+                mObjectInRange = rayItemHit.transform.gameObject;
+                return;
+            }
+
+        mObjectInRange = null;
     }
 
     // Pick up a nearby object

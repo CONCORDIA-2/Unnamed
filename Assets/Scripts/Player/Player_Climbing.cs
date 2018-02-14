@@ -6,7 +6,7 @@ public class Player_Climbing : MonoBehaviour
     [Header("Climb")]
     public Transform mClimbLandingSpot;
 
-    private bool mAllowToClimb = false;
+    private bool mNearLedge = false;
     private bool mIsHanging = false;
 
     private Rigidbody mRb;
@@ -22,32 +22,38 @@ public class Player_Climbing : MonoBehaviour
 
     private void Update ()
     {
+        // If the player is near ledge, the player can hang onto it by pressing the hang button
+        if (mNearLedge && Input.GetKeyDown(KeyCode.Tab))
+        {
+            FreezePosY();
+            SetIsHanging(true);
+        }
+
         // If the player is allow to climb, on a button press, the player will teleport to the top of the wall
-        if (mAllowToClimb && Input.GetKeyDown(KeyCode.Q))
+        if (mIsHanging && Input.GetKeyDown(KeyCode.Q))
             ClimbUp();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void FixedUpdate()
     {
-        if (other.tag == "Climbable")
-        {
-            mAllowToClimb = true;
-
-            // If the player was jumping and is not holding an item, the player will then hang onto the ledge of the wall
-            if (mPlayerMovement.GetWasJumping() && !mPlayerPickUpDropItem.GetIsHoldingObject())
-            {
-                FreezePosY();
-                SetIsHanging(true);
-            }
-        }
+        CheckIfNearLedge();
     }
 
-    private void OnTriggerExit(Collider other)
+    // Check with two raycasts if the player is close to a ledge
+    private void CheckIfNearLedge()
     {
-        if (other.tag == "Climbable")
-        {
-            mAllowToClimb = false;
-        }
+        RaycastHit rayTopHit;
+        RaycastHit rayBotHit;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayBotHit, 0.75f) &&
+            !Physics.Raycast(transform.position + new Vector3 (0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayTopHit, 0.75f))
+            if (rayBotHit.transform.gameObject.tag == "Climbable")
+            {
+                mNearLedge = true;
+                return;
+            }
+
+        mNearLedge = false;
     }
 
     // Teleport the player to the mClimbindLandingSpot transform position
