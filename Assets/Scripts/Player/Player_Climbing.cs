@@ -11,13 +11,13 @@ public class Player_Climbing : MonoBehaviour
 
     private Rigidbody mRb;
     private Player_Movement mPlayerMovement;
-    private Player_PickUpDropItem mPlayerPickUpDropItem;
+    private Player_PickUpDropObject mPlayerPickUpDropItem;
 
     private void Start ()
     {
         mRb = GetComponent<Rigidbody>();
         mPlayerMovement = GetComponent<Player_Movement>();
-        mPlayerPickUpDropItem = GetComponent<Player_PickUpDropItem>();
+        mPlayerPickUpDropItem = GetComponent<Player_PickUpDropObject>();
     }
 
     private void Update ()

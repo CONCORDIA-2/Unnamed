@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 
 // Author: Tri-Luong Steven Dien
-public class Player_PickUpDropItem : MonoBehaviour
+public class Player_PickUpDropObject : MonoBehaviour
 {
-    [Header("Pick Up / Drop")]
     public Transform mCharacterHands;
 
     private bool mIsHoldingObject = false;
@@ -20,6 +19,12 @@ public class Player_PickUpDropItem : MonoBehaviour
         // Drop down the item in hands
         if (mObjectInHands && Input.GetKeyDown(KeyCode.R))
             DropDownObject();
+
+        if (mObjectInHands)
+        {
+            mObjectInHands.transform.localPosition = mCharacterHands.localPosition;
+            mObjectInHands.GetComponent<Rigidbody>().MovePosition(mCharacterHands.position);
+        }
     }
 
     private void FixedUpdate()
@@ -31,7 +36,7 @@ public class Player_PickUpDropItem : MonoBehaviour
     {
         RaycastHit rayItemHit;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayItemHit, 1.0f))
+        if (Physics.Raycast(transform.position - new Vector3(0.0f, 0.4f, 0.0f), transform.TransformDirection(Vector3.forward), out rayItemHit, 1f))
             if (rayItemHit.transform.gameObject.tag == "Pickable")
             {
                 mObjectInRange = rayItemHit.transform.gameObject;
@@ -45,17 +50,27 @@ public class Player_PickUpDropItem : MonoBehaviour
     private void PickupObject()
     {
         mObjectInHands = mObjectInRange;
-        mObjectInHands.GetComponent<Rigidbody>().isKinematic = true;
-        mObjectInHands.transform.parent = mCharacterHands;
-        mObjectInHands.transform.localPosition = Vector3.zero;
+        mObjectInHands.transform.parent = transform;
+
+        Vector3 objectSize = mObjectInHands.GetComponent<Collider>().bounds.size;
+        Vector3 playerSize = GetComponent<Collider>().bounds.size;
+
+        mCharacterHands.localPosition = new Vector3(0.0f, 0.0f, playerSize.z / 2.0f + objectSize.z / 2.0f);
+
+        mObjectInHands.GetComponent<Rigidbody>().useGravity = false;
+        mObjectInHands.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
         SetIsHoldingObject(true);
     }
 
     // Drop down the object in hands
     private void DropDownObject()
     {
+        mObjectInHands.GetComponent<Rigidbody>().useGravity = true;
+        mObjectInHands.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
         mObjectInHands.transform.parent = null;
-        mObjectInHands.GetComponent<Rigidbody>().isKinematic = false;
+        mObjectInHands = null;
         SetIsHoldingObject(false);
     }
 
