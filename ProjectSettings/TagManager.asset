@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Jumpable
+  - WorldCamera
+  - PlayerCamera
+  - PlayerManager
+  - Pickable
+  - Climbable
+  - LitArea
+  - DarkArea
+  - Spawn
+  - Guard
   layers:
   - Default
   - TransparentFX
