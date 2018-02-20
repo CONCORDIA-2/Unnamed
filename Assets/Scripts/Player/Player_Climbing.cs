@@ -7,8 +7,9 @@ public class Player_Climbing : NetworkBehaviour
     [Header("Climb")]
     public Transform mClimbLandingSpot;
 
-    private bool mNearLedge = false;
     private bool mIsHanging = false;
+    private float mMaxTimer = 0.5f;
+    private float mHangingTimer;
 
     private Rigidbody mRb;
     private Player_Movement mPlayerMovement;
@@ -16,6 +17,7 @@ public class Player_Climbing : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+        mHangingTimer = mMaxTimer;
         mRb = GetComponent<Rigidbody>();
         mPlayerMovement = GetComponent<Player_Movement>();
         mPlayerPickUpDropItem = GetComponent<Player_PickUpDropObject>();
@@ -23,22 +25,41 @@ public class Player_Climbing : NetworkBehaviour
 
     private void Update ()
     {
-    	if (isLocalPlayer) {
-	        // If the player is near ledge and not grabbing anything, the player can hang onto it by pressing the hang button
-	        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown("joystick button 1"))
-	        {
-                if (!mPlayerPickUpDropItem.GetIsHoldingObject() && mNearLedge && !mIsHanging) {
-                    FreezePosY();
-                    SetIsHanging(true);
-                } else if (mIsHanging)
-                    LetGo();
-	            
-	        }
+        if (isLocalPlayer)
+        {
+            if (mIsHanging)
+                mHangingTimer -= Time.deltaTime;
 
-	        // If the player is allow to climb, on stick move upwards, the player will teleport to the top of the wall
-	        if (mIsHanging && Input.GetAxis("Vertical") > 0.6)
-	            ClimbUp();  
-	    }
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown("joystick button 1"))
+            {
+                if (mIsHanging)
+                    LetGo();
+            }
+
+            // If the player is allow to climb, on stick move up/down/left/right depending on the player orientation, the player will teleport to the top of the wall
+            if (mIsHanging && transform.localRotation.eulerAngles.y >= 89.0f && transform.localRotation.eulerAngles.y <= 91.0f) // 90 degrees - Stick -> Right
+                if (Input.GetAxis("Horizontal") > 0.9f && mHangingTimer <= 0.0f)
+                {
+                    ClimbUp();
+                }
+            if (mIsHanging && transform.localRotation.eulerAngles.y >= 269.0f && transform.localRotation.eulerAngles.y <= 271.0f) // 270 degrees - Stick -> Left
+                if (Input.GetAxis("Horizontal") < -0.9f && mHangingTimer <= 0.0f)
+                {
+                    ClimbUp();
+                }
+            if (mIsHanging &&
+                (transform.localRotation.eulerAngles.y >= -1.0f && transform.localRotation.eulerAngles.y <= 1.0f) ||
+                (transform.localRotation.eulerAngles.y >= 359.0f && transform.localRotation.eulerAngles.y <= -361.0f)) // 0 degrees or 360 degrees - Stick -> Up
+                if (Input.GetAxis("Vertical") > 0.9f && mHangingTimer <= 0.0f)
+                {
+                    ClimbUp();
+                }
+            if (mIsHanging && transform.localRotation.eulerAngles.y >= 179.0f && transform.localRotation.eulerAngles.y <= 181.0f) // 180 degrees - Stick -> Down
+                if (Input.GetAxis("Vertical") < -0.9f && mHangingTimer <= 0.0f)
+                {
+                    ClimbUp();
+                }
+        }
     }
 
     private void FixedUpdate()
@@ -55,13 +76,18 @@ public class Player_Climbing : NetworkBehaviour
 
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayBotHit, 0.75f) &&
             !Physics.Raycast(transform.position + new Vector3 (0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayTopHit, 0.75f))
-            if (rayBotHit.transform.gameObject.tag == "Climbable" || rayBotHit.transform.gameObject.tag == "Pickable")
+            if (rayBotHit.transform.gameObject.tag == "Climbable")
             {
-                mNearLedge = true;
-                return;
-            }
+                // If the player is near ledge and not grabbing anything, the player will automatically grab the ledge of the wall
+                if (!mPlayerPickUpDropItem.GetIsHoldingObject() && !mIsHanging && mPlayerMovement.GetWasJumping())
+                {
+                    // Rotate the player "facing direction" to directly face the wall (perpendicular with the wall)
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(-rayBotHit.normal), 360.0f);
 
-        mNearLedge = false;
+                    FreezePosY();
+                    SetIsHanging(true);
+                }
+            }
     }
 
     // Teleport the player to the mClimbindLandingSpot transform position
@@ -71,6 +97,7 @@ public class Player_Climbing : NetworkBehaviour
         UnfreezePosY();
         mPlayerMovement.SetWasJumping(false);
         SetIsHanging(false);
+        mHangingTimer = mMaxTimer;
     }
 
     // Unfreeze the player's movement and cancel climb
@@ -79,6 +106,7 @@ public class Player_Climbing : NetworkBehaviour
         UnfreezePosY();
         mPlayerMovement.SetWasJumping(false);
         SetIsHanging(false);
+        mHangingTimer = mMaxTimer;
     }
 
     // Freeze the rigidbody position (x, y, z) and rotation (x, z)
