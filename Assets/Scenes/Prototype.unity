@@ -1448,7 +1448,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 345.82617, y: 345.82617, z: 0}
+  Offset: {x: 348.3991, y: 348.3991, z: 0}
 --- !u!4 &1161280624 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4019679519646918, guid: 62f1260ff4d96ba428c0b801d76ad6b7,
@@ -2075,7 +2075,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darknessThreshold: 0.03
   brightnessThreshold: 1.5
-  isRaven: 0
+  isRaven: 1
 --- !u!114 &1702936795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2155,7 +2155,7 @@ MonoBehaviour:
   MapToLDR: 0
   RemoveColorBanding: 1
   MatrixVP:
-    e00: 1.3379188
+    e00: 1.594909
     e01: 0
     e02: 0
     e03: 0
@@ -2172,7 +2172,7 @@ MonoBehaviour:
     e32: 0.9659259
     e33: 10.791213
   LastMatrixVP:
-    e00: 1.3379188
+    e00: 1.594909
     e01: 0
     e02: 0
     e03: 0
