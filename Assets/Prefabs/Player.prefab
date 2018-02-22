@@ -640,18 +640,19 @@ MonoBehaviour:
   localPlayerManagerScript: {fileID: 0}
   light: {fileID: 0}
   aura: {fileID: 0}
-  sanityLevel: 0
-  sanityRate: 0.1
+  postProcessing: {fileID: 0}
+  sanityLevel: 100
   distance: 0
   auraSize: 0
   lightBrightness: 0
   maxAuraSize: 3
   maxLightBrightness: 1
-  maxMass: 100
+  maxMass: 75
   minMass: 25
   specialLighting: 0
   opposedLighting: 0
   isRaven: 1
+  sanityChange: 0.7
   auraChange: 0.03
   lightChange: 0.01
   massChange: 0.5

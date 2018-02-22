@@ -1,36 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PostProcessing;
+[RequireComponent(typeof(PostProcessingBehaviour))]
 
 public class SanityAndLight : MonoBehaviour {
 
 	private bool beganRoutine = false;
 
     public GameObject otherPlayer;
+    private GameObject localPlayer;
     [SerializeField] private GameObject localPlayerManager;
     [SerializeField] private LocalPlayerManager localPlayerManagerScript;
     public GameObject light;
     public GameObject aura;
+    public PostProcessingProfile postProcessing;
 
     public static readonly float safeRadius = 12.0f;
     public static readonly float safeLightingRadius = 4.0f;
     public static readonly float maxTimeSeparate = 20.0f;	//seconds
 
-    public float sanityLevel;
-    public float sanityRate = 0.1f;
+    public float sanityLevel = 100.0f;
     public float distance;
     
     public float auraSize = 0.0f;
     public float lightBrightness = 0.0f;
     public float maxAuraSize = 3.0f;
     public float maxLightBrightness = 1.0f;
-    public float maxMass = 90.0f;
+    public float maxMass = 75.0f;
     public float minMass = 25.0f;
     
     public bool specialLighting = false;
     public bool opposedLighting = false;
     public bool isRaven = true;
 
+    public float sanityChange = 0.7f;
     public float auraChange = 0.03f;
     public float lightChange = 0.01f;
     public float massChange = 0.5f;
@@ -43,6 +47,10 @@ public class SanityAndLight : MonoBehaviour {
 	        localPlayerManagerScript = localPlayerManager.GetComponent<LocalPlayerManager>();
 
 		otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
+		localPlayer = localPlayerManagerScript.GetLocalPlayerObject();
+
+		//get post processing
+		postProcessing = localPlayerManagerScript.GetPlayerCameraObject().gameObject.GetComponent<PostProcessingBehaviour>().profile;
 
 		//get aura effects
 		light = transform.Find("Light").gameObject;
@@ -68,78 +76,111 @@ public class SanityAndLight : MonoBehaviour {
         {
         	yield return new WaitForSeconds(updateWait);
 
-            //retrieve the distance between players
-            distance = Vector3.Distance(transform.position, otherPlayer.transform.position);
+        	if (this.gameObject == localPlayer)
+        	{
+	            //retrieve the distance between players
+	            distance = Vector3.Distance(transform.position, otherPlayer.transform.position);
 
-            //if player is in special lighting and are too af from their partner, decrease sanity and increase mass
-            if (specialLighting && distance > safeLightingRadius)
-            {
-                DecreaseSanity();
-                if (GetComponent<Rigidbody>().mass < maxMass)
-                    GetComponent<Rigidbody>().mass += massChange;
-            }
-            else
-            {
-            	//else, put mass back to normal
-                if (GetComponent<Rigidbody>().mass > minMass)
-                    GetComponent<Rigidbody>().mass -= massChange * 2;
+	            //if player is in special lighting and are too far from their partner, decrease sanity and increase mass
+	            if (specialLighting)
+	            {
+	            	if (distance > safeLightingRadius)
+	            	{
+	            		DecreaseSanity();
+	               		IncreaseWeight();
+	            	}
+	            	else
+	            	{
+	            		//else, put mass and sanity back to normal
+	            		IncreaseSanity();
+		                DecreaseWeight();
+	            	}
+	            }
+	            else
+	            {
+	            	//decrease sanity if too far from partner / increase sanity if close to partner
+		            if (distance < safeRadius)
+		            {
+		                IncreaseSanity();
+		                DecreaseWeight();
+		            }
+		            else DecreaseSanity();
+	            }
 
-                //decrease sanity if too far from partner / increase sanity if close to partner
-                if (distance < safeRadius)
-                	IncreaseSanity();
-            	else DecreaseSanity();
-            }
+	            //set light / shadow aura on player depending on lighting context
+	            if (opposedLighting)
+	            {
+	            	if (isRaven)
+	            	{
+	            		light.SetActive(true);
+	            		if (light.GetComponent<Light>().intensity < maxLightBrightness)
+	            			light.GetComponent<Light>().intensity += lightChange;
+	            	}
+	            	else
+	            	{
+	            		aura.SetActive(true);
+	            		if (aura.transform.localScale.x < maxAuraSize)
+	            			aura.transform.localScale += new Vector3(auraChange, auraChange, auraChange);
+	            	}
+	            }
+	            else
+	            {
+	            	if (isRaven)
+	            	{
+	            		if (light.GetComponent<Light>().intensity > 0.0f)
+	            			light.GetComponent<Light>().intensity -= lightChange;
+	            		else
+	            			light.SetActive(false);
+	            	}
+	            	else
+	            	{
+	            		if (aura.transform.localScale.x > 0.0f)
+	            			aura.transform.localScale -= new Vector3(auraChange, auraChange, auraChange);
+	            		else
+	            			aura.SetActive(false);
+	            	}
+	            }
 
-            //set light / shadow aura on player depending on lighting context
-            if (opposedLighting)
-            {
-            	if (isRaven)
-            	{
-            		light.SetActive(true);
-            		if (light.GetComponent<Light>().intensity < maxLightBrightness)
-            			light.GetComponent<Light>().intensity += lightChange;
-            	}
-            	else
-            	{
-            		aura.SetActive(true);
-            		if (aura.transform.localScale.x < maxAuraSize)
-            			aura.transform.localScale += new Vector3(auraChange, auraChange, auraChange);
-            	}
-            }
-            else
-            {
-            	if (isRaven)
-            	{
-            		if (light.GetComponent<Light>().intensity > 0.0f)
-            			light.GetComponent<Light>().intensity -= lightChange;
-            		else
-            			light.SetActive(false);
-            	}
-            	else
-            	{
-            		if (aura.transform.localScale.x > 0.0f)
-            			aura.transform.localScale -= new Vector3(auraChange, auraChange, auraChange);
-            		else
-            			aura.SetActive(false);
-            	}
-            }
+	            //set postprocessing to reflect sanity levels
+	            ChromaticAberrationModel.Settings chroma = postProcessing.chromaticAberration.settings;
+	            chroma.intensity = map(sanityLevel, 100.0f, 0.0f, 0.0f, 1.0f);
+	            postProcessing.chromaticAberration.settings = chroma;
 
+	            VignetteModel.Settings vignette = postProcessing.vignette.settings;
+	            vignette.intensity = map(sanityLevel, 100.0f, 0.0f, 0.35f, 0.5f);
+	            postProcessing.vignette.settings = vignette;
 
+	            DepthOfFieldModel.Settings depth = postProcessing.depthOfField.settings;
+	            depth.focusDistance = map(sanityLevel, 100.0f, 0.0f, 7.0f, 3.0f);
+	            postProcessing.depthOfField.settings = depth;
+	        }
         }
     }
 
     void DecreaseSanity()
     {
-        sanityLevel -= sanityRate;
-        if (sanityLevel < 0)
-            sanityLevel = 0;
+        sanityLevel -= sanityChange;
+        if (sanityLevel < 0.0f)
+            sanityLevel = 0.0f;
     }
 
     void IncreaseSanity()
     {
-        sanityLevel += sanityRate * 2;
-        if (sanityLevel > 100)
-            sanityLevel = 100;
+        sanityLevel += sanityChange * 2.0f;
+        if (sanityLevel > 100.0f)
+            sanityLevel = 100.0f;
+    }
+
+    void DecreaseWeight()
+    {
+    	if (GetComponent<Rigidbody>().mass > minMass)
+		    GetComponent<Rigidbody>().mass -= massChange * 2.0f;
+    }
+
+    void IncreaseWeight()
+    {
+    	if (GetComponent<Rigidbody>().mass < maxMass)
+	        GetComponent<Rigidbody>().mass += massChange;
     }
 
     //on collision stay with collider specific to client, toggle specialLighting flag and appropriate aura response
@@ -179,4 +220,9 @@ public class SanityAndLight : MonoBehaviour {
             	opposedLighting = false;
         }
     }
+
+    float map (float val, float from1, float to1, float from2, float to2)
+    {
+		return (val - from1) / (to1 - from1) * (to2 - from2) + from2;
+	}
 }
