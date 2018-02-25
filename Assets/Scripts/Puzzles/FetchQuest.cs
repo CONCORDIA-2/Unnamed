@@ -8,8 +8,7 @@ public class FetchQuest : MonoBehaviour {
     private bool succeeded = false;
 
 	// Use this for initialization
-	void Start () {
-		
+	void Start () {	
 	}
 	
 	// Update is called once per frame
@@ -19,7 +18,6 @@ public class FetchQuest : MonoBehaviour {
             toFetch = Instantiate(toFetch);
             toFetch.SetActive(true);
         }
-
 	}
 
     private void OnCollisionEnter(Collision collision)
@@ -27,6 +25,7 @@ public class FetchQuest : MonoBehaviour {
         if (GameObject.ReferenceEquals(collision.gameObject, toFetch))
         {
             Debug.Log("You fetched it!");
+            succeeded = true;
             Destroy(collision.gameObject);
         }
     }
