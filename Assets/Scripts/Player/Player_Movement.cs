@@ -23,7 +23,7 @@ public class Player_Movement : NetworkBehaviour
     {
         mRb = GetComponent<Rigidbody>();
         mPlayerClimbing = GetComponent<Player_Climbing>();
-        mDistanceToGround = GetComponent<Collider>().bounds.extents.y;
+		mDistanceToGround = GetComponent<Collider>().bounds.extents.y;
     }
 
     private void Update()
