@@ -33,12 +33,12 @@ public class Player_PickUpDropObject : NetworkBehaviour
             	else if (mObjectInRange && mPlayerMovement.CheckIfGrounded())
             		PickupObject();
             }
-            
 
-            // Force object to front of player
+            // Force object to the front of the player
             if (mObjectInHands)
             {
                 mObjectInHands.transform.localPosition = mCharacterHands.localPosition;
+                mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
                 mObjectInHands.GetComponent<Rigidbody>().MovePosition(mCharacterHands.position);
             }
         }
@@ -78,9 +78,11 @@ public class Player_PickUpDropObject : NetworkBehaviour
         Vector3 objectSize = mObjectInHands.GetComponent<Collider>().bounds.size;
         Vector3 playerSize = GetComponent<Collider>().bounds.size;
 
-        mCharacterHands.localPosition = new Vector3(0.0f, 0.0f, playerSize.z / 2.0f + objectSize.z / 2.0f);
+        mCharacterHands.localPosition = new Vector3(0.0f, objectSize.z / 2.0f, playerSize.z / 2.0f + objectSize.z / 2.0f);
+        mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
         mObjectInHands.GetComponent<Rigidbody>().useGravity = false;
+        mObjectInHands.GetComponent<Rigidbody>().velocity = Vector3.zero;
         mObjectInHands.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
         SetIsHoldingObject(true);

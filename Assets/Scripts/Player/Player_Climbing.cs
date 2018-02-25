@@ -8,6 +8,7 @@ public class Player_Climbing : NetworkBehaviour
     public Transform mClimbLandingSpot;
 
     private bool mIsHanging = false;
+    private float mMaxDistanceToWall = 0.75f;
     private float mMaxTimer = 0.5f;
     private float mHangingTimer;
 
@@ -73,9 +74,11 @@ public class Player_Climbing : NetworkBehaviour
     {
         RaycastHit rayTopHit;
         RaycastHit rayBotHit;
+        RaycastHit rayCenterHit;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayBotHit, 0.75f) &&
-            !Physics.Raycast(transform.position + new Vector3 (0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayTopHit, 0.75f))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayBotHit, mMaxDistanceToWall) &&
+            !Physics.Raycast(transform.position + new Vector3 (0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayTopHit, mMaxDistanceToWall))
+        {
             if (rayBotHit.transform.gameObject.tag == "Climbable")
             {
                 // If the player is near ledge and not grabbing anything, the player will automatically grab the ledge of the wall
@@ -84,17 +87,35 @@ public class Player_Climbing : NetworkBehaviour
                     // Rotate the player "facing direction" to directly face the wall (perpendicular with the wall)
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(-rayBotHit.normal), 360.0f);
 
-                    FreezePosY();
-                    SetIsHanging(true);
+                    // Cast another ray (after rotating the player) to offset the distance between the player and the wall
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayCenterHit, mMaxDistanceToWall))
+                    {
+                        // Make sure that the distance between the player and a ledge is always the same.
+                        float offset = mMaxDistanceToWall - rayCenterHit.distance;
+
+                        if (transform.localRotation.eulerAngles.y >= 89.0f && transform.localRotation.eulerAngles.y <= 91.0f) // 90 degrees - Stick -> Right
+                            transform.position = new Vector3(transform.position.x - offset, transform.position.y, transform.position.z);
+                        if (transform.localRotation.eulerAngles.y >= 269.0f && transform.localRotation.eulerAngles.y <= 271.0f) // 270 degrees - Stick -> Left
+                            transform.position = new Vector3(transform.position.x + offset, transform.position.y, transform.position.z);
+                        if ((transform.localRotation.eulerAngles.y >= -1.0f && transform.localRotation.eulerAngles.y <= 1.0f) ||
+                            (transform.localRotation.eulerAngles.y >= 359.0f && transform.localRotation.eulerAngles.y <= -361.0f)) // 0 degrees or 360 degrees - Stick -> Up
+                            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - offset);
+                        if (transform.localRotation.eulerAngles.y >= 179.0f && transform.localRotation.eulerAngles.y <= 181.0f) // 180 degrees - Stick -> Down
+                            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + offset);
+
+                        FreezePosition();
+                        SetIsHanging(true);
+                    }
                 }
             }
+        }
     }
 
     // Teleport the player to the mClimbindLandingSpot transform position
     private void ClimbUp()
     {
         transform.position = mClimbLandingSpot.position;
-        UnfreezePosY();
+        UnfreezePosition();
         mPlayerMovement.SetWasJumping(false);
         SetIsHanging(false);
         mHangingTimer = mMaxTimer;
@@ -103,14 +124,14 @@ public class Player_Climbing : NetworkBehaviour
     // Unfreeze the player's movement and cancel climb
     private void LetGo()
     {
-        UnfreezePosY();
+        UnfreezePosition();
         mPlayerMovement.SetWasJumping(false);
         SetIsHanging(false);
         mHangingTimer = mMaxTimer;
     }
 
     // Freeze the rigidbody position (x, y, z) and rotation (x, z)
-    private void FreezePosY()
+    private void FreezePosition()
     {
         mRb.constraints = RigidbodyConstraints.FreezePositionX
             | RigidbodyConstraints.FreezePositionY
@@ -120,7 +141,7 @@ public class Player_Climbing : NetworkBehaviour
     }
 
     // Unfreeze the rigidbody but keep frozen the rotation on the x and z axis
-    private void UnfreezePosY()
+    private void UnfreezePosition()
     {
         mRb.constraints = RigidbodyConstraints.None;
         mRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
