@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.AI;
 using UnityEngine.Networking;
 
+
 public class CritterController : NetworkBehaviour
 {
     private CritterController instance;
@@ -15,9 +16,9 @@ public class CritterController : NetworkBehaviour
 
     public TreeNode root;
 
+    public float player1Sanity, player2Sanity;
     public float acceptableDistanceToGoal = 1;
     public float attackDistance = 2;
-    public bool holdingHands;
 
     public bool foundPlayers = false;
 
@@ -47,6 +48,10 @@ public class CritterController : NetworkBehaviour
         {
             Spawn();
         }
+        player1Sanity = player1.GetComponent<SanityAndLight>().sanityLevel;
+        player2Sanity = player2.GetComponent<SanityAndLight>().sanityLevel;
+        if (player1Sanity <= 5 || player2Sanity <= 5)
+            separatedTooLong = true;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -98,7 +103,7 @@ public class CritterController : NetworkBehaviour
         sq1.children[1] = new Retreat(FindNearestGoal(instance), instance);
 
         sq2.children[0] = sl2;
-        sq2.children[1] = new WalkTo((instance.FindClosestPlayer()), instance); //attacking the player
+        sq2.children[1] = new WalkTo((instance.FindInsanePlayer()), instance); //attacking the player
 
         sl2.children[0] = new ProximityAttack(instance);
         sl2.children[1] = new TimedAttack(instance);
@@ -123,6 +128,14 @@ public class CritterController : NetworkBehaviour
     public GameObject FindClosestPlayer()
     {
         if (FindDistanceToPlayer(player1) < FindDistanceToPlayer(player2))
+            return player1;
+        else
+            return player2;
+    }
+
+    public GameObject FindInsanePlayer()
+    {
+        if (player1Sanity <= player2Sanity)
             return player1;
         else
             return player2;
@@ -323,7 +336,7 @@ public class ProximityAttack : TreeNode
 
     public override NodeStatus Process()
     {
-        if (instance.FindDistanceToPlayer(instance.FindClosestPlayer()) <= instance.attackDistance && !instance.holdingHands && !CritterController.playerIsDown)
+        if (instance.FindDistanceToPlayer(instance.FindClosestPlayer()) <= instance.attackDistance && !CritterController.playerIsDown)
         {
             //Debug.Log("Proximity attack initiated");
             return NodeStatus.SUCCESS;
