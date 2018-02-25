@@ -34,7 +34,7 @@ public class SanityAndLight : MonoBehaviour {
     public bool opposedLighting = false;
     public bool isRaven = true;
 
-    public float sanityChange = 0.7f;
+    public float sanityChange = 0.05f;
     public float auraChange = 0.03f;
     public float lightChange = 0.01f;
     public float massChange = 0.5f;
@@ -86,13 +86,13 @@ public class SanityAndLight : MonoBehaviour {
 	            {
 	            	if (distance > safeLightingRadius)
 	            	{
-	            		DecreaseSanity();
+	            		DecreaseSanity(sanityChange * 10);
 	               		IncreaseWeight();
 	            	}
 	            	else
 	            	{
 	            		//else, put mass and sanity back to normal
-	            		IncreaseSanity();
+	            		IncreaseSanity(sanityChange * 15);
 		                DecreaseWeight();
 	            	}
 	            }
@@ -101,10 +101,10 @@ public class SanityAndLight : MonoBehaviour {
 	            	//decrease sanity if too far from partner / increase sanity if close to partner
 		            if (distance < safeRadius)
 		            {
-		                IncreaseSanity();
+		                IncreaseSanity(sanityChange * 15);
 		                DecreaseWeight();
 		            }
-		            else DecreaseSanity();
+		            else DecreaseSanity(sanityChange);
 	            }
 
 	            //set light / shadow aura on player depending on lighting context
@@ -157,16 +157,16 @@ public class SanityAndLight : MonoBehaviour {
         }
     }
 
-    void DecreaseSanity()
+    void DecreaseSanity(float change)
     {
-        sanityLevel -= sanityChange;
+        sanityLevel -= change;
         if (sanityLevel < 0.0f)
             sanityLevel = 0.0f;
     }
 
-    void IncreaseSanity()
+    void IncreaseSanity(float change)
     {
-        sanityLevel += sanityChange * 2.0f;
+        sanityLevel += change * 2.0f;
         if (sanityLevel > 100.0f)
             sanityLevel = 100.0f;
     }

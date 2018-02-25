@@ -652,7 +652,7 @@ MonoBehaviour:
   specialLighting: 0
   opposedLighting: 0
   isRaven: 1
-  sanityChange: 0.7
+  sanityChange: 0.05
   auraChange: 0.03
   lightChange: 0.01
   massChange: 0.5
