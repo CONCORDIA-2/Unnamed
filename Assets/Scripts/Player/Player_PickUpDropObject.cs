@@ -34,12 +34,10 @@ public class Player_PickUpDropObject : NetworkBehaviour
             		PickupObject();
             }
 
-            // Force object to the front of the player
             if (mObjectInHands)
             {
                 mObjectInHands.transform.localPosition = mCharacterHands.localPosition;
                 mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-                mObjectInHands.GetComponent<Rigidbody>().MovePosition(mCharacterHands.position);
             }
         }
     }
@@ -69,18 +67,23 @@ public class Player_PickUpDropObject : NetworkBehaviour
     // Pick up a nearby object
     private void PickupObject()
     {
+        // Put the object in range into the player hands
         mObjectInHands = mObjectInRange;
         mObjectInHands.transform.parent = transform;
 
+        // Add the weight of the object to the total weight of the player
         mExtraWeight = mObjectInHands.GetComponent<Rigidbody>().mass;
         GetComponent<Rigidbody>().mass += mExtraWeight;
 
+        // Get the bound size of the object and the player
         Vector3 objectSize = mObjectInHands.GetComponent<Collider>().bounds.size;
         Vector3 playerSize = GetComponent<Collider>().bounds.size;
 
+        // Reposition the player hands (location) and rotate the object
         mCharacterHands.localPosition = new Vector3(0.0f, objectSize.z / 2.0f, playerSize.z / 2.0f + objectSize.z / 2.0f);
         mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
+        // Disable the use of gravity of the object, remove the velocity on it and add constraints to it
         mObjectInHands.GetComponent<Rigidbody>().useGravity = false;
         mObjectInHands.GetComponent<Rigidbody>().velocity = Vector3.zero;
         mObjectInHands.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
@@ -91,11 +94,14 @@ public class Player_PickUpDropObject : NetworkBehaviour
     // Drop down the object in hands
     private void DropDownObject()
     {
+        // Re-Enable the use of gravity on the object and remove all constraints
         mObjectInHands.GetComponent<Rigidbody>().useGravity = true;
         mObjectInHands.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
+        // Remove the object weight from the player total weight
         GetComponent<Rigidbody>().mass -= mExtraWeight;
 
+        // Unparent the object from the player
         mObjectInHands.transform.parent = null;
         mObjectInHands = null;
         SetIsHoldingObject(false);
