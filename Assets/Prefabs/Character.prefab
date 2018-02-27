@@ -403,8 +403,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4905989644169430}
   - component: {fileID: 95901188345320272}
+  - component: {fileID: 136982464733384274}
   - component: {fileID: 54604972106584904}
-  - component: {fileID: 65546753614352310}
   - component: {fileID: 114340464575089774}
   - component: {fileID: 114883779016722130}
   - component: {fileID: 114192916841352322}
@@ -1135,7 +1135,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1661445081390672}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.40573502, y: -2.1405554e-18, z: 0.19280408}
+  m_LocalPosition: {x: -0.50053835, y: -3.1520437e-18, z: 0.28391084}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4387695644272616}
@@ -1285,18 +1285,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 2
---- !u!65 &65546753614352310
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1661445081390672}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.43365163, y: 1.9886463, z: 0.35801524}
-  m_Center: {x: -0.013412923, y: 1.0045048, z: 0.0058053434}
 --- !u!95 &95901188345320272
 Animator:
   serializedVersion: 3
@@ -1536,6 +1524,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136982464733384274
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661445081390672}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.9694448
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.0144794, z: 0}
 --- !u!137 &137571742438057084
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
