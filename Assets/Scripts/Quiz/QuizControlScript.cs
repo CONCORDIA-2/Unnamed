@@ -39,7 +39,7 @@ public class QuizControlScript : MonoBehaviour
         }
         if (Input.GetKeyDown("joystick button 0") && (pointerL.activeInHierarchy || pointerR.activeInHierarchy))
         {
-            if (pointerR.active)
+            if (pointerR.activeInHierarchy)
             {
                 //psych profile stuff
             }

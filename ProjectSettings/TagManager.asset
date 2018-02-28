@@ -14,6 +14,7 @@ TagManager:
   - DarkArea
   - Spawn
   - Guard
+  - GuardCritter
   layers:
   - Default
   - TransparentFX

@@ -25,7 +25,7 @@ public class CritterController : NetworkBehaviour
     [SerializeField] private LocalPlayerManager localPlayerManagerScript;
     [SerializeField] private GameObject localPlayerManager;
 
-    void Awake()
+    private void Awake()
     {
         // grab reference to the local player manager if not assigned
         localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager");
@@ -40,10 +40,6 @@ public class CritterController : NetworkBehaviour
         if (foundPlayers && root == null)
         {
             root = BuildTree(instance);
-            NodeStatus treeStatus = root.Process();
-        } else if (foundPlayers)
-        {
-            NodeStatus treeStatus = root.Process();
         } else
         {
             Spawn();
@@ -66,7 +62,7 @@ public class CritterController : NetworkBehaviour
         }
     }
 
-    private void Spawn()
+    protected void Spawn()
     {
         instance = this;
         agent = GetComponent<NavMeshAgent>();
@@ -290,12 +286,10 @@ public class WalkTo : TreeNode
 }
 
 public class Retreat : Decorator
-{
-    GameObject goal;
+{ 
 
     public Retreat(GameObject goal, CritterController instance)
     {
-        this.goal = goal;
         this.instance = instance;
         Debug.Log("Retreating");
         child = new WalkTo(goal, instance);
