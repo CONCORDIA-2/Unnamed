@@ -1,88 +1,47 @@
 fileFormatVersion: 2
-guid: 1967f5ad86945ca45a79f749ced3061a
-timeCreated: 1519764425
+guid: af2a1baa1fc81d140a094a50be9ae6fc
+timeCreated: 1519912347
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Arm IK L
-    100002: Arm IK L_end
-    100004: Arm IK R.001
-    100006: Arm IK R.001_end
-    100008: Armature
-    100010: Bicep L
-    100012: Bicep R.001
-    100014: Calf L
-    100016: Calf L_end
-    100018: Calf R.001
-    100020: Calf R.001_end
-    100022: Character
-    100024: Chest
-    100026: Core
-    100028: Elbow L
-    100030: Elbow L_end
-    100032: Elbow R.001
-    100034: Elbow R.001_end
-    100036: Forearm L
-    100038: Forearm L_end
-    100040: Forearm R.001
-    100042: Forearm R.001_end
-    100044: Head
-    100046: Head_end
-    100048: Knee L
-    100050: Knee L_end
-    100052: Knee R.001
-    100054: Knee R.001_end
-    100056: Leg L
-    100058: Leg L_end
-    100060: Leg R.001
-    100062: Leg R.001_end
-    100064: //RootNode
-    100066: Sphere
-    100068: Thigh L
-    100070: Thigh R.001
-    400000: Arm IK L
-    400002: Arm IK L_end
-    400004: Arm IK R.001
-    400006: Arm IK R.001_end
-    400008: Armature
-    400010: Bicep L
-    400012: Bicep R.001
-    400014: Calf L
-    400016: Calf L_end
-    400018: Calf R.001
-    400020: Calf R.001_end
-    400022: Character
-    400024: Chest
-    400026: Core
-    400028: Elbow L
-    400030: Elbow L_end
-    400032: Elbow R.001
-    400034: Elbow R.001_end
-    400036: Forearm L
-    400038: Forearm L_end
-    400040: Forearm R.001
-    400042: Forearm R.001_end
-    400044: Head
-    400046: Head_end
-    400048: Knee L
-    400050: Knee L_end
-    400052: Knee R.001
-    400054: Knee R.001_end
-    400056: Leg L
-    400058: Leg L_end
-    400060: Leg R.001
-    400062: Leg R.001_end
-    400064: //RootNode
-    400066: Sphere
-    400068: Thigh L
-    400070: Thigh R.001
-    2100000: No Name
+    100000: Armature
+    100002: Bicep_L
+    100004: Bicep_R_001
+    100006: Calf_L
+    100008: Calf_R_001
+    100010: Character
+    100012: Chest
+    100014: Core
+    100016: Forearm_L
+    100018: Forearm_R_001
+    100020: Head
+    100022: //RootNode
+    100024: Sphere
+    100026: Thigh_L
+    100028: Thigh_R_001
+    400000: Armature
+    400002: Bicep_L
+    400004: Bicep_R_001
+    400006: Calf_L
+    400008: Calf_R_001
+    400010: Character
+    400012: Chest
+    400014: Core
+    400016: Forearm_L
+    400018: Forearm_R_001
+    400020: Head
+    400022: //RootNode
+    400024: Sphere
+    400026: Thigh_L
+    400028: Thigh_R_001
+    2100000: unnamed
     2100002: Material
     2300000: Sphere
     3300000: Sphere
     4300000: Sphere
     4300002: Character
+    7400000: Default Take
     9500000: //RootNode
     13700000: Character
   externalObjects: {}

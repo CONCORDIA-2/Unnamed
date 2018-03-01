@@ -628,7 +628,7 @@ Prefab:
         type: 2}
       propertyPath: m_PlayerPrefab
       value: 
-      objectReference: {fileID: 1661445081390672, guid: 30ef8edf18642fd49a981235d7192d17,
+      objectReference: {fileID: 1075578973226504, guid: 30ef8edf18642fd49a981235d7192d17,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 42a16fa19268ac24ca9c9dce1012ef77, type: 2}
@@ -1165,11 +1165,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4352051957360832, guid: e690e3a2d02c15c48ae803ea334c423f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.257
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4352051957360832, guid: e690e3a2d02c15c48ae803ea334c423f, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -6.57
+      value: -7.14
       objectReference: {fileID: 0}
     - target: {fileID: 4352051957360832, guid: e690e3a2d02c15c48ae803ea334c423f, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1545,7 +1545,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 349.41913, y: 349.41913, z: 0}
+  Offset: {x: 357.44376, y: 357.44376, z: 0}
 --- !u!4 &1161280624 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4019679519646918, guid: 62f1260ff4d96ba428c0b801d76ad6b7,
@@ -2252,7 +2252,7 @@ MonoBehaviour:
   MapToLDR: 0
   RemoveColorBanding: 1
   MatrixVP:
-    e00: 1.299038
+    e00: 0.88474655
     e01: 0
     e02: 0
     e03: 0
@@ -2269,7 +2269,7 @@ MonoBehaviour:
     e32: 0.9659259
     e33: 10.791213
   LastMatrixVP:
-    e00: 1.299038
+    e00: 0.88474655
     e01: 0
     e02: 0
     e03: 0
@@ -2370,7 +2370,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4352051957360832, guid: e690e3a2d02c15c48ae803ea334c423f, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -5.03
+      value: -6.94
       objectReference: {fileID: 0}
     - target: {fileID: 4352051957360832, guid: e690e3a2d02c15c48ae803ea334c423f, type: 2}
       propertyPath: m_LocalRotation.x
