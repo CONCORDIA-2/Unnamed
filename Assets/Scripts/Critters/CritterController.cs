@@ -9,7 +9,7 @@ public class CritterController : NetworkBehaviour
 {
     private CritterController instance;
     public static bool playerIsDown = false; //True after a successful attack, must set false again after players revive one another
-    public static bool separatedTooLong;
+    public static bool separatedTooLong = false;
 
     public NavMeshAgent agent;
     public GameObject player1, player2, guardLocation;
@@ -48,6 +48,7 @@ public class CritterController : NetworkBehaviour
         player2Sanity = player2.GetComponent<SanityAndLight>().sanityLevel;
         if (player1Sanity <= 5 || player2Sanity <= 5)
             separatedTooLong = true;
+        root.Process();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -272,14 +273,17 @@ public class WalkTo : TreeNode
     {
         this.goal = goal;
         this.instance = instance;
-        Debug.Log("Walking to: " + this.goal.name);
     }
 
     public override NodeStatus Process()
     {
+        Debug.Log("Walking to: " + this.goal.name);
         instance.agent.destination = goal.transform.position;    //Move to the potentially moving goal (player, guard station, or exit)
         if (instance.agent.remainingDistance < acceptableDistanceToGoal)
+        {
+            Debug.Log("Made it to " + goal);
             return NodeStatus.SUCCESS;
+        }
         else
             return NodeStatus.RUNNING;
     }
@@ -292,12 +296,12 @@ public class Retreat : Decorator
     public Retreat(GameObject goal, CritterController instance)
     {
         this.instance = instance;
-        Debug.Log("Retreating");
         child = new WalkTo(goal, instance);
     }
 
     public override NodeStatus Process()
     {
+        Debug.Log("Retreating");
         NodeStatus childStatus = child.Process();
         if (childStatus == NodeStatus.RUNNING)
             return NodeStatus.RUNNING;
