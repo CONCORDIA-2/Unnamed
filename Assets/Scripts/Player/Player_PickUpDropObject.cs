@@ -19,19 +19,19 @@ public class Player_PickUpDropObject : NetworkBehaviour
     {
         mPlayerMovement = GetComponent<Player_Movement>();
     }
-	
-	private void Update ()
+
+    private void Update()
     {
         if (isLocalPlayer)
         {
             // Pick up / drop nearby item
             if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown("joystick button 1"))
             {
-            	if (mObjectInHands)
-            		DropDownObject();
-            		
-            	else if (mObjectInRange && mPlayerMovement.CheckIfGrounded())
-            		PickupObject();
+                if (mObjectInHands)
+                    DropDownObject();
+
+                else if (mObjectInRange && mPlayerMovement.CheckIfGrounded())
+                    PickupObject();
             }
 
             if (mObjectInHands)

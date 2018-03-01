@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class CritterSpawner : MonoBehaviour {
 
-    public static int critterCount = 1;
+    public static int critterCount = 0;
     public int maxNumCritters = 3;
     public GameObject critterPrefab;
     public Transform spawnLocation;
     public GameObject guardLocation;
     public GameObject player1, player2;
-    public float separationTimer;
-    public float maxSeparationTime = 8;
-    public float separationDistance;
-    public float maxSeparationDistance = 1;
 
     [SerializeField] private LocalPlayerManager localPlayerManagerScript;
     [SerializeField] private GameObject localPlayerManager;
@@ -34,17 +30,7 @@ public class CritterSpawner : MonoBehaviour {
 	void Update () {
 		if (player1 && player2)
 		{
-	        separationDistance = Vector3.Distance(player1.transform.position, player2.transform.position);
-
-	        if (separationDistance <= maxSeparationDistance)
-	            separationTimer = 0.0f;
-	        else
-	            separationTimer += Time.deltaTime;
-	        if (separationTimer >= maxSeparationTime)
-	        {
-	            CritterController.separatedTooLong = true;
-	        }
-	        if (critterCount < maxNumCritters && !spawning)
+	        if (critterCount <= maxNumCritters && !spawning)
 	        {
 	            spawning = true;
 	            critterCount++;
@@ -68,17 +54,16 @@ public class CritterSpawner : MonoBehaviour {
         if (spawnLocation != null)
         {
         	GameObject newCritter = Instantiate(critterPrefab, spawnLocation.position, Quaternion.identity, spawnLocation);
-        	spawning = false;
         } else
         {
         	GameObject[] spawnLocations = GameObject.FindGameObjectsWithTag("Spawn");
         	Debug.Log(spawnLocations[0]);
         	if (spawnLocations.Length > 0)
                 spawnLocation = spawnLocations[0].transform;
-
-            spawning = false;
         }
-       
+
+        spawning = false;
+
         yield return null;
     }
 }

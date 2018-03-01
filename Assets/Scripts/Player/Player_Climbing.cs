@@ -24,7 +24,7 @@ public class Player_Climbing : NetworkBehaviour
         mPlayerPickUpDropItem = GetComponent<Player_PickUpDropObject>();
     }
 
-    private void Update ()
+    private void Update()
     {
         if (isLocalPlayer)
         {
@@ -65,8 +65,8 @@ public class Player_Climbing : NetworkBehaviour
 
     private void FixedUpdate()
     {
-    	if (isLocalPlayer)
-        	CheckIfNearLedge();
+        if (isLocalPlayer)
+            CheckIfNearLedge();
     }
 
     // Check with two raycasts if the player is close to a ledge
@@ -77,7 +77,7 @@ public class Player_Climbing : NetworkBehaviour
         RaycastHit rayCenterHit;
 
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayBotHit, mMaxDistanceToWall) &&
-            !Physics.Raycast(transform.position + new Vector3 (0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayTopHit, mMaxDistanceToWall))
+            !Physics.Raycast(transform.position + new Vector3(0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayTopHit, mMaxDistanceToWall))
         {
             if (rayBotHit.transform.gameObject.tag == "Climbable")
             {
