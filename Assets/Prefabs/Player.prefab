@@ -652,10 +652,10 @@ MonoBehaviour:
   specialLighting: 0
   opposedLighting: 0
   isRaven: 1
-  sanityChange: 0.05
+  sanityChange: 0.5
   auraChange: 0.03
   lightChange: 0.01
-  massChange: 0.5
+  massChange: 0.7
 --- !u!135 &135161892333620594
 SphereCollider:
   m_ObjectHideFlags: 1

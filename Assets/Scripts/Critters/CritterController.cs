@@ -56,6 +56,7 @@ public class CritterController : NetworkBehaviour
         {
             //Need to tell player it is dead and play attack animation
             playerIsDown = true;
+            collision.gameObject.GetComponent<SanityAndLight>().isIncapacitated = playerIsDown;
             Debug.Log("Hit " + collision.gameObject.tag);
             CritterSpawner.critterCount--;
             UnityEngine.Object.Destroy(instance.agent.gameObject);

@@ -33,11 +33,12 @@ public class SanityAndLight : MonoBehaviour {
     public bool specialLighting = false;
     public bool opposedLighting = false;
     public bool isRaven = true;
+    public bool isIncapacitated = false;
 
-    public float sanityChange = 0.05f;
+    public float sanityChange = 0.5f;
     public float auraChange = 0.03f;
     public float lightChange = 0.01f;
-    public float massChange = 0.5f;
+    public float massChange = 0.7f;
     private static float updateWait = 0.01f;
 
     void Start() {
@@ -81,30 +82,44 @@ public class SanityAndLight : MonoBehaviour {
 	            //retrieve the distance between players
 	            distance = Vector3.Distance(transform.position, otherPlayer.transform.position);
 
-	            //if player is in special lighting and are too far from their partner, decrease sanity and increase mass
-	            if (specialLighting)
+	             //handle incapacitation
+	            if (isIncapacitated)
 	            {
-	            	if (distance > safeLightingRadius)
+	            	GetComponent<Rigidbody>().mass = maxMass * 2;
+	            	sanityLevel = 0;
+
+	            	if (distance < safeLightingRadius)
 	            	{
-	            		DecreaseSanity(sanityChange * 10);
-	               		IncreaseWeight();
-	            	}
-	            	else
-	            	{
-	            		//else, put mass and sanity back to normal
-	            		IncreaseSanity(sanityChange * 15);
-		                DecreaseWeight();
+	            		isIncapacitated = false;
 	            	}
 	            }
 	            else
 	            {
-	            	//decrease sanity if too far from partner / increase sanity if close to partner
-		            if (distance < safeRadius)
+	            	//if player is in special lighting and are too far from their partner, decrease sanity and increase mass
+		            if (specialLighting)
 		            {
-		                IncreaseSanity(sanityChange * 15);
-		                DecreaseWeight();
+		            	if (distance > safeLightingRadius)
+		            	{
+		            		DecreaseSanity(sanityChange * 3);
+		               		IncreaseWeight();
+		            	}
+		            	else
+		            	{
+		            		//else, put mass and sanity back to normal
+		            		IncreaseSanity(sanityChange * 6);
+			                DecreaseWeight();
+		            	}
 		            }
-		            else DecreaseSanity(sanityChange);
+		            else
+		            {
+		            	//decrease sanity if too far from partner / increase sanity if close to partner
+			            if (distance < safeRadius)
+			            {
+			                IncreaseSanity(sanityChange * 6);
+			                DecreaseWeight();
+			            }
+			            else DecreaseSanity(sanityChange);
+		            }
 	            }
 
 	            //set light / shadow aura on player depending on lighting context
