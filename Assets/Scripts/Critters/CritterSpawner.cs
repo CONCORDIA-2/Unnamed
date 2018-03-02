@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class CritterSpawner : MonoBehaviour {
+public class CritterSpawner : NetworkBehaviour {
 
     public static int critterCount = 0;
     public int maxNumCritters = 3;
@@ -34,7 +35,7 @@ public class CritterSpawner : MonoBehaviour {
 	        {
 	            spawning = true;
 	            critterCount++;
-	            StartCoroutine(spawnCritter());
+	            StartCoroutine(SpawnCritter());
 	        }
         } else
             getPlayers();
@@ -46,7 +47,7 @@ public class CritterSpawner : MonoBehaviour {
         player2 = localPlayerManagerScript.GetOtherPlayerObject();
     }
 
-    public IEnumerator spawnCritter()
+    public IEnumerator SpawnCritter()
     { 
         yield return new WaitForSeconds(Random.Range(1,3));  //wait 1-3 second before a spawn
         //find appropriate spawn location
@@ -54,10 +55,10 @@ public class CritterSpawner : MonoBehaviour {
         if (spawnLocation != null)
         {
         	GameObject newCritter = Instantiate(critterPrefab, spawnLocation.position, Quaternion.identity, spawnLocation);
+            NetworkServer.Spawn(newCritter);
         } else
         {
         	GameObject[] spawnLocations = GameObject.FindGameObjectsWithTag("Spawn");
-        	Debug.Log(spawnLocations[0]);
         	if (spawnLocations.Length > 0)
                 spawnLocation = spawnLocations[0].transform;
         }

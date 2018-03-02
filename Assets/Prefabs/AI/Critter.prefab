@@ -102,10 +102,13 @@ MonoBehaviour:
   player1: {fileID: 0}
   player2: {fileID: 0}
   guardLocation: {fileID: 0}
+  player1Sanity: 0
+  player2Sanity: 0
   acceptableDistanceToGoal: 1
   attackDistance: 2
-  holdingHands: 0
   foundPlayers: 0
+  localPlayerManagerScript: {fileID: 0}
+  localPlayerManager: {fileID: 0}
 --- !u!114 &114169620799758540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,7 +127,7 @@ MonoBehaviour:
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
   m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
+  m_SnapThreshold: 2
   m_InterpolateRotation: 10
   m_InterpolateMovement: 1
 --- !u!114 &114331009550686138
