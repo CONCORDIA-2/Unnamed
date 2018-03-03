@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 114676831712728916}
   - component: {fileID: 114835626713997076}
   m_Layer: 0
-  m_Name: rabbit
+  m_Name: Rabbit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1414,6 +1414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCharacterHands: {fileID: 4240007198035998}
+  mThrowForce: 12.5
 --- !u!114 &114926773375674508
 MonoBehaviour:
   m_ObjectHideFlags: 1
