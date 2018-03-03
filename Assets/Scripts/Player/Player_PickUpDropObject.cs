@@ -4,16 +4,25 @@ using UnityEngine.Networking;
 // Author: Tri-Luong Steven Dien
 public class Player_PickUpDropObject : NetworkBehaviour
 {
+    [Header("Player Hands")]
     public Transform mCharacterHands;
+    public float mThrowForce;
 
+    // Bool variable to know if the player is holding an object
     private bool mIsHoldingObject = false;
 
+    // The actual pickable object
     private GameObject mObjectInHands;
     private GameObject mObjectInRange;
 
-    private Player_Movement mPlayerMovement;
-
+    // The object mass
     private float mExtraWeight;
+
+    // Bool variable to check if the gameobject is the Raven or the Rabbit
+    private bool mIsRaven;
+
+    // Other attached script
+    private Player_Movement mPlayerMovement;
 
     public override void OnStartLocalPlayer()
     {
@@ -29,13 +38,13 @@ public class Player_PickUpDropObject : NetworkBehaviour
             {
                 if (mObjectInHands)
                     DropDownObject();
-
                 else if (mObjectInRange && mPlayerMovement.CheckIfGrounded())
                     PickupObject();
             }
 
             if (mObjectInHands)
             {
+                // Keeps the object in hands at the same position and orientation
                 mObjectInHands.transform.localPosition = mCharacterHands.localPosition;
                 mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
             }
@@ -46,6 +55,7 @@ public class Player_PickUpDropObject : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            // Check if an pickable item is near the player
             CheckIfNearItem();
         }
     }
@@ -54,11 +64,16 @@ public class Player_PickUpDropObject : NetworkBehaviour
     {
         RaycastHit rayItemHit;
 
-        if (Physics.Raycast(transform.position - new Vector3(0.0f, 0.4f, 0.0f), transform.TransformDirection(Vector3.forward), out rayItemHit, 1f))
-            if (rayItemHit.transform.gameObject.tag == "Pickable")
+        // Check if an pickable object is in range
+        if (Physics.Raycast(transform.position - new Vector3(0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayItemHit, 1f))
+            if (rayItemHit.transform.gameObject.tag == "Pickable" || (rayItemHit.transform.gameObject.tag == "Heavy Pickable" && mIsRaven))
             {
                 mObjectInRange = rayItemHit.transform.gameObject;
                 return;
+            }
+            else if (rayItemHit.transform.gameObject.tag == "Heavy Pickable" && !mIsRaven)
+            {
+                // Display feedback > Rabbit cannot pick up heavy objects
             }
 
         mObjectInRange = null;
@@ -80,7 +95,7 @@ public class Player_PickUpDropObject : NetworkBehaviour
         Vector3 playerSize = GetComponent<Collider>().bounds.size;
 
         // Reposition the player hands (location) and rotate the object
-        mCharacterHands.localPosition = new Vector3(0.0f, objectSize.z / 2.0f, playerSize.z / 2.0f + objectSize.z / 2.0f);
+        mCharacterHands.localPosition = new Vector3(0.0f, 2.75f * playerSize.y / 5.0f + objectSize.y / 2.0f, 0.0f);
         mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
         // Disable the use of gravity of the object, remove the velocity on it and add constraints to it
@@ -97,6 +112,11 @@ public class Player_PickUpDropObject : NetworkBehaviour
         // Re-Enable the use of gravity on the object and remove all constraints
         mObjectInHands.GetComponent<Rigidbody>().useGravity = true;
         mObjectInHands.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
+        if (mExtraWeight >= 10.0f)
+            mObjectInHands.GetComponent<Rigidbody>().AddForce(transform.forward * mThrowForce * 3f, ForceMode.Impulse);
+        else
+            mObjectInHands.GetComponent<Rigidbody>().AddForce(transform.forward * mThrowForce, ForceMode.Impulse);
 
         // Remove the object weight from the player total weight
         GetComponent<Rigidbody>().mass -= mExtraWeight;

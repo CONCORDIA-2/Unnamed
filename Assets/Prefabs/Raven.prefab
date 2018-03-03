@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 114676831712728916}
   - component: {fileID: 114835626713997076}
   m_Layer: 0
-  m_Name: raven
+  m_Name: Raven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1018,7 +1018,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167127405940668}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.89, z: 1.2}
+  m_LocalPosition: {x: 0, y: 1.5, z: 1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4156701864956278}
@@ -1414,6 +1414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCharacterHands: {fileID: 4240007198035998}
+  mThrowForce: 12.5
 --- !u!114 &114926773375674508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1479,7 +1480,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 2.547015, y: 2.547015, z: 0}
+  Offset: {x: 9.290504, y: 9.290504, z: 0}
 --- !u!114 &114978706444658714
 MonoBehaviour:
   m_ObjectHideFlags: 1

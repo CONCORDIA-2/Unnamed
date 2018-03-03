@@ -16,7 +16,10 @@ public class Player_Movement : NetworkBehaviour
     // Orientation
     private float mRotationDegreesPerSecond = 220f;
 
+    // Player rigidbody component
     private Rigidbody mRb;
+
+    // Other attached script
     private Player_Climbing mPlayerClimbing;
 
     public override void OnStartLocalPlayer()
