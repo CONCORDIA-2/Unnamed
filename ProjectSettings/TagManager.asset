@@ -15,6 +15,7 @@ TagManager:
   - Spawn
   - Guard
   - GuardCritter
+  - HeavyPickable
   layers:
   - Default
   - TransparentFX

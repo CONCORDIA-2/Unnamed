@@ -8,7 +8,7 @@ public class Player_Climbing : NetworkBehaviour
     public Transform mClimbLandingSpot;
 
     private bool mIsHanging = false;
-    private float mMaxDistanceToWall = 0.75f;
+    private float mMaxDistanceToWall = 0.5f;
     private float mMaxTimer = 0.5f;
     private float mHangingTimer;
 
@@ -76,8 +76,8 @@ public class Player_Climbing : NetworkBehaviour
         RaycastHit rayBotHit;
         RaycastHit rayCenterHit;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out rayBotHit, mMaxDistanceToWall) &&
-            !Physics.Raycast(transform.position + new Vector3(0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayTopHit, mMaxDistanceToWall))
+        if (Physics.Raycast(transform.position + new Vector3(0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayBotHit, mMaxDistanceToWall) &&
+            !Physics.Raycast(transform.position + new Vector3(0.0f, 0.75f, 0.0f), transform.TransformDirection(Vector3.forward), out rayTopHit, mMaxDistanceToWall))
         {
             if (rayBotHit.transform.gameObject.tag == "Climbable")
             {
@@ -94,14 +94,22 @@ public class Player_Climbing : NetworkBehaviour
                         float offset = mMaxDistanceToWall - rayCenterHit.distance;
 
                         if (transform.localRotation.eulerAngles.y >= 89.0f && transform.localRotation.eulerAngles.y <= 91.0f) // 90 degrees - Stick -> Right
+                        {
                             transform.position = new Vector3(transform.position.x - offset, transform.position.y, transform.position.z);
+                        }
                         if (transform.localRotation.eulerAngles.y >= 269.0f && transform.localRotation.eulerAngles.y <= 271.0f) // 270 degrees - Stick -> Left
+                        {
                             transform.position = new Vector3(transform.position.x + offset, transform.position.y, transform.position.z);
+                        }
                         if ((transform.localRotation.eulerAngles.y >= -1.0f && transform.localRotation.eulerAngles.y <= 1.0f) ||
                             (transform.localRotation.eulerAngles.y >= 359.0f && transform.localRotation.eulerAngles.y <= -361.0f)) // 0 degrees or 360 degrees - Stick -> Up
+                        {
                             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - offset);
+                        }
                         if (transform.localRotation.eulerAngles.y >= 179.0f && transform.localRotation.eulerAngles.y <= 181.0f) // 180 degrees - Stick -> Down
+                        {
                             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + offset);
+                        }
 
                         FreezePosition();
                         SetIsHanging(true);
