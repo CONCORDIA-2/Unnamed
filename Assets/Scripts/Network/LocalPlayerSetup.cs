@@ -9,6 +9,7 @@ public class LocalPlayerSetup : NetworkBehaviour
     [SerializeField] private CameraControl camControl;
     [SerializeField] private LocalPlayerManager localPlayerManagerScript;
     [SerializeField] private float checkInterval = 0.5f;
+    [SerializeField] private bool isRaven;
 
     private float checkTimer = 0.0f;
 
