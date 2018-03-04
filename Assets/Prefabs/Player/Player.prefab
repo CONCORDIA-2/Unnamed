@@ -1438,7 +1438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mMovementSpeed: 300
   mMaxSpeed: 2.2
-  mJumpPower: 160
+  mJumpPower: 120
 --- !u!114 &114419828342171632
 MonoBehaviour:
   m_ObjectHideFlags: 1
