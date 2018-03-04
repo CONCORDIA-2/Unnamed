@@ -1436,9 +1436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3e3a78f856ae44a8553b5754ea714f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMovementSpeed: 300
-  mMaxSpeed: 2.2
-  mJumpPower: 120
+  mMovementSpeed: 700
+  mMaxSpeed: 2
+  mJumpPower: 140
 --- !u!114 &114419828342171632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1547,6 +1547,7 @@ MonoBehaviour:
   camControl: {fileID: 0}
   localPlayerManagerScript: {fileID: 0}
   checkInterval: 0.5
+  isRaven: 0
 --- !u!135 &135963426842595654
 SphereCollider:
   m_ObjectHideFlags: 1

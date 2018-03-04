@@ -5,11 +5,11 @@ using UnityEngine.Networking;
 public class Player_Movement : NetworkBehaviour
 {
     [Header("Movement")]
-    public float mMovementSpeed = 300.0f;
-    public float mMaxSpeed = 2.2f;
+    public float mMovementSpeed = 700.0f;
+    public float mMaxSpeed = 2.0f;
 
     [Header("Jump")]
-    public float mJumpPower = 120.0f;
+    public float mJumpPower = 140.0f;
     private float mDistanceToGround;
     private bool mWasJumping = false;
 
@@ -26,7 +26,7 @@ public class Player_Movement : NetworkBehaviour
     {
         mRb = GetComponent<Rigidbody>();
         mPlayerClimbing = GetComponent<Player_Climbing>();
-        mDistanceToGround = GetComponent<Collider>().bounds.extents.y;
+        mDistanceToGround = GetComponent<Collider>().bounds.extents.y + 0.1f;
     }
 
     private void Update()

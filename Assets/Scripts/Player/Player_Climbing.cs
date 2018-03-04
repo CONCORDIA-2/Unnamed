@@ -9,7 +9,7 @@ public class Player_Climbing : NetworkBehaviour
 
     private bool mIsHanging = false;
     private float mMaxDistanceToWall = 0.5f;
-    private float mMaxTimer = 0.5f;
+    private float mMaxTimer = 0.2f;
     private float mHangingTimer;
 
     private Rigidbody mRb;
@@ -76,8 +76,8 @@ public class Player_Climbing : NetworkBehaviour
         RaycastHit rayBotHit;
         RaycastHit rayCenterHit;
 
-        if (Physics.Raycast(transform.position + new Vector3(0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayBotHit, mMaxDistanceToWall) &&
-            !Physics.Raycast(transform.position + new Vector3(0.0f, 0.75f, 0.0f), transform.TransformDirection(Vector3.forward), out rayTopHit, mMaxDistanceToWall))
+        if (Physics.Raycast(transform.position + new Vector3(0.0f, 0.8f, 0.0f), transform.TransformDirection(Vector3.forward), out rayBotHit, mMaxDistanceToWall) &&
+            !Physics.Raycast(transform.position + new Vector3(0.0f, 1.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayTopHit, mMaxDistanceToWall))
         {
             if (rayBotHit.transform.gameObject.tag == "Climbable")
             {
