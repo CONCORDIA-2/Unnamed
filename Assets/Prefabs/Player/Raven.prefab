@@ -303,8 +303,9 @@ GameObject:
   - component: {fileID: 114274932013573800}
   - component: {fileID: 114676831712728916}
   - component: {fileID: 114835626713997076}
+  - component: {fileID: 114965573371056798}
   m_Layer: 0
-  m_Name: Rabbit
+  m_Name: Raven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1351,7 +1352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mMovementSpeed: 300
   mMaxSpeed: 2.2
-  mJumpPower: 175
+  mJumpPower: 120
 --- !u!114 &114415677508583026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1481,6 +1482,39 @@ MonoBehaviour:
   MaxLightDistance: 128
   AboveFogPercent: 0.1
   Offset: {x: 2.547015, y: 2.547015, z: 0}
+--- !u!114 &114965573371056798
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1526322060324262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3172ec036a9df4c833315c12807d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherPlayer: {fileID: 0}
+  localPlayerManager: {fileID: 0}
+  localPlayerManagerScript: {fileID: 0}
+  light: {fileID: 0}
+  aura: {fileID: 0}
+  postProcessing: {fileID: 0}
+  sanityLevel: 100
+  distance: 0
+  auraSize: 0
+  lightBrightness: 0
+  maxAuraSize: 3
+  maxLightBrightness: 1
+  maxMass: 75
+  minMass: 25
+  specialLighting: 0
+  opposedLighting: 0
+  isRaven: 1
+  isIncapacitated: 0
+  sanityChange: 0.5
+  auraChange: 0.03
+  lightChange: 0.01
+  massChange: 0.7
 --- !u!114 &114978706444658714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1495,22 +1529,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 48
-    i1: 239
-    i2: 142
-    i3: 223
-    i4: 24
-    i5: 100
-    i6: 47
-    i7: 212
-    i8: 154
-    i9: 152
-    i10: 18
-    i11: 53
-    i12: 215
-    i13: 25
-    i14: 45
-    i15: 23
+    i0: 214
+    i1: 77
+    i2: 185
+    i3: 148
+    i4: 70
+    i5: 29
+    i6: 2
+    i7: 148
+    i8: 40
+    i9: 251
+    i10: 171
+    i11: 152
+    i12: 19
+    i13: 214
+    i14: 173
+    i15: 112
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
 --- !u!135 &135901702356076394

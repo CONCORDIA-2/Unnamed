@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
-[RequireComponent(typeof(PostProcessingBehaviour))]
 
 public class SanityAndLight : MonoBehaviour {
 
@@ -18,7 +17,6 @@ public class SanityAndLight : MonoBehaviour {
 
     public static readonly float safeRadius = 12.0f;
     public static readonly float safeLightingRadius = 4.0f;
-    public static readonly float maxTimeSeparate = 20.0f;	//seconds
 
     public float sanityLevel = 100.0f;
     public float distance;
