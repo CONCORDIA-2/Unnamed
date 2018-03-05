@@ -5,7 +5,7 @@ using UnityEngine;
 public class FetchQuest : MonoBehaviour {
 
     public GameObject toFetch;
-    private bool succeeded = false;
+    public bool succeeded = false;
 
 	// Use this for initialization
 	void Start () {	
@@ -24,9 +24,9 @@ public class FetchQuest : MonoBehaviour {
     {
         if (GameObject.ReferenceEquals(collision.gameObject, toFetch))
         {
-            Debug.Log("You fetched it!");
             succeeded = true;
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
+            Destroy(this);
         }
     }
 }
