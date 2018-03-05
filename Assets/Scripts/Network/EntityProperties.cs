@@ -5,187 +5,235 @@ using UnityEngine.Networking;
 
 public class EntityProperties : NetworkBehaviour
 {
-    //[SyncVar(hook = "OnReceivePlayerProperties")] public PlayerProperties playerProperties;
-    //[SyncVar(hook = "OnReceiveTransformProperties")] public TransformProperties transformProperties;
-    [SyncVar] public PlayerProperties playerProperties;
-    [SyncVar] public TransformProperties transformProperties;
-
-    private PlayerProperties lastReceveivedPlayerProperties;
-    private TransformProperties lastReceveivedTransformProperties;
-
-    // values warranting attribute updates on the client
-    [SerializeField] private float epsilonPosition = 0.2f;
-    [SerializeField] private float epsilonVelocity = 0.1f;
-    [SerializeField] private float epsilonRotation = 5.0f;
-    [SerializeField] private float epsilonAngularVelocity = 15f;
-
-    // time between reconciliation events
-    [SerializeField] private float syncInterval = 0.25f;
-    private float syncTimer = 0.0f;
-
-    // reference to entity scripts
-    private Rigidbody rb;
-    private SanityAndLight sal;
-    
-    public struct PlayerProperties
+    public class PlayerMessage : MessageBase
     {
+        public const short id = 77;
         public float sendTime;
 
+        // sanity and light system
         public bool isIncapacitated;
-        // anything else we need here?
     }
 
-    public struct TransformProperties
+    public class TransformMessage : MessageBase
     {
+        public const short id = 777;
         public float sendTime;
 
-        public Vector3 position;
-        public Vector3 velocity;
-        public Quaternion rotation;
-        public Vector3 angularVelocity;
+        // position
+        public float posX;
+        public float posY;
+        public float posZ;
+
+        // rotation
+        public float rotX;
+        public float rotY;
+        public float rotZ;
+    }
+
+    public class RigidbodyMessage : MessageBase
+    {
+        public const short id = 7777;
+        public float sendTime;
+
+        // velocity
+        public float velX;
+        public float velY;
+        public float velZ;
+
+        // angular velocity
+        public float angX;
+        public float angY;
+        public float angZ;
+    }
+
+    // what we need to serialize: player properties
+    [SerializeField] private bool isIncapacitated;
+
+    // what we need to serialize: transform properties
+    [SerializeField] private float posX;
+    [SerializeField] private float posY;
+    [SerializeField] private float posZ;
+    [SerializeField] private float rotX;
+    [SerializeField] private float rotY;
+    [SerializeField] private float rotZ;
+
+    // what we need to serialize: rigidbody properties
+    [SerializeField] private float velX;
+    [SerializeField] private float velY;
+    [SerializeField] private float velZ;
+    [SerializeField] private float angX;
+    [SerializeField] private float angY;
+    [SerializeField] private float angZ;
+
+    // values warranting attribute updates on the client
+    [SerializeField] private const float epsilonPosition = 0.25f;
+    [SerializeField] private const float epsilonVelocity = 0.25f;
+    [SerializeField] private const float epsilonRotation = 5.00f;
+    [SerializeField] private const float epsilonAngularVelocity = 45f;
+
+    // time between reconciliation events
+    [SerializeField] private const float syncSendInterval = 1.0f;
+    //[SerializeField] private const float syncUpdateInterval = 0.25f;
+    [SerializeField] private float syncSendTimer = 0.0f;
+    //[SerializeField] private float syncUpdateTimer = 0.0f;
+
+    // reference to local player network connection
+    [SerializeField] private NetworkConnection networkConn;
+
+    // reference to entity scripts
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private SanityAndLight sal;
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+        // set message handlers
+        NetworkServer.RegisterHandler(PlayerMessage.id, HandlePlayerMessage);
+        NetworkServer.RegisterHandler(TransformMessage.id, HandleTransformMessage);
+        NetworkServer.RegisterHandler(RigidbodyMessage.id, HandleRigidbodyMessage);
     }
 
     public override void OnStartLocalPlayer()
     {
-        // grab references to entity components
-        rb = GetComponent<Rigidbody>();
-        sal = GetComponent<SanityAndLight>();
+        if (isLocalPlayer)
+        {
+            // grab reference to network connection
+            networkConn = connectionToServer;
 
-        // set initial states
-        playerProperties.sendTime = 0.0f;
-        playerProperties.isIncapacitated = sal.isIncapacitated;
+            // grab references to entity components
+            rb = GetComponent<Rigidbody>();
+            sal = GetComponent<SanityAndLight>();
 
-        transformProperties.sendTime = 0.0f;
-        transformProperties.position = transform.position;
-        transformProperties.velocity = rb.velocity;
-        transformProperties.rotation = transform.rotation;
-        transformProperties.angularVelocity = rb.angularVelocity;
+            // set message handlers
+            NetworkManager.singleton.client.RegisterHandler(PlayerMessage.id, HandlePlayerMessage);
+            NetworkManager.singleton.client.RegisterHandler(TransformMessage.id, HandleTransformMessage);
+            NetworkManager.singleton.client.RegisterHandler(RigidbodyMessage.id, HandleRigidbodyMessage);
+        }
 
-        lastReceveivedPlayerProperties = playerProperties;
-        lastReceveivedTransformProperties = transformProperties;
-
-        // send initial states to server
-        CmdSendPlayerProperties(playerProperties);
-        CmdSendTransformProperties(transformProperties);
+        else if (isServer)
+            // grab reference to network connection
+            networkConn = connectionToClient;
     }
 
     private void Update()
     {
-        // if local player, send local properties to server
         if (isLocalPlayer)
         {
-            CmdSendPlayerProperties(playerProperties);
-            CmdSendTransformProperties(transformProperties);
-        }
+            // update local properties
+            UpdatePlayerProperties();
+            UpdateTransformProperties();
+            UpdateRigidbodyProperties();
 
-        // if server, send received properties to clients regularly
-        if (isServer)
-        {
-            syncTimer += Time.deltaTime;
-            if (syncTimer >= syncInterval)
+            // send them over to the server at regular intervals
+            syncSendTimer += Time.deltaTime;
+            if (syncSendTimer >= syncSendInterval)
             {
-                RpcSyncPlayerProperties(playerProperties);
-                RpcSyncTransformProperties(transformProperties);
+                SendPlayerProperties();
+                SendTransformProperties();
+                SendRigidbodyProperties();
+
+                syncSendTimer = 0.0f;
             }
-        }
-    }
 
-    // send properties on channel 1 (unreliable) to avoid congestion
-    [Command(channel = 1)]
-    void CmdSendPlayerProperties(PlayerProperties properties)
-    {
-        playerProperties.sendTime = Time.time;
-
-        playerProperties.isIncapacitated = properties.isIncapacitated;
-        // anything else we need here?
-    }
-
-    // send properties on channel 1 (unreliable) to avoid congestion
-    [Command(channel = 1)]
-    void CmdSendTransformProperties(TransformProperties properties)
-    {
-        transformProperties.sendTime = Time.time;
-
-        transformProperties.position = properties.position;
-        transformProperties.velocity = properties.velocity;
-        transformProperties.rotation = properties.rotation;
-        transformProperties.angularVelocity = properties.angularVelocity;
-    }
-
-    [ClientRpc]
-    void RpcSyncPlayerProperties(PlayerProperties properties)
-    {
-        // check the timestamp of the properties to make sure they're the latest
-        if (properties.sendTime >= lastReceveivedPlayerProperties.sendTime)
-        {
-            playerProperties.isIncapacitated = properties.isIncapacitated;
-            // antyhing else we need here?
-        }
-    }
-
-    [ClientRpc]
-    void RpcSyncTransformProperties(TransformProperties properties)
-    {
-        // check the timestamp of the properties to make sure they're the latest
-        if (properties.sendTime >= lastReceveivedTransformProperties.sendTime)
-        {            
-            transform.position = properties.position;
-            rb.velocity = properties.velocity;
-            transform.rotation = properties.rotation;
-            rb.angularVelocity = properties.angularVelocity;
+            //syncUpdateTimer += Time.deltaTime;
         }
     }
 
     void UpdatePlayerProperties()
     {
-        // only update properties if they are different
-        if (sal.isIncapacitated != playerProperties.isIncapacitated)
-            sal.isIncapacitated = playerProperties.isIncapacitated;
+        isIncapacitated = sal.isIncapacitated;
     }
 
     void UpdateTransformProperties()
     {
-        // only update properties if they differ by epsilon presets
-        bool updateX;
-        bool updateY;
-        bool updateZ;
+        posX = transform.position.x;
+        posY = transform.position.y;
+        posZ = transform.position.z;
+    }
 
-        // position
-        updateX = Mathf.Abs(transform.position.x - transformProperties.position.x) >= epsilonPosition;
-        updateY = Mathf.Abs(transform.position.x - transformProperties.position.x) >= epsilonPosition;
-        updateZ = Mathf.Abs(transform.position.x - transformProperties.position.x) >= epsilonPosition;
+    void UpdateRigidbodyProperties()
+    {
+        velX = rb.velocity.x;
+        velY = rb.velocity.y;
+        velZ = rb.velocity.z;
 
-        transform.position = new Vector3(updateX ? transformProperties.position.x : transform.position.x,
-            updateY ? transformProperties.position.x : transform.position.x,
-            updateZ ? transformProperties.position.x : transform.position.x);
+        angX = rb.angularVelocity.x;
+        angY = rb.angularVelocity.y;
+        angZ = rb.angularVelocity.z;
+    }
 
-        // velocity
-        updateX = Mathf.Abs(rb.velocity.x - transformProperties.velocity.x) >= epsilonVelocity;
-        updateY = Mathf.Abs(rb.velocity.y - transformProperties.velocity.y) >= epsilonVelocity;
-        updateZ = Mathf.Abs(rb.velocity.z - transformProperties.velocity.z) >= epsilonVelocity;
+    void SendPlayerProperties()
+    {
+        PlayerMessage msg = new PlayerMessage();
+        msg.sendTime = Time.time;
 
-        rb.velocity = new Vector3(updateX ? transformProperties.velocity.x : rb.velocity.x,
-            updateY ? transformProperties.velocity.y : rb.velocity.y,
-            updateZ ? transformProperties.velocity.z : rb.velocity.z);
+        msg.isIncapacitated = isIncapacitated;
 
-        // rotation
-        Vector3 rotationEuler = transform.rotation.eulerAngles;
-        Vector3 rotationEulerReceived = transformProperties.rotation.eulerAngles;
-        updateX = Mathf.Abs(rotationEuler.x - rotationEulerReceived.x) >= epsilonRotation;
-        updateY = Mathf.Abs(rotationEuler.y - rotationEulerReceived.y) >= epsilonRotation;
-        updateZ = Mathf.Abs(rotationEuler.z - rotationEulerReceived.z) >= epsilonRotation;
+        NetworkManager.singleton.client.Send(PlayerMessage.id, msg);
+    }
 
-        transform.rotation = Quaternion.Euler(updateX ? rotationEulerReceived.x : rotationEuler.x,
-            updateY ? rotationEulerReceived.y : rotationEuler.y,
-            updateZ ? rotationEulerReceived.z : rotationEuler.z);
+    void SendTransformProperties()
+    {
+        TransformMessage msg = new TransformMessage();
+        msg.sendTime = Time.time;
 
-        // angular velocity - set epsilon to a high value to prevent erratic behaviour
-        updateX = Mathf.Abs(rb.angularVelocity.x - transformProperties.angularVelocity.x) >= epsilonAngularVelocity;
-        updateY = Mathf.Abs(rb.angularVelocity.y - transformProperties.angularVelocity.y) >= epsilonAngularVelocity;
-        updateZ = Mathf.Abs(rb.angularVelocity.z - transformProperties.angularVelocity.z) >= epsilonAngularVelocity;
+        msg.posX = posX;
+        msg.posY = posY;
+        msg.posZ = posZ;
 
-        rb.angularVelocity = new Vector3(updateX ? transformProperties.angularVelocity.x : rb.angularVelocity.x,
-            updateY ? transformProperties.angularVelocity.y : rb.angularVelocity.y,
-            updateZ ? transformProperties.angularVelocity.z : rb.angularVelocity.z);
+        NetworkManager.singleton.client.Send(TransformMessage.id, msg);
+    }
+
+    void SendRigidbodyProperties()
+    {
+        RigidbodyMessage msg = new RigidbodyMessage();
+        msg.sendTime = Time.time;
+
+        msg.velX = velX;
+        msg.velY = velY;
+        msg.velZ = velZ;
+
+        msg.angX = angX;
+        msg.angY = angY;
+        msg.angZ = angZ;
+
+        NetworkManager.singleton.client.Send(RigidbodyMessage.id, msg);
+    }
+
+    void HandlePlayerMessage(NetworkMessage msg)
+    {
+        PlayerMessage playerMsg = msg.ReadMessage<PlayerMessage>();
+        if (isServer)
+        {
+            Debug.Log("playermsg: hi from server");
+            NetworkServer.SendToClient(networkConn.connectionId, PlayerMessage.id, playerMsg);
+        }
+        else if (isLocalPlayer)
+            Debug.Log("playermsg: hi from client");
+    }
+
+    void HandleTransformMessage(NetworkMessage msg)
+    {
+        TransformMessage transformMsg = msg.ReadMessage<TransformMessage>();
+        if (isServer)
+        {
+            Debug.Log("transformmsg: hi from server");
+            NetworkServer.SendToClient(networkConn.connectionId, PlayerMessage.id, transformMsg);
+        }
+        else if (isLocalPlayer)
+            Debug.Log("transformmsg: hi from client");
+    }
+
+    void HandleRigidbodyMessage(NetworkMessage msg)
+    {
+        RigidbodyMessage rigidbodyMsg = msg.ReadMessage<RigidbodyMessage>();
+        if (isServer)
+        {
+            Debug.Log("rigidbodymsg: hi from server");
+            NetworkServer.SendToClient(networkConn.connectionId, PlayerMessage.id, rigidbodyMsg);
+        }
+        else if (isLocalPlayer)
+            Debug.Log("rigidbodymsg: hi from client");
     }
 }

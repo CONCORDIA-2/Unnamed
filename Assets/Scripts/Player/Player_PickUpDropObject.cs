@@ -37,17 +37,24 @@ public class Player_PickUpDropObject : NetworkBehaviour
             if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown("joystick button 1"))
             {
                 if (mObjectInHands)
-                    DropDownObject();
+                    CmdDropDownObject();
                 else if (mObjectInRange && mPlayerMovement.CheckIfGrounded())
-                    PickupObject();
+                    CmdPickupObject();
             }
 
-            if (mObjectInHands)
-            {
-                // Keeps the object in hands at the same position and orientation
-                mObjectInHands.transform.localPosition = mCharacterHands.localPosition;
-                mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-            }
+            //if (mObjectInHands)
+            //{
+            //    // Keeps the object in hands at the same position and orientation
+            //    mObjectInHands.transform.localPosition = mCharacterHands.localPosition;
+            //    mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+            //}
+        }
+
+        if (mObjectInHands)
+        {
+            // Keeps the object in hands at the same position and orientation
+            mObjectInHands.transform.localPosition = mCharacterHands.localPosition;
+            mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         }
     }
 
@@ -80,35 +87,48 @@ public class Player_PickUpDropObject : NetworkBehaviour
     }
 
     // Pick up a nearby object
-    private void PickupObject()
+    [Command]
+    private void CmdPickupObject()
     {
-        // Put the object in range into the player hands
-        mObjectInHands = mObjectInRange;
-        mObjectInHands.transform.parent = transform;
+        Pickable pickable = mObjectInRange.GetComponent<Pickable>();
 
-        // Add the weight of the object to the total weight of the player
-        mExtraWeight = mObjectInHands.GetComponent<Rigidbody>().mass;
-        GetComponent<Rigidbody>().mass += mExtraWeight;
+        // [Ben]: only pick up object if not already picked up
+        if (pickable && pickable.IsPickable())
+        {
+            // Put the object in range into the player hands
+            mObjectInHands = mObjectInRange;
+            mObjectInHands.transform.parent = transform;
 
-        // Get the bound size of the object and the player
-        Vector3 objectSize = mObjectInHands.GetComponent<Collider>().bounds.size;
-        Vector3 playerSize = GetComponent<Collider>().bounds.size;
+            // [Ben]: toggle object pickable
+            CmdSetPickable(pickable.gameObject, false);
 
-        // Reposition the player hands (location) and rotate the object
-        mCharacterHands.localPosition = new Vector3(0.0f, 2.75f * playerSize.y / 5.0f + objectSize.y / 2.0f, 0.0f);
-        mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+            // Add the weight of the object to the total weight of the player
+            mExtraWeight = mObjectInHands.GetComponent<Rigidbody>().mass;
+            GetComponent<Rigidbody>().mass += mExtraWeight;
 
-        // Disable the use of gravity of the object, remove the velocity on it and add constraints to it
-        mObjectInHands.GetComponent<Rigidbody>().useGravity = false;
-        mObjectInHands.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        mObjectInHands.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            // Get the bound size of the object and the player
+            Vector3 objectSize = mObjectInHands.GetComponent<Collider>().bounds.size;
+            Vector3 playerSize = GetComponent<Collider>().bounds.size;
 
-        SetIsHoldingObject(true);
+            // Reposition the player hands (location) and rotate the object
+            mCharacterHands.localPosition = new Vector3(0.0f, 2.75f * playerSize.y / 5.0f + objectSize.y / 2.0f, 0.0f);
+            mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+
+            // Disable the use of gravity of the object, remove the velocity on it and add constraints to it
+            mObjectInHands.GetComponent<Rigidbody>().useGravity = false;
+            mObjectInHands.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            mObjectInHands.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+            SetIsHoldingObject(true);
+        }
     }
 
     // Drop down the object in hands
-    private void DropDownObject()
+    [Command]
+    private void CmdDropDownObject()
     {
+        Debug.Log("received drop down command");
+
         // Re-Enable the use of gravity on the object and remove all constraints
         mObjectInHands.GetComponent<Rigidbody>().useGravity = true;
         mObjectInHands.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -120,6 +140,9 @@ public class Player_PickUpDropObject : NetworkBehaviour
 
         // Remove the object weight from the player total weight
         GetComponent<Rigidbody>().mass -= mExtraWeight;
+
+        // [Ben]: set object as pickable again
+        CmdSetPickable(mObjectInHands, true);
 
         // Unparent the object from the player
         mObjectInHands.transform.parent = null;
@@ -137,5 +160,28 @@ public class Player_PickUpDropObject : NetworkBehaviour
     public void SetIsHoldingObject(bool isHoldingObject)
     {
         mIsHoldingObject = isHoldingObject;
+    }
+
+    [Command]
+    void CmdSetPickable(GameObject obj, bool toggle)
+    {
+        Debug.Log("sending command");
+        Pickable pickable = obj.GetComponent<Pickable>();
+
+        if (pickable)
+        {
+            pickable.SetPickable(toggle);
+            RpcSetPickable(obj, toggle);
+        }
+    }
+
+    [ClientRpc]
+    void RpcSetPickable(GameObject obj, bool toggle)
+    {
+        Debug.Log("executing rpc");
+        Pickable pickable = obj.GetComponent<Pickable>();
+
+        if (pickable)
+            pickable.SetPickable(toggle);
     }
 }

@@ -4942,17 +4942,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114842550808569048, guid: 42a16fa19268ac24ca9c9dce1012ef77,
-        type: 2}
-      propertyPath: m_SpawnPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114842550808569048, guid: 42a16fa19268ac24ca9c9dce1012ef77,
-        type: 2}
-      propertyPath: m_PlayerPrefab
-      value: 
-      objectReference: {fileID: 1335796413783874, guid: 2309f536ac3e5f7438964c4cff9f88f5,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 42a16fa19268ac24ca9c9dce1012ef77, type: 2}
   m_IsPrefabParent: 0
@@ -9629,7 +9618,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 1547.4468, y: 1547.4468, z: 0}
+  Offset: {x: 1760.2908, y: 1760.2908, z: 0}
 --- !u!4 &1161280624 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4019679519646918, guid: 62f1260ff4d96ba428c0b801d76ad6b7,
@@ -9873,7 +9862,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1640899860
+  randomSeed: 1274574206
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13928,7 +13917,7 @@ MonoBehaviour:
   MapToLDR: 0
   RemoveColorBanding: 1
   MatrixVP:
-    e00: 1.3451666
+    e00: 1.299038
     e01: 0
     e02: 0
     e03: 0
@@ -13945,7 +13934,7 @@ MonoBehaviour:
     e32: 0.9659259
     e33: 10.791213
   LastMatrixVP:
-    e00: 1.3451666
+    e00: 1.299038
     e01: 0
     e02: 0
     e03: 0
