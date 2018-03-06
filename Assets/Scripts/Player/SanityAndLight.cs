@@ -88,6 +88,7 @@ public class SanityAndLight : MonoBehaviour {
 	            if (isIncapacitated)
 	            {
 	            	GetComponent<Rigidbody>().mass = maxMass * 2;
+	            	GetComponent<Player_Movement>().mMaxSpeed = minMoveSpeed / 2;
 	            	sanityLevel = 0;
 
 	            	if (distance < safeLightingRadius)
