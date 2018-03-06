@@ -72,7 +72,7 @@ public class MessageFades : MonoBehaviour
         return GeometryUtility.TestPlanesAABB(planes, ob.GetComponent<Collider>().bounds);
     }
 
-    public IEnumerator FadeTextToFullAlpha(float t, Text i)
+    public static IEnumerator FadeTextToFullAlpha(float t, Text i)
     {
         i.color = new Color(i.color.r, i.color.g, i.color.b, 0);
         //Debug.Log("Fading in!");
@@ -83,7 +83,7 @@ public class MessageFades : MonoBehaviour
         }
     }
 
-    public IEnumerator FadeTextToZeroAlpha(float t, Text i)
+    public static IEnumerator FadeTextToZeroAlpha(float t, Text i)
     {
         i.color = new Color(i.color.r, i.color.g, i.color.b, 1);
         //Debug.Log("Fading out...");
