@@ -48,10 +48,10 @@ public class Player_Movement : NetworkBehaviour
         {
             if (!mPlayerClimbing.GetIsHanging())
                 Move();
-        }
 
-        // Add additional downard force to ground player
-        mRb.AddForce(new Vector3(0.0f, -90.0f, 0.0f), ForceMode.Force);
+            // Add additional downard force to ground player
+        	mRb.AddForce(new Vector3(0.0f, -90.0f, 0.0f), ForceMode.Force);
+        }
     }
 
     // Function that takes the joystick movement input to move the character

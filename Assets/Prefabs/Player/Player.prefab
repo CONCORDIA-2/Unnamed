@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 114649507191548084}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1534,6 +1534,8 @@ MonoBehaviour:
   lightBrightness: 0
   maxAuraSize: 3
   maxLightBrightness: 1
+  minMoveSpeed: 0.5
+  maxMoveSpeed: 3
   maxMass: 75
   minMass: 25
   specialLighting: 0
@@ -1544,6 +1546,7 @@ MonoBehaviour:
   auraChange: 0.03
   lightChange: 0.01
   massChange: 0.7
+  speedChange: 0.03
 --- !u!114 &114958409300139106
 MonoBehaviour:
   m_ObjectHideFlags: 1
