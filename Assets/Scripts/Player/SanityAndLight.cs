@@ -15,7 +15,7 @@ public class SanityAndLight : MonoBehaviour {
     public GameObject aura;
     public PostProcessingProfile postProcessing;
 
-    public static readonly float safeRadius = 12.0f;
+    public static readonly float safeRadius = 20.0f;
     public static readonly float safeLightingRadius = 4.0f;
 
     public float sanityLevel = 100.0f;
@@ -23,8 +23,11 @@ public class SanityAndLight : MonoBehaviour {
     
     public float auraSize = 0.0f;
     public float lightBrightness = 0.0f;
-    public float maxAuraSize = 3.0f;
-    public float maxLightBrightness = 1.0f;
+
+    public float maxAuraSize = 4.0f;
+    public float maxLightBrightness = 2.0f;
+    public float minMoveSpeed = 0.5f;
+    public float maxMoveSpeed = 3.0f;
     public float maxMass = 75.0f;
     public float minMass = 25.0f;
     
@@ -37,6 +40,7 @@ public class SanityAndLight : MonoBehaviour {
     public float auraChange = 0.03f;
     public float lightChange = 0.01f;
     public float massChange = 0.7f;
+    public float speedChange = 0.03f;
     private static float updateWait = 0.01f;
 
     void Start() {
@@ -84,6 +88,7 @@ public class SanityAndLight : MonoBehaviour {
 	            if (isIncapacitated)
 	            {
 	            	GetComponent<Rigidbody>().mass = maxMass * 2;
+	            	GetComponent<Player_Movement>().mMaxSpeed = minMoveSpeed / 2;
 	            	sanityLevel = 0;
 
 	            	if (distance < safeLightingRadius)
@@ -189,12 +194,18 @@ public class SanityAndLight : MonoBehaviour {
     {
     	if (GetComponent<Rigidbody>().mass > minMass)
 		    GetComponent<Rigidbody>().mass -= massChange * 2.0f;
+
+		if (GetComponent<Player_Movement>().mMaxSpeed < maxMoveSpeed)
+			GetComponent<Player_Movement>().mMaxSpeed += speedChange;
     }
 
     void IncreaseWeight()
     {
     	if (GetComponent<Rigidbody>().mass < maxMass)
 	        GetComponent<Rigidbody>().mass += massChange;
+
+	    if (GetComponent<Player_Movement>().mMaxSpeed > minMoveSpeed)
+			GetComponent<Player_Movement>().mMaxSpeed -= speedChange;
     }
 
     //on collision stay with collider specific to client, toggle specialLighting flag and appropriate aura response
