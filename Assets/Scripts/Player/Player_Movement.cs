@@ -6,7 +6,7 @@ public class Player_Movement : NetworkBehaviour
 {
     [Header("Movement")]
     public float mMovementSpeed = 700.0f;
-    public float mMaxSpeed = 2.0f;
+    public float mMaxSpeed = 3.0f;
 
     [Header("Jump")]
     public float mJumpPower = 140.0f;
@@ -14,7 +14,7 @@ public class Player_Movement : NetworkBehaviour
     private bool mWasJumping = false;
 
     // Orientation
-    private float mRotationDegreesPerSecond = 220f;
+    private float mRotationDegreesPerSecond = 400f;
 
     // Player rigidbody component
     private Rigidbody mRb;
@@ -63,35 +63,42 @@ public class Player_Movement : NetworkBehaviour
         if (horizontal != 0f || vertical != 0f)
         {
             // Normalize input
-            if (direction.magnitude > 1 || direction.magnitude < -1) direction = Vector3.Normalize(direction);
+            if (direction.magnitude > 1 || direction.magnitude < -1)
+            	direction = Vector3.Normalize(direction);
 
             // Map max speed to input intensity
-            float calcSpeed = direction.magnitude / 1f;
-            float localMaxSpeed = Remap(calcSpeed, 0f, 1f, 0f, mMaxSpeed);
+            float localMaxSpeed = Remap(direction.magnitude / 1f, 0f, 1f, 0f, mMaxSpeed);
 
             // Rotates the character so it faces the same orientation as the vector direction
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), mRotationDegreesPerSecond * Time.deltaTime);
 
-            // Moves the character towards vector direction
-            Vector3 force = direction * mMovementSpeed;
-
             // Keep Y magnitude so as to not affect jump physics with speed clamp
             float yMag = mRb.velocity.y;
 
-            // Limit speed
-            Vector2 horizontalSpeed = new Vector2(mRb.velocity.x, mRb.velocity.z);
-            if (horizontalSpeed.magnitude > localMaxSpeed || horizontalSpeed.magnitude < -localMaxSpeed)
+            // Moves the character towards vector direction
+            // Speed limited by default as a result of normalized movement vector and localMaxSpeed multiplier
+            Vector2 movement = new Vector2(mRb.velocity.x, mRb.velocity.z);
+            Vector2 newMove = new Vector2(direction.x * localMaxSpeed, direction.z * localMaxSpeed);
+            if (newMove.magnitude > movement.magnitude)
             {
-                Vector2 temp = horizontalSpeed.normalized * localMaxSpeed;
-                mRb.velocity = new Vector3(temp.x, yMag, temp.y);
+            	if (CheckIfGrounded())
+           			movement = newMove;
+           		else
+           			//aerial control
+           			movement = Vector2.Lerp(movement, newMove, 0.07f);
             }
 
-            force = new Vector3(force.x, yMag, force.z);
-            mRb.AddForce(force, ForceMode.Force);
+            mRb.velocity = new Vector3(movement.x, yMag, movement.y);
+        }
+        else
+        {
+        	// Stop movement if no significant movement is present
+        	if (mRb.velocity.magnitude < new Vector3(0.1f, 0.1f, 0.1f).magnitude)
+    			mRb.velocity = new Vector3(0, 0, 0);
         }
     }
 
-    // Remap the local max speed
+    // Linear map
     float Remap(float val, float min1, float max1, float min2, float max2)
     {
         return (val - min1) / (max1 - min1) * (max2 - min2) + min2;
