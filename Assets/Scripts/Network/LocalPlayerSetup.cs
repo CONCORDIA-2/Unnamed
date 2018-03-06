@@ -63,4 +63,9 @@ public class LocalPlayerSetup : NetworkBehaviour
             }
         }
     }
+
+    public bool IsRaven()
+    {
+        return isRaven;
+    }
 }

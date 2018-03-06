@@ -16,17 +16,17 @@ public class SeesawSensors : MonoBehaviour {
 
     private void OnTriggerEnter (Collider collision)
     {
-        if (this.transform.name == "LeftSide") // && collision.IsRaven() for all checks
+        if (this.transform.name == "LeftSide" && (collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven() || collision.gameObject.tag == "HeavyPickable")) // && collision.IsRaven() for all checks
             SeeSawController.leftRaven = true;
-        else if (this.transform.name == "RightSide")
+        else if (this.transform.name == "RightSide" && (collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven() || collision.gameObject.tag == "HeavyPickable"))
             SeeSawController.rightRaven = true;
     }
 
     private void OnTriggerExit(Collider collision)
     {
-        if (this.transform.name == "LeftSide")
+        if (this.transform.name == "LeftSide" && (collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven() || collision.gameObject.tag == "HeavyPickable"))
             SeeSawController.leftRaven = false;
-        else if (this.transform.name == "RightSide")
+        else if (this.transform.name == "RightSide" && (collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven() || collision.gameObject.tag == "HeavyPickable"))
             SeeSawController.rightRaven = false;
     }
 }
