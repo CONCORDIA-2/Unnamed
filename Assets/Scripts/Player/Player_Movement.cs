@@ -10,9 +10,9 @@ public class Player_Movement : NetworkBehaviour
     [Header("Jump")]
     // Rabbit: 290.0f (old) | initial: 8.0f, extra 250.0f
     // Raven: 260.0f (old) | initial: 7.0f, extra 250.0f
-    public float mInitialJumpPower;
-    public float mExtraJumpPower;
-    private float mMaxExtraJumpTime = 0.3f;
+    public float mInitialJumpPower = 160;
+    public float mExtraJumpPower = 17;
+    private float mMaxExtraJumpTime = 0.5f;
     private float mJumpTimer = 0.0f;
     private float mDelayToExtraJumpForce = 0.25f;
     private bool mWasJumping = false;
@@ -132,15 +132,16 @@ public class Player_Movement : NetworkBehaviour
         // Makes the character jump toward the Y axis
         if (mWasJumping)
         {
-            mRb.AddForce(new Vector3(0.0f, mInitialJumpPower, 0.0f), ForceMode.VelocityChange);
+            mRb.AddForce(new Vector3(0.0f, mInitialJumpPower, 0.0f), ForceMode.Impulse);
             mWasJumping = false;
         }
 
-        if (mIsJumping && Time.time - mJumpTimer > mDelayToExtraJumpForce)
+        if (mIsJumping)
         {
             mRb.AddForce(new Vector3(0.0f, mExtraJumpPower, 0.0f), ForceMode.Acceleration);
-            mIsJumping = false;
-        }
+            if (Time.time - mJumpTimer > mDelayToExtraJumpForce)
+            	mIsJumping = false;
+        } 
     }
 
     // Function that checks if the player is grounded
