@@ -38,7 +38,7 @@ public class Player_Movement : NetworkBehaviour
 
     private void Update()
     {
-        if (isLocalPlayer)
+        if (isLocalPlayer && !PauseMenuController.isPaused)
         {
             // If the player is grounded, they can jump
             if ((Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 0")) && CheckIfGrounded())
@@ -58,7 +58,7 @@ public class Player_Movement : NetworkBehaviour
     private void FixedUpdate()
     {
         // If the player is not hanging, they can move
-        if (isLocalPlayer)
+        if (isLocalPlayer && !PauseMenuController.isPaused)
         {
             if (!mPlayerClimbing.GetIsHanging())
                 Move();
