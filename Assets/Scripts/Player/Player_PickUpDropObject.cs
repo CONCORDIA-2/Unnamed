@@ -41,13 +41,6 @@ public class Player_PickUpDropObject : NetworkBehaviour
                 else if (mObjectInRange && mPlayerMovement.CheckIfGrounded())
                     CmdPickupObject();
             }
-
-            //if (mObjectInHands)
-            //{
-            //    // Keeps the object in hands at the same position and orientation
-            //    mObjectInHands.transform.localPosition = mCharacterHands.localPosition;
-            //    mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-            //}
         }
 
         if (mObjectInHands)

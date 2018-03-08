@@ -8,12 +8,17 @@ public class Player_Movement : NetworkBehaviour
     public float mMaxSpeed = 3.0f;
 
     [Header("Jump")]
-    //rabbit: 290
-    //raven: 260
-    public float mJumpPower = 260.0f;
+    // Rabbit: 290.0f (old) | initial: 8.0f, extra 250.0f
+    // Raven: 260.0f (old) | initial: 7.0f, extra 250.0f
+    public float mInitialJumpPower;
+    public float mExtraJumpPower;
+    private float mMaxExtraJumpTime = 0.3f;
+    private float mJumpTimer = 0.0f;
+    private float mDelayToExtraJumpForce = 0.25f;
+    private bool mWasJumping = false;
+    private bool mIsJumping = false;
 
     private float mDistanceToGround;
-    private bool mWasJumping = false;
 
     // Orientation
     private float mRotationDegreesPerSecond = 400f;
@@ -33,11 +38,20 @@ public class Player_Movement : NetworkBehaviour
 
     private void Update()
     {
-        // If the player is grounded, they can jump
         if (isLocalPlayer)
         {
-            if (CheckIfGrounded())
-                Jump();
+            // If the player is grounded, they can jump
+            if ((Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 0")) && CheckIfGrounded())
+            {
+                mIsJumping = true;
+                mWasJumping = true;
+                mJumpTimer = Time.time;
+            }
+
+            if ((Input.GetKeyUp("space") || Input.GetKeyUp("joystick button 0")) || Time.time - mJumpTimer > mMaxExtraJumpTime)
+            {
+                mIsJumping = false;
+            }
         }
     }
 
@@ -48,6 +62,9 @@ public class Player_Movement : NetworkBehaviour
         {
             if (!mPlayerClimbing.GetIsHanging())
                 Move();
+
+            if (mIsJumping || mWasJumping)
+                Jump();
 
             // Add additional downard force to ground player
         	mRb.AddForce(new Vector3(0.0f, -90.0f, 0.0f), ForceMode.Force);
@@ -112,12 +129,17 @@ public class Player_Movement : NetworkBehaviour
     // Function that takes the joystick button input for the character to jump
     private void Jump()
     {
-        // If the player has pressed the spacebar and its character is grounded
-        if ((Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 0")) && CheckIfGrounded())
+        // Makes the character jump toward the Y axis
+        if (mWasJumping)
         {
-            // Makes the character jump toward the Y axis
-            mRb.AddForce(new Vector3(0.0f, mJumpPower, 0.0f), ForceMode.Impulse);
-            SetWasJumping(true);
+            mRb.AddForce(new Vector3(0.0f, mInitialJumpPower, 0.0f), ForceMode.VelocityChange);
+            mWasJumping = false;
+        }
+
+        if (mIsJumping && Time.time - mJumpTimer > mDelayToExtraJumpForce)
+        {
+            mRb.AddForce(new Vector3(0.0f, mExtraJumpPower, 0.0f), ForceMode.Acceleration);
+            mIsJumping = false;
         }
     }
 

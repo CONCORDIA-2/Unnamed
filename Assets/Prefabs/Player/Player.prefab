@@ -1381,7 +1381,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaxSpeed: 3
-  mJumpPower: 260
+  mInitialJumpPower: 10
+  mExtraJumpPower: 20
 --- !u!114 &114364539142335488
 MonoBehaviour:
   m_ObjectHideFlags: 1
