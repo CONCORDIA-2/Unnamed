@@ -94,6 +94,7 @@ public class SanityAndLight : MonoBehaviour {
 	            	if (distance < safeLightingRadius)
 	            	{
 	            		isIncapacitated = false;
+                        CritterController.playerIsDown = false;
 	            	}
 	            }
 	            else

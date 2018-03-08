@@ -8,8 +8,9 @@ using UnityEngine.Networking;
 public class CritterController : NetworkBehaviour
 {
     private CritterController instance;
+    public CritterSpawner mySpawner;
     public static bool playerIsDown = false; //True after a successful attack, must set false again after players revive one another
-    public static bool separatedTooLong = false;
+    public bool separatedTooLong = false;
 
     public NavMeshAgent agent;
     public GameObject player1, player2, guardLocation;
@@ -18,7 +19,7 @@ public class CritterController : NetworkBehaviour
 
     public float player1Sanity, player2Sanity;
     public float acceptableDistanceToGoal = 1;
-    public float attackDistance = 2;
+    private float attackDistance = 4;
 
     public bool foundPlayers = false;
 
@@ -31,16 +32,19 @@ public class CritterController : NetworkBehaviour
         localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager");
         if (localPlayerManager)
             localPlayerManagerScript = localPlayerManager.GetComponent<LocalPlayerManager>();
-            
+
         Spawn();
     }
 
     private void Update()
     {
+        if (guardLocation == null)
+            guardLocation = mySpawner.guardLocation;
         if (foundPlayers && root == null)
         {
             root = BuildTree(instance);
-        } else
+        }
+        else
         {
             Spawn();
         }
@@ -48,6 +52,8 @@ public class CritterController : NetworkBehaviour
         player2Sanity = player2.GetComponent<SanityAndLight>().sanityLevel;
         if (player1Sanity <= 5 || player2Sanity <= 5)
             separatedTooLong = true;
+        else
+            separatedTooLong = false;
         root.Process();
     }
 
@@ -55,11 +61,11 @@ public class CritterController : NetworkBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            //Need to tell player it is dead and play attack animation
+            //Need to play attack animation
             playerIsDown = true;
             collision.gameObject.GetComponent<SanityAndLight>().isIncapacitated = playerIsDown;
             Debug.Log("Hit " + collision.gameObject.tag);
-            CritterSpawner.critterCount--;
+            mySpawner.critterCount--;
             UnityEngine.Object.Destroy(instance.agent.gameObject);
         }
     }
@@ -71,7 +77,7 @@ public class CritterController : NetworkBehaviour
 
         getPlayers();
 
-        guardLocation = GameObject.FindGameObjectWithTag("Guard");
+        agent.speed = Random.Range(3, 5);
     }
 
     private void getPlayers()
@@ -88,7 +94,7 @@ public class CritterController : NetworkBehaviour
         Selector sl1 = new Selector(instance, 3), sl2 = new Selector(instance, 2);
         Sequence sq1 = new Sequence(instance, 2), sq2 = new Sequence(instance, 2), sq3 = new Sequence(instance, 2);
 
-      
+
         root.child = sl1;
         sl1.children[0] = sq1;
         sl1.children[1] = sq3;
@@ -105,7 +111,7 @@ public class CritterController : NetworkBehaviour
 
         sl2.children[0] = new ProximityAttack(instance);
         sl2.children[1] = new TimedAttack(instance);
-        
+
 
         return root;
     }
@@ -139,6 +145,10 @@ public class CritterController : NetworkBehaviour
             return player2;
     }
 
+    public float getAttackDistance()
+    {
+        return attackDistance;
+    }
 }
 
 public enum NodeStatus { SUCCESS, FAILURE, RUNNING }
@@ -269,29 +279,37 @@ public class WalkTo : TreeNode
     public GameObject goal;
     public float acceptableDistanceToGoal;
 
+    //For chasing a player
+    bool attackingPlayer = false;
+
     public WalkTo(GameObject goal, CritterController instance)
     {
         this.goal = goal;
         this.instance = instance;
+        if (goal.tag == "Player")
+            attackingPlayer = true;
     }
 
     public override NodeStatus Process()
     {
-        Debug.Log("Walking to: " + this.goal.name);
+        //Debug.Log("Walking to: " + this.goal.name);
         instance.agent.destination = goal.transform.position;    //Move to the potentially moving goal (player, guard station, or exit)
-        if (instance.agent.remainingDistance < acceptableDistanceToGoal)
-        {
-            Debug.Log("Made it to " + goal);
+        bool inRadius = Vector3.Distance(instance.guardLocation.transform.position, goal.transform.position) < instance.getAttackDistance();
+
+        if (instance.agent.remainingDistance < acceptableDistanceToGoal)   //Managed to hit a player (or reached the guard spot)
             return NodeStatus.SUCCESS;
-        }
-        else
+        else if (attackingPlayer && inRadius) //A player is too close to the guard spot, insane or not
             return NodeStatus.RUNNING;
+        else if (attackingPlayer && !instance.separatedTooLong) //players have returned to safety with one another
+            return NodeStatus.FAILURE;
+        else
+            return NodeStatus.RUNNING;      //None of the above, still in pursuit
     }
 
 }
 
 public class Retreat : Decorator
-{ 
+{
 
     public Retreat(GameObject goal, CritterController instance)
     {
@@ -335,13 +353,18 @@ public class ProximityAttack : TreeNode
 
     public override NodeStatus Process()
     {
-        if (instance.FindDistanceToPlayer(instance.FindClosestPlayer()) <= instance.attackDistance && !CritterController.playerIsDown)
+        GameObject closePlayer = instance.FindClosestPlayer();
+        bool inRadius = Vector3.Distance(instance.guardLocation.transform.position, closePlayer.transform.position) < instance.getAttackDistance();
+        Debug.Log("Closest player's distance to guardLocation = " + Vector3.Distance(instance.guardLocation.transform.position, closePlayer.transform.position));
+        if (!CritterController.playerIsDown && inRadius)
         {
-            //Debug.Log("Proximity attack initiated");
+            Debug.Log("Proximity attack initiated");
             return NodeStatus.SUCCESS;
         }
         else
         {
+            if (!inRadius)
+                Debug.Log("Not in radius");
             return NodeStatus.FAILURE;
         }
     }
@@ -356,7 +379,7 @@ public class TimedAttack : TreeNode
 
     public override NodeStatus Process()
     {
-        if (CritterController.separatedTooLong && !CritterController.playerIsDown)
+        if (instance.separatedTooLong && !CritterController.playerIsDown)
         {
             //Debug.Log("Timed attack available");
             return NodeStatus.SUCCESS;

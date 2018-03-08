@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c1f982b84880640815d6a2826be950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySpawner: {fileID: 0}
+  separatedTooLong: 0
   agent: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
@@ -105,7 +107,7 @@ MonoBehaviour:
   player1Sanity: 0
   player2Sanity: 0
   acceptableDistanceToGoal: 1
-  attackDistance: 2
+  attackDistance: 6
   foundPlayers: 0
   localPlayerManagerScript: {fileID: 0}
   localPlayerManager: {fileID: 0}
