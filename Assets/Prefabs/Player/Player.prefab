@@ -473,6 +473,7 @@ GameObject:
   - component: {fileID: 114958409300139106}
   - component: {fileID: 114364539142335488}
   - component: {fileID: 114649507191548084}
+  - component: {fileID: 114361086482042162}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1383,6 +1384,22 @@ MonoBehaviour:
   mMaxSpeed: 3
   mInitialJumpPower: 160
   mExtraJumpPower: 17
+--- !u!114 &114361086482042162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1740278921419122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46b0fb9357b0404f8ea26b1dc52409f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 0}
+  playerSetup: {fileID: 0}
+  spawnLocation: {fileID: 0}
+  instance: {fileID: 0}
+  otherPlayer: {fileID: 0}
 --- !u!114 &114364539142335488
 MonoBehaviour:
   m_ObjectHideFlags: 1

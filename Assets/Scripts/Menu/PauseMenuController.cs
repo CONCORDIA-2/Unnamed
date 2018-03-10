@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class PauseMenuController : MonoBehaviour
+public class PauseMenuController : NetworkBehaviour
 {
 
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
     public Button resume;
+    public Text resetText;
 
     // Update is called once per frame
     void Update()
@@ -33,5 +35,7 @@ public class PauseMenuController : MonoBehaviour
         pauseMenuUI.SetActive(true);
         isPaused = true;
         resume.Select();
+        if (!isServer)
+            resetText.text = "Ask host if you need to reset";
     }
 }
