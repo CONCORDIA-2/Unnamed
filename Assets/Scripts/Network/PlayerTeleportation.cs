@@ -6,8 +6,7 @@ using UnityEngine.Networking;
 public class PlayerTeleportation : NetworkBehaviour
 {
     public LocalPlayerManager playerManager;
-    public LocalPlayerSetup playerSetup;
-    public Transform spawnLocation;
+    public static Transform spawnLocation;
     public GameObject instance, otherPlayer;
     private bool isPlayer = false;
     private Vector3 spawnOffset;
@@ -17,7 +16,7 @@ public class PlayerTeleportation : NetworkBehaviour
     // Use this for initialization
     void Awake()
     {
-        spawnLocation = GameObject.FindGameObjectWithTag("Checkpoint").transform;
+        spawnLocation = GameObject.FindGameObjectWithTag("Checkpoint").transform;   //TEMPORARY SET UP FOR CHECKPOINTS
         playerManager = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>();
         isPlayer = true;
         spawnOffset = new Vector3(0, 0, 1f);
@@ -26,11 +25,10 @@ public class PlayerTeleportation : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (instance == null || playerSetup == null || otherPlayer == null)
+        if (instance == null || otherPlayer == null)
         {
             instance = playerManager.GetLocalPlayerObject();
             otherPlayer = playerManager.GetOtherPlayerObject();
-            playerSetup = instance.GetComponent<LocalPlayerSetup>();
         }
         if (reset)
         {
