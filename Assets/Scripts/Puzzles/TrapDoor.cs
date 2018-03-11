@@ -46,6 +46,9 @@ public class TrapDoor : MonoBehaviour
         }
         Destroy(this.gameObject.GetComponent<NavMeshSurface>());
 
+        transform.Find("Flap1").GetComponent<Rigidbody>().isKinematic = false;
+        transform.Find("Flap2").GetComponent<Rigidbody>().isKinematic = false;
+
         hinge1.limits = hingesActive;
         hinge2.limits = hingesActive;
 
