@@ -10,7 +10,6 @@ public class LocalPlayerManager : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
         worldCamera = GameObject.FindGameObjectWithTag("WorldCamera");
         ToggleWorldCamera(false);
     }
