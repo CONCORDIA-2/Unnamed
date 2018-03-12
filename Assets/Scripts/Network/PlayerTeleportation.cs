@@ -16,7 +16,7 @@ public class PlayerTeleportation : NetworkBehaviour
     // Use this for initialization
     void Awake()
     {
-        spawnLocation = GameObject.FindGameObjectWithTag("Checkpoint").transform;   //TEMPORARY SET UP FOR CHECKPOINTS
+        // spawnLocation = GameObject.FindGameObjectWithTag("Checkpoint").transform;   //TEMPORARY SET UP FOR CHECKPOINTS
         playerManager = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>();
         isPlayer = true;
         spawnOffset = new Vector3(0, 0, 1f);
