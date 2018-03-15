@@ -18,15 +18,14 @@ public class Player_PickUpDropObject : NetworkBehaviour
     // The object mass
     private float mExtraWeight;
 
-    // Bool variable to check if the gameobject is the Raven or the Rabbit
-    private bool mIsRaven;
-
     // Other attached script
     private Player_Movement mPlayerMovement;
+    private LocalPlayerSetup mLocalPlayerSetup;
 
     public override void OnStartLocalPlayer()
     {
         mPlayerMovement = GetComponent<Player_Movement>();
+        mLocalPlayerSetup = GetComponent<LocalPlayerSetup>();
     }
 
     private void Update()
@@ -34,7 +33,7 @@ public class Player_PickUpDropObject : NetworkBehaviour
         if (isLocalPlayer)
         {
             // Pick up / drop nearby item
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown("joystick button 1"))
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown("joystick button 2"))
             {
                 if (mObjectInHands)
                     CmdDropDownObject();
@@ -66,12 +65,12 @@ public class Player_PickUpDropObject : NetworkBehaviour
 
         // Check if an pickable object is in range
         if (Physics.Raycast(transform.position - new Vector3(0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayItemHit, 1f))
-            if (rayItemHit.transform.gameObject.tag == "Pickable" || (rayItemHit.transform.gameObject.tag == "Heavy Pickable" && mIsRaven))
+            if (rayItemHit.transform.gameObject.tag == "Pickable" || (rayItemHit.transform.gameObject.tag == "HeavyPickable" && mLocalPlayerSetup.IsRaven()))
             {
                 mObjectInRange = rayItemHit.transform.gameObject;
                 return;
             }
-            else if (rayItemHit.transform.gameObject.tag == "Heavy Pickable" && !mIsRaven)
+            else if (rayItemHit.transform.gameObject.tag == "Heavy Pickable" && !mLocalPlayerSetup.IsRaven())
             {
                 // Display feedback > Rabbit cannot pick up heavy objects
             }
@@ -117,6 +116,11 @@ public class Player_PickUpDropObject : NetworkBehaviour
             mObjectInHands.GetComponent<Rigidbody>().useGravity = false;
             mObjectInHands.GetComponent<Rigidbody>().velocity = Vector3.zero;
             mObjectInHands.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+            if (mObjectInHands.tag == "Pickable" || mObjectInHands.tag == "HeavyPickable")
+            {
+                mObjectInHands.GetComponent<ItemSFX>().SetParentPlayer(gameObject);
+            }
 
             SetIsHoldingObject(true);
         }

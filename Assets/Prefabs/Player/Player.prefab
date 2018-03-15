@@ -1703,7 +1703,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: 6d58eaabc045e7c4c8f714a9681ab20e, type: 3}
+  - {fileID: 8300000, guid: 8e054bf2e7b7fe349bfcd2125c0f9f8d, type: 3}
+  - {fileID: 8300000, guid: 4302ec2a5a08a734799d01274cdebae3, type: 3}
+  - {fileID: 8300000, guid: 65a4dcb8ce9701445b2df769fc1abd48, type: 3}
+  - {fileID: 8300000, guid: 71bf3104a81b72241b1e5ad71d6ed940, type: 3}
+  - {fileID: 8300000, guid: 2bb5eb53d97e88440a892caf74e8d49d, type: 3}
+  - {fileID: 8300000, guid: 63aba626313316a4d986d6025a9c4d3c, type: 3}
+  - {fileID: 8300000, guid: 4ce7502ee1a2ba347b3ddd7fcc051fdf, type: 3}
 --- !u!135 &135565233265597580
 SphereCollider:
   m_ObjectHideFlags: 1

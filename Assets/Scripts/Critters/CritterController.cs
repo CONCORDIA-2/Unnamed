@@ -55,6 +55,9 @@ public class CritterController : NetworkBehaviour
         else
             separatedTooLong = false;
         root.Process();
+
+        if (agent.velocity == Vector3.zero)
+            GetComponent<PlayerAudio>().CmdPlayClipId(0, true, false);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -148,6 +151,11 @@ public class CritterController : NetworkBehaviour
     public float getAttackDistance()
     {
         return attackDistance;
+    }
+
+    public void PlaySFX_Crittersteps()
+    {
+        GetComponent<PlayerAudio>().CmdPlayClipId(0, false, false);
     }
 }
 

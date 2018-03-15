@@ -28,11 +28,13 @@ public class Player_Movement : NetworkBehaviour
 
     // Other attached script
     private Player_Climbing mPlayerClimbing;
+    private PlayerAudio mPlayerAudio;
 
     public override void OnStartLocalPlayer()
     {
         mRb = GetComponent<Rigidbody>();
         mPlayerClimbing = GetComponent<Player_Climbing>();
+        mPlayerAudio = GetComponent<PlayerAudio>();
         mDistanceToGround = GetComponent<Collider>().bounds.extents.y + 0.1f;
     }
 
@@ -111,6 +113,7 @@ public class Player_Movement : NetworkBehaviour
             }
 
             mRb.velocity = new Vector3(movement.x, yMag, movement.y);
+
         }
         else
         {
@@ -160,5 +163,13 @@ public class Player_Movement : NetworkBehaviour
     public void SetWasJumping(bool wasJumping)
     {
         mWasJumping = wasJumping;
+    }
+
+    public void PlaySFX_Footsteps()
+    {
+        if (CheckIfGrounded())
+        {
+            mPlayerAudio.CmdPlayClipId(Random.Range(0, 8), false, false);
+        }
     }
 }
