@@ -6,7 +6,7 @@ public class ItemSFX : MonoBehaviour
 {
     public AudioClip[] mAudioClips;
 
-    private GameObject mParentPlayer;
+    private GameObject mLocalPlayer;
     private AudioSource mAudioSource;
 
     private void Start()
@@ -14,20 +14,34 @@ public class ItemSFX : MonoBehaviour
         mAudioSource = GetComponent<AudioSource>();
     }
 
+    private void Update()
+    {
+        if (!mLocalPlayer)
+            FindLocalPlayer();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (mParentPlayer && collision.transform.tag != "Player" )
+        if (mLocalPlayer && collision.transform.tag != "Player")
         {
-            mAudioSource.clip = mAudioClips[Random.Range(0, mAudioClips.Length)];
-            mParentPlayer.GetComponent<PlayerAudio>().CmdPlayClipFromSource(gameObject);
+            PlaySFX();
 
-            if (!mParentPlayer.GetComponent<Player_PickUpDropObject>().GetIsHoldingObject())
-                mParentPlayer = null;
+            if (GetComponent<Rigidbody>().velocity == Vector3.zero)
+                mLocalPlayer = null;
         }
     }
 
-    public void SetParentPlayer(GameObject parent)
+    public void PlaySFX()
     {
-        mParentPlayer = parent;
+        mAudioSource.clip = mAudioClips[Random.Range(0, mAudioClips.Length)];
+        PlayerAudio playerAudio = mLocalPlayer.GetComponent<PlayerAudio>();
+        playerAudio.CmdPlayClipFromSource(gameObject);
+    }
+
+    public void FindLocalPlayer()
+    {
+        GameObject localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager");
+        LocalPlayerManager localPlayerManagerScript = localPlayerManager.GetComponent<LocalPlayerManager>();
+        mLocalPlayer = localPlayerManagerScript.GetLocalPlayerObject();
     }
 }

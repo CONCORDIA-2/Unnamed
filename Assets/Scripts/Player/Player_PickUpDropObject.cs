@@ -119,7 +119,7 @@ public class Player_PickUpDropObject : NetworkBehaviour
 
             if (mObjectInHands.tag == "Pickable" || mObjectInHands.tag == "HeavyPickable")
             {
-                mObjectInHands.GetComponent<ItemSFX>().SetParentPlayer(gameObject);
+                mObjectInHands.GetComponent<ItemSFX>().PlaySFX();
             }
 
             SetIsHoldingObject(true);
