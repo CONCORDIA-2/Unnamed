@@ -23,17 +23,17 @@ public class FlapTrap : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven())
+        if (collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven())
             ravenIn = true;
-        else if (!collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven())
+        else if (collision.gameObject.tag == "Player" && !collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven())
             rabbitIn = true;
     }
 
     private void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven())
+        if (collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven())
             ravenIn = false;
-        else if (!collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven())
+        else if (collision.gameObject.tag == "Player" && !collision.gameObject.GetComponent<LocalPlayerSetup>().IsRaven())
             rabbitIn = false;
     }
 }

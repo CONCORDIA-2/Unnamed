@@ -22,8 +22,7 @@ public class InteractableSpawn : NetworkBehaviour
         if ((reset || instance == null) && isServer)
         {
             SpawnObject();
-            reset = false;
-            //StartCoroutine(WaitAndReset());
+            StartCoroutine(WaitAndReset());
         }
     }
 
@@ -41,12 +40,12 @@ public class InteractableSpawn : NetworkBehaviour
         reset = newReset;
     }
     */
-    /*
+    
     public IEnumerator WaitAndReset()
     {
         yield return new WaitForSeconds(0.2f);
         reset = false;
     }
-    */
+    
 
 }
