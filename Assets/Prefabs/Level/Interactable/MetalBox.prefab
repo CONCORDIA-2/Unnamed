@@ -23,9 +23,11 @@ GameObject:
   - component: {fileID: 23347333462340996}
   - component: {fileID: 65646053101177126}
   - component: {fileID: 54888005546526530}
+  - component: {fileID: 114623500436911508}
+  - component: {fileID: 114820829653201852}
   m_Layer: 0
   m_Name: MetalBox
-  m_TagString: Untagged
+  m_TagString: Pickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,3 +113,49 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.01, y: 0.009999998, z: 0.009999998}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114623500436911508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1909043793584834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 52
+    i1: 75
+    i2: 194
+    i3: 128
+    i4: 192
+    i5: 57
+    i6: 239
+    i7: 212
+    i8: 136
+    i9: 94
+    i10: 50
+    i11: 130
+    i12: 185
+    i13: 150
+    i14: 232
+    i15: 78
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114820829653201852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1909043793584834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6317d8b39da4584e8de804204561195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPickable: 1
+  rb: {fileID: 0}
+  ntwrkT: {fileID: 0}

@@ -23,9 +23,11 @@ GameObject:
   - component: {fileID: 23543984991180348}
   - component: {fileID: 65060859057666020}
   - component: {fileID: 54997605391691088}
+  - component: {fileID: 114060547074533716}
+  - component: {fileID: 114234377654192772}
   m_Layer: 0
   m_Name: Crate
-  m_TagString: Untagged
+  m_TagString: Pickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,3 +113,49 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.01, y: 0.009999998, z: 0.009999998}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114060547074533716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1774586451610610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 8
+    i1: 246
+    i2: 122
+    i3: 89
+    i4: 55
+    i5: 170
+    i6: 81
+    i7: 228
+    i8: 233
+    i9: 1
+    i10: 32
+    i11: 148
+    i12: 245
+    i13: 171
+    i14: 69
+    i15: 50
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114234377654192772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1774586451610610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6317d8b39da4584e8de804204561195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPickable: 1
+  rb: {fileID: 0}
+  ntwrkT: {fileID: 0}
