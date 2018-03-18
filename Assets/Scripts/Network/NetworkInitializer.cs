@@ -7,6 +7,10 @@ using UnityEngine.Networking;
 public class NetworkInitializer : NetworkDiscovery
 {
     [SerializeField] private NetworkManager manager;
+    [SerializeField] private NetworkManagerHUD hud;
+
+    // set this to "false" when you want to get rid of the HUD
+    [SerializeField] private bool useHUD = true;
 
     // used in testing to turn off "Host Game - Join Game" UI
     //[SerializeField] private GameObject connectionUI;
@@ -19,14 +23,24 @@ public class NetworkInitializer : NetworkDiscovery
 
     private void Awake()
     {
-        broadcastKey = discoverKey;
-        broadcastPort = discoveryPort;
-        useNetworkManager = true;
-        showGUI = false;
-        manager = GetComponent<NetworkManager>();
-        manager.networkPort = port;
+        hud = GetComponent<NetworkManagerHUD>();
+        if (!useHUD)
+        {
+            hud.enabled = false;
 
-        //connectionUI = GameObject.FindGameObjectWithTag("ConnectionUI");
+            broadcastKey = discoverKey;
+            broadcastPort = discoveryPort;
+            useNetworkManager = true;
+            showGUI = false;
+            manager = GetComponent<NetworkManager>();
+            manager.networkPort = port;
+        }
+        else
+        {
+            enabled = false;
+        }
+
+        //connectionUI = GameObject.Find("ConnectionUI");
     }
 
     public void StartHost()
