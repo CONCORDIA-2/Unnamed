@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.16470589, g: 0.19607843, b: 0.23529412, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -6006,7 +6006,7 @@ MonoBehaviour:
   MapToLDR: 0
   RemoveColorBanding: 1
   MatrixVP:
-    e00: 0.9745672
+    e00: 1.2343141
     e01: 0
     e02: 0
     e03: 0
@@ -6023,7 +6023,7 @@ MonoBehaviour:
     e32: 0.9659259
     e33: 18.547035
   LastMatrixVP:
-    e00: 0.9745672
+    e00: 1.2343141
     e01: 0
     e02: 0
     e03: 0
