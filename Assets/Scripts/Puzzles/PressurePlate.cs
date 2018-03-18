@@ -10,6 +10,7 @@ public class PressurePlate : MonoBehaviour
     public Transform raised, lowered;
     public float speed = 0.1f;
     private float startTime, journeyLength;
+    public int currentCollisionsCount = 0;
 
     // Use this for initialization
     void Start()
@@ -41,16 +42,28 @@ public class PressurePlate : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        startTime = Time.time;
-        pressed = true;
-        used = true;
+    	if (collision.gameObject.tag == "Player" || (collision.gameObject.tag == "Pickable" && collision.gameObject.GetComponent<Rigidbody>().mass > 2))
+    	{
+    		startTime = Time.time;
+       		pressed = true;
+        	used = true;
+        	currentCollisionsCount++;
+    	}
+
        // startTime = Time.time;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        startTime = Time.time;
-        pressed = false;
-       // startTime = Time.time;
+    	if (collision.gameObject.tag == "Player" || (collision.gameObject.tag == "Pickable" && collision.gameObject.GetComponent<Rigidbody>().mass > 2))
+    	{
+    		currentCollisionsCount--;
+	    	if (currentCollisionsCount < 1)
+	    	{
+	        startTime = Time.time;
+	        pressed = false;
+	        // startTime = Time.time;
+	    	}
+    	}
     }
 }
