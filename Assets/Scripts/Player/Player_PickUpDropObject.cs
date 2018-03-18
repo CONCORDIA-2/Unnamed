@@ -39,7 +39,7 @@ public class Player_PickUpDropObject : NetworkBehaviour
                 if (mObjectInHands)
                     CmdDropDownObject();
                 else if (mObjectInRange && mPlayerMovement.CheckIfGrounded())
-                    CmdPickupObject();
+                    CmdPickupObject(mObjectInRange);
             }
         }
 
@@ -81,15 +81,21 @@ public class Player_PickUpDropObject : NetworkBehaviour
 
     // Pick up a nearby object
     [Command]
-    private void CmdPickupObject()
+    private void CmdPickupObject(GameObject obj)
     {
-        Pickable pickable = mObjectInRange.GetComponent<Pickable>();
+        RpcPickupObject(obj);
+    }
+
+    [ClientRpc]
+    public void RpcPickupObject(GameObject obj)
+    {
+        Pickable pickable = obj.GetComponent<Pickable>();
 
         // [Ben]: only pick up object if not already picked up
         if (pickable && pickable.IsPickable())
         {
             // Put the object in range into the player hands
-            mObjectInHands = mObjectInRange;
+            mObjectInHands = obj;
             mObjectInHands.transform.parent = transform;
 
             // [Ben]: toggle object pickable
@@ -120,8 +126,12 @@ public class Player_PickUpDropObject : NetworkBehaviour
     [Command]
     private void CmdDropDownObject()
     {
-        Debug.Log("received drop down command");
+        RpcDropDownObject();
+    }
 
+    [ClientRpc]
+    public void RpcDropDownObject()
+    {
         // Re-Enable the use of gravity on the object and remove all constraints
         mObjectInHands.GetComponent<Rigidbody>().useGravity = true;
         mObjectInHands.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -158,20 +168,12 @@ public class Player_PickUpDropObject : NetworkBehaviour
     [Command]
     void CmdSetPickable(GameObject obj, bool toggle)
     {
-        Debug.Log("sending command");
-        Pickable pickable = obj.GetComponent<Pickable>();
-
-        if (pickable)
-        {
-            pickable.SetPickable(toggle);
-            RpcSetPickable(obj, toggle);
-        }
+        RpcSetPickable(obj, toggle);
     }
 
     [ClientRpc]
     void RpcSetPickable(GameObject obj, bool toggle)
     {
-        Debug.Log("executing rpc");
         Pickable pickable = obj.GetComponent<Pickable>();
 
         if (pickable)

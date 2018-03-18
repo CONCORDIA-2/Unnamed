@@ -9,8 +9,8 @@ public class PauseMenuController : NetworkBehaviour
 
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
-    public Button resume;
-    public Text resetText;
+    public Button resume, reset;
+    private Text resetText;
 
     // Update is called once per frame
     void Update()
@@ -36,6 +36,9 @@ public class PauseMenuController : NetworkBehaviour
         isPaused = true;
         resume.Select();
         if (!isServer)
+        {
+            reset.interactable = false;
             resetText.text = "Ask host if you need to reset";
+        }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class FetchQuest : MonoBehaviour {
 
-    public GameObject toFetch;
+    public string toFetch;
     public bool succeeded = false;
     public Text successText;
 
@@ -31,7 +31,7 @@ public class FetchQuest : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (GameObject.ReferenceEquals(collision.gameObject, toFetch))
+        if (collision.gameObject.name == toFetch)
         {
             succeeded = true;
             collision.gameObject.SetActive(false);

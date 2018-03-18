@@ -1103,7 +1103,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1193,7 +1193,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1207,7 +1207,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.5, z: 0.5}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 3.27, y: -0.125, z: -12.57}
+  m_ConnectedAnchor: {x: 0.05, y: -0.125, z: -15.96}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -1309,7 +1309,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.5, z: 0.5}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 3.27, y: -0.125, z: -10.17}
+  m_ConnectedAnchor: {x: 0.05, y: -0.125, z: -13.56}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -1597,8 +1597,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a91bed414a8bf45a306c4cc497e359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterContact: {fileID: 0}
-  deathByWater: 0
   agent: {fileID: 0}
   guardLocation: {fileID: 0}
   wanderRadius: 0
@@ -1668,8 +1666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a91bed414a8bf45a306c4cc497e359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterContact: {fileID: 0}
-  deathByWater: 0
   agent: {fileID: 0}
   guardLocation: {fileID: 0}
   wanderRadius: 0
@@ -1707,8 +1703,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a91bed414a8bf45a306c4cc497e359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterContact: {fileID: 0}
-  deathByWater: 0
   agent: {fileID: 0}
   guardLocation: {fileID: 0}
   wanderRadius: 0
@@ -1771,8 +1765,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a91bed414a8bf45a306c4cc497e359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterContact: {fileID: 0}
-  deathByWater: 0
   agent: {fileID: 0}
   guardLocation: {fileID: 0}
   wanderRadius: 0

@@ -23,8 +23,6 @@ public class Pickable : NetworkBehaviour
     
     public void SetPickable(bool toggle)
     {
-        Debug.Log("setting pickable");
-
         // set velocity to zero to prevent flying out Team Rocket-style
         if (!toggle)
             rb.velocity = Vector3.zero;
@@ -42,5 +40,20 @@ public class Pickable : NetworkBehaviour
             : NetworkTransform.TransformSyncMode.SyncTransform;
 
         isPickable = toggle;
+
+        // an example of where to call audio clips with interactables
+        //ExampleAudioFunction();
+    }
+
+    public void ExampleAudioFunction()
+    {
+        // just an example of how audio would be called from an interactable
+        GameObject localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager");
+        LocalPlayerManager localPlayerManagerScript = localPlayerManager.GetComponent<LocalPlayerManager>();
+
+        GameObject localPlayer = localPlayerManagerScript.GetLocalPlayerObject();
+        PlayerAudio playerAudio = localPlayer.GetComponent<PlayerAudio>();
+
+        playerAudio.CmdPlayClipFromSource(gameObject);
     }
 }
