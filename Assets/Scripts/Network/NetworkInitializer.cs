@@ -10,7 +10,7 @@ public class NetworkInitializer : NetworkDiscovery
     [SerializeField] private NetworkManagerHUD hud;
 
     // set this to "false" when you want to get rid of the HUD
-    [SerializeField] private bool useHUD = true;
+    [SerializeField] private bool useHUD = false;
 
     // used in testing to turn off "Host Game - Join Game" UI
     //[SerializeField] private GameObject connectionUI;
