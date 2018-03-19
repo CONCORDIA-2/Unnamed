@@ -21,11 +21,13 @@ public class Player_PickUpDropObject : NetworkBehaviour
     // Other attached script
     private Player_Movement mPlayerMovement;
     private LocalPlayerSetup mLocalPlayerSetup;
+    private PlayerAnimation mPlayerAnimation;
 
     public override void OnStartLocalPlayer()
     {
         mPlayerMovement = GetComponent<Player_Movement>();
         mLocalPlayerSetup = GetComponent<LocalPlayerSetup>();
+        mPlayerAnimation = GetComponent<PlayerAnimation>();
     }
 
     private void Update()
@@ -64,7 +66,8 @@ public class Player_PickUpDropObject : NetworkBehaviour
         RaycastHit rayItemHit;
 
         // Check if an pickable object is in range
-        if (Physics.Raycast(transform.position - new Vector3(0.0f, 0.5f, 0.0f), transform.TransformDirection(Vector3.forward), out rayItemHit, 1f))
+        Debug.DrawRay(transform.position - new Vector3(0.0f, 0.0f, 0.0f), transform.TransformDirection(Vector3.forward), Color.blue);
+        if (Physics.Raycast(transform.position - new Vector3(0.0f, 0.0f, 0.0f), transform.TransformDirection(Vector3.forward), out rayItemHit, 1f))
             if (rayItemHit.transform.gameObject.tag == "Pickable" || (rayItemHit.transform.gameObject.tag == "HeavyPickable" && mLocalPlayerSetup.IsRaven()))
             {
                 mObjectInRange = rayItemHit.transform.gameObject;
@@ -109,7 +112,7 @@ public class Player_PickUpDropObject : NetworkBehaviour
             Vector3 playerSize = GetComponent<Collider>().bounds.size;
 
             // Reposition the player hands (location) and rotate the object
-            mCharacterHands.localPosition = new Vector3(0.0f, 2.75f * playerSize.y / 5.0f + objectSize.y / 2.0f, 0.0f);
+            mCharacterHands.localPosition = new Vector3(0.0f, playerSize.y + objectSize.y / 2.0f, 0.0f);
             mObjectInHands.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
             // Disable the use of gravity of the object, remove the velocity on it and add constraints to it
@@ -121,6 +124,9 @@ public class Player_PickUpDropObject : NetworkBehaviour
             {
                 mObjectInHands.GetComponent<ItemSFX>().PlaySFX();
             }
+
+            mPlayerAnimation.CmdSetBool("isLifting", true);
+            mPlayerAnimation.CmdSetBool("isIdle", false);
 
             SetIsHoldingObject(true);
         }
@@ -155,6 +161,9 @@ public class Player_PickUpDropObject : NetworkBehaviour
         mObjectInHands.transform.parent = null;
         mObjectInHands = null;
         SetIsHoldingObject(false);
+
+        mPlayerAnimation.CmdSetBool("isLifting", false);
+        mPlayerAnimation.CmdSetBool("isIdle", true);
     }
 
     // Get the value of mIsHoldingObject

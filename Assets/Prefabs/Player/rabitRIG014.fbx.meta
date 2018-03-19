@@ -1,0 +1,240 @@
+fileFormatVersion: 2
+guid: 9367fb2a30a0a64478fb482b3ed5df6e
+timeCreated: 1521413862
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Armature
+    100002: ArmL01
+    100004: ArmL01_end
+    100006: ArmL02
+    100008: ArmR01
+    100010: ArmR01_end
+    100012: ArmR02
+    100014: Bone
+    100016: Bone.008
+    100018: Bone.009
+    100020: Bone.010
+    100022: Bone.011
+    100024: Bone.011_end
+    100026: Bone.022
+    100028: Bone.023
+    100030: Bone.024
+    100032: Bone.025
+    100034: Bone.025_end
+    100036: Character
+    100038: Cube.001
+    100040: Cube.002
+    100042: Cube.003
+    100044: Head
+    100046: IKAL
+    100048: IKAL.001
+    100050: IKAL.001_end
+    100052: IKAL_end
+    100054: IKEL
+    100056: IKEL.001
+    100058: IKEL.001_end
+    100060: IKEL_end
+    100062: IKLL
+    100064: IKLL.001
+    100066: IKLL.001_end
+    100068: IKLL_end
+    100070: IKScarf
+    100072: IKScarf_end
+    100074: LegL01
+    100076: LegL01_end
+    100078: LegL02
+    100080: LegR01
+    100082: LegR01_end
+    100084: LegR02
+    100086: Plane
+    100088: PoleLA
+    100090: PoleLA.001
+    100092: PoleLA.001_end
+    100094: PoleLA_end
+    100096: PoleLE
+    100098: PoleLE.001
+    100100: PoleLE.001_end
+    100102: PoleLE_end
+    100104: PoleLL
+    100106: PoleLL.001
+    100108: PoleLL.001_end
+    100110: PoleLL_end
+    100112: //RootNode
+    100114: Scarf01
+    100116: Scarf01_end
+    100118: Scarf02
+    100120: Scarf03
+    100122: Scarf04
+    100124: Scarf05
+    100126: Scarf06
+    100128: Spine01
+    100130: Spine02
+    100132: Spine02_end
+    100134: Spine03
+    400000: Armature
+    400002: ArmL01
+    400004: ArmL01_end
+    400006: ArmL02
+    400008: ArmR01
+    400010: ArmR01_end
+    400012: ArmR02
+    400014: Bone
+    400016: Bone.008
+    400018: Bone.009
+    400020: Bone.010
+    400022: Bone.011
+    400024: Bone.011_end
+    400026: Bone.022
+    400028: Bone.023
+    400030: Bone.024
+    400032: Bone.025
+    400034: Bone.025_end
+    400036: Character
+    400038: Cube.001
+    400040: Cube.002
+    400042: Cube.003
+    400044: Head
+    400046: IKAL
+    400048: IKAL.001
+    400050: IKAL.001_end
+    400052: IKAL_end
+    400054: IKEL
+    400056: IKEL.001
+    400058: IKEL.001_end
+    400060: IKEL_end
+    400062: IKLL
+    400064: IKLL.001
+    400066: IKLL.001_end
+    400068: IKLL_end
+    400070: IKScarf
+    400072: IKScarf_end
+    400074: LegL01
+    400076: LegL01_end
+    400078: LegL02
+    400080: LegR01
+    400082: LegR01_end
+    400084: LegR02
+    400086: Plane
+    400088: PoleLA
+    400090: PoleLA.001
+    400092: PoleLA.001_end
+    400094: PoleLA_end
+    400096: PoleLE
+    400098: PoleLE.001
+    400100: PoleLE.001_end
+    400102: PoleLE_end
+    400104: PoleLL
+    400106: PoleLL.001
+    400108: PoleLL.001_end
+    400110: PoleLL_end
+    400112: //RootNode
+    400114: Scarf01
+    400116: Scarf01_end
+    400118: Scarf02
+    400120: Scarf03
+    400122: Scarf04
+    400124: Scarf05
+    400126: Scarf06
+    400128: Spine01
+    400130: Spine02
+    400132: Spine02_end
+    400134: Spine03
+    2100000: No Name
+    2300000: Cube.001
+    3300000: Cube.001
+    4300000: Cube.002
+    4300002: Plane
+    4300004: Cube.003
+    4300006: Character
+    4300008: Cube.001
+    7400000: Armature|Action.002
+    7400002: Armature|Idle
+    7400004: Armature|Lift
+    7400006: Armature|Run
+    9500000: //RootNode
+    13700000: Character
+    13700002: Cube.002
+    13700004: Cube.003
+    13700006: Plane
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

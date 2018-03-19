@@ -29,12 +29,14 @@ public class Player_Movement : NetworkBehaviour
     // Other attached script
     private Player_Climbing mPlayerClimbing;
     private PlayerAudio mPlayerAudio;
+    private PlayerAnimation mPlayerAnimation;
 
     public override void OnStartLocalPlayer()
     {
         mRb = GetComponent<Rigidbody>();
         mPlayerClimbing = GetComponent<Player_Climbing>();
         mPlayerAudio = GetComponent<PlayerAudio>();
+        mPlayerAnimation = GetComponent<PlayerAnimation>();
         mDistanceToGround = GetComponent<Collider>().bounds.extents.y + 0.1f;
     }
 
@@ -114,12 +116,19 @@ public class Player_Movement : NetworkBehaviour
 
             mRb.velocity = new Vector3(movement.x, yMag, movement.y);
 
+            Debug.Log(localMaxSpeed / mMaxSpeed);
+            mPlayerAnimation.CmdSetBool("isRunning", true);
+            mPlayerAnimation.CmdSetBool("isIdle", false);
         }
         else
         {
         	// Stop movement if no significant movement is present
         	if (mRb.velocity.magnitude < new Vector3(0.1f, 0.1f, 0.1f).magnitude)
-    			mRb.velocity = new Vector3(0, 0, 0);
+            {
+                mRb.velocity = new Vector3(0, 0, 0);
+                mPlayerAnimation.CmdSetBool("isRunning", false);
+                mPlayerAnimation.CmdSetBool("isIdle", true);
+            }
         }
     }
 
