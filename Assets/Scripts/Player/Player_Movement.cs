@@ -127,7 +127,10 @@ public class Player_Movement : NetworkBehaviour
             {
                 mRb.velocity = new Vector3(0, 0, 0);
                 mPlayerAnimation.CmdSetBool("isRunning", false);
-                mPlayerAnimation.CmdSetBool("isIdle", true);
+                if (!GetComponent<Animator>().GetBool("isLifting"))
+                {
+                    mPlayerAnimation.CmdSetBool("isIdle", true);
+                }
             }
         }
     }
