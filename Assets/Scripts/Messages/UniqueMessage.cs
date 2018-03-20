@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -27,10 +25,10 @@ public class UniqueMessage : NetworkBehaviour
             wallMessage = this.gameObject.GetComponent<Text>();
             localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>();
             player = localPlayerManager.GetLocalPlayerObject();
-            isRaven = player.GetComponent<LocalPlayerSetup>().IsRaven();
         }
         if (!set) //&& isLocalPlayer)
         {
+            isRaven = localPlayerManager.IsRaven();
             if (isRaven)
                 wallMessage.text = raven;
             else
