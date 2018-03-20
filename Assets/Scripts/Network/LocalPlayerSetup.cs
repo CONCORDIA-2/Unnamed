@@ -64,6 +64,24 @@ public class LocalPlayerSetup : NetworkBehaviour
         }
     }
 
+    public void SetPlayerComponents(bool playerIsRaven)
+    {
+        // use this to set mesh renderer, material, etc
+        if (playerIsRaven)
+        {
+            // load raven stuff
+            isRaven = true;
+        }
+
+        else
+        {
+            // load rabbit stuff
+            isRaven = false;
+        }
+
+        localPlayerManagerScript.SetIsRaven(isRaven);
+    }
+
     public bool IsRaven()
     {
         return isRaven;

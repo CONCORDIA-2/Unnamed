@@ -7,6 +7,7 @@ public class LocalPlayerManager : MonoBehaviour
     [SerializeField] private GameObject worldCamera;
     [SerializeField] private GameObject playerObject;
     [SerializeField] private GameObject otherPlayerObject;
+    [SerializeField] private bool isRaven;
 
     private void Start()
     {
@@ -34,6 +35,11 @@ public class LocalPlayerManager : MonoBehaviour
         return otherPlayerObject;
     }
 
+    public bool IsRaven()
+    {
+        return isRaven;
+    }
+
     public void SetPlayerObject(GameObject player)
     {
         playerObject = player;
@@ -42,6 +48,11 @@ public class LocalPlayerManager : MonoBehaviour
     public void SetOtherPlayerObject(GameObject otherPlayer)
     {
         otherPlayerObject = otherPlayer;
+    }
+
+    public void SetIsRaven(bool toggle)
+    {
+        isRaven = toggle;
     }
 
     public void ToggleWorldCamera(bool toggle)
