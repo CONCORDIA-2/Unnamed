@@ -1464,9 +1464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3e3a78f856ae44a8553b5754ea714f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRaven: 1
   mMaxSpeed: 3
-  mInitialJumpPower: 160
-  mExtraJumpPower: 17
+  mInitialJumpPower: 120
+  mExtraJumpPower: 20
 --- !u!114 &114361086482042162
 MonoBehaviour:
   m_ObjectHideFlags: 1
