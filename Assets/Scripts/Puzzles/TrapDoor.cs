@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class TrapDoor : MonoBehaviour
 {
-
-    public bool triggered = false;  // #triggered
+    public GameObject pressurePlate;
+    private PressurePlate pressurePlateScript;
+    public bool triggered = false, used = false;  // #triggered
     public HingeJoint hinge1, hinge2;
     private JointLimits hingesActive, hingesInactive;
     private GameObject invisibleWalls;
@@ -15,6 +16,7 @@ public class TrapDoor : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        pressurePlateScript = pressurePlate.GetComponent<PressurePlate>();
         hinge1 = transform.Find("Flap1").GetComponent<HingeJoint>();
         hinge2 = transform.Find("Flap2").GetComponent<HingeJoint>();
         hingesInactive = hinge1.limits;   //arbitrarily using hinge1
@@ -27,10 +29,11 @@ public class TrapDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (triggered)
+        triggered = pressurePlateScript.pressed;
+        if (triggered && !used)
         {
             StartCoroutine(activateDoor());
-            triggered = false;
+            used = true;
         }
     }
 

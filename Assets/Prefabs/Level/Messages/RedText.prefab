@@ -90,7 +90,7 @@ MonoBehaviour:
   visibleTimer: 6
   isVisible: 0
   displayed: 0
-  singleUse: 0
+  singleUse: 1
 --- !u!222 &222056934991427932
 CanvasRenderer:
   m_ObjectHideFlags: 1

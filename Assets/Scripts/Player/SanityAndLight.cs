@@ -11,37 +11,37 @@ public class SanityAndLight : MonoBehaviour {
     private GameObject localPlayer;
     [SerializeField] private GameObject localPlayerManager;
     [SerializeField] private LocalPlayerManager localPlayerManagerScript;
-    public GameObject light;
-    public GameObject aura;
+    private GameObject light;
+    private GameObject aura;
     public PostProcessingProfile postProcessing;
 
-    public static readonly float safeRadius = 20.0f;
-    public static readonly float safeLightingRadius = 4.0f;
-
+    public bool isRaven = true;
+    public bool isIncapacitated = false;
     public float sanityLevel = 100.0f;
     public float distance;
     
-    public float auraSize = 0.0f;
-    public float lightBrightness = 0.0f;
+    private float auraSize = 0.0f;
+    private float lightBrightness = 0.0f;
 
-    public float maxAuraSize = 4.0f;
-    public float maxLightBrightness = 2.0f;
-    public float minMoveSpeed = 0.5f;
-    public float maxMoveSpeed = 3.0f;
-    public float maxMass = 75.0f;
-    public float minMass = 25.0f;
+    private float maxAuraSize = 4.0f;
+    private float maxLightBrightness = 2.0f;
+    private float minMoveSpeed = 1.5f;
+    private float maxMoveSpeed = 3.8f;
+    private float maxMass = 50.0f;
+    private float minMass = 25.0f;
+
+    private float safeRadius = 20.0f;
+    private float safeLightingRadius = 4.0f;
     
-    public bool specialLighting = false;
-    public bool opposedLighting = false;
-    public bool isRaven = true;
-    public bool isIncapacitated = false;
+    private bool specialLighting = false;
+    private bool opposedLighting = false;
 
-    public float sanityChange = 0.5f;
-    public float auraChange = 0.03f;
-    public float lightChange = 0.01f;
-    public float massChange = 0.7f;
-    public float speedChange = 0.03f;
-    private static float updateWait = 0.01f;
+    private float sanityChange = 0.5f;
+    private float auraChange = 0.03f;
+    private float lightChange = 0.01f;
+    private float massChange = 0.7f;
+    private float speedChange = 0.03f;
+    private float updateWait = 0.01f;
 
     void Start() {
 		//grab reference to the local player manager if not assigned
@@ -88,7 +88,7 @@ public class SanityAndLight : MonoBehaviour {
 	            if (isIncapacitated)
 	            {
 	            	GetComponent<Rigidbody>().mass = maxMass * 2;
-	            	GetComponent<Player_Movement>().mMaxSpeed = minMoveSpeed / 2;
+	            	GetComponent<Player_Movement>().mMaxSpeed = minMoveSpeed;
 	            	sanityLevel = 0;
 
 	            	if (distance < safeLightingRadius)
@@ -104,13 +104,13 @@ public class SanityAndLight : MonoBehaviour {
 		            {
 		            	if (distance > safeLightingRadius)
 		            	{
-		            		DecreaseSanity(sanityChange * 3);
+		            		DecreaseSanity(sanityChange * 2);
 		               		IncreaseWeight();
 		            	}
 		            	else
 		            	{
 		            		//else, put mass and sanity back to normal
-		            		IncreaseSanity(sanityChange * 6);
+		            		IncreaseSanity(sanityChange * 2);
 			                DecreaseWeight();
 		            	}
 		            }
@@ -119,7 +119,7 @@ public class SanityAndLight : MonoBehaviour {
 		            	//decrease sanity if too far from partner / increase sanity if close to partner
 			            if (distance < safeRadius)
 			            {
-			                IncreaseSanity(sanityChange * 6);
+			                IncreaseSanity(sanityChange * 2);
 			                DecreaseWeight();
 			            }
 			            else DecreaseSanity(sanityChange);
@@ -162,7 +162,7 @@ public class SanityAndLight : MonoBehaviour {
 
 	            //set postprocessing to reflect sanity levels
 	            ChromaticAberrationModel.Settings chroma = postProcessing.chromaticAberration.settings;
-	            chroma.intensity = map(sanityLevel, 100.0f, 0.0f, 0.0f, 1.0f);
+	            chroma.intensity = map(sanityLevel, 100.0f, 0.0f, 0.0f, 2.0f);
 	            postProcessing.chromaticAberration.settings = chroma;
 
 	            VignetteModel.Settings vignette = postProcessing.vignette.settings;
@@ -170,7 +170,7 @@ public class SanityAndLight : MonoBehaviour {
 	            postProcessing.vignette.settings = vignette;
 
 	            DepthOfFieldModel.Settings depth = postProcessing.depthOfField.settings;
-	            depth.focusDistance = map(sanityLevel, 100.0f, 0.0f, 7.0f, 3.0f);
+	            depth.focusDistance = map(sanityLevel, 100.0f, 0.0f, 7.0f, 2.0f);
 	            postProcessing.depthOfField.settings = depth;
 	        }
         }

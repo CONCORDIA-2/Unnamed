@@ -4,17 +4,17 @@ using UnityEngine.Networking;
 // Author: Tri-Luong Steven Dien
 public class Player_Movement : NetworkBehaviour
 {
-    [Header("Movement")]
-    public float mMaxSpeed = 3.0f;
+	 public bool isRaven = false;
 
+    [Header("Movement")]
+    public float mMaxSpeed = 3.8f;
+   
     [Header("Jump")]
-    // Rabbit: 290.0f (old) | initial: 8.0f, extra 250.0f
-    // Raven: 260.0f (old) | initial: 7.0f, extra 250.0f
-    public float mInitialJumpPower = 160;
-    public float mExtraJumpPower = 17;
+    public float mInitialJumpPower = 120f;
+    public float mExtraJumpPower = 21f;
     private float mMaxExtraJumpTime = 0.5f;
     private float mJumpTimer = 0.0f;
-    private float mDelayToExtraJumpForce = 0.25f;
+    private float mDelayToExtraJumpForce = 0.20f;
     private bool mWasJumping = false;
     private bool mIsJumping = false;
 
@@ -31,6 +31,9 @@ public class Player_Movement : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+    	if (!isRaven)
+    		mExtraJumpPower = 26f;
+
         mRb = GetComponent<Rigidbody>();
         mPlayerClimbing = GetComponent<Player_Climbing>();
         mDistanceToGround = GetComponent<Collider>().bounds.extents.y + 0.1f;
@@ -67,7 +70,7 @@ public class Player_Movement : NetworkBehaviour
                 Jump();
 
             // Add additional downard force to ground player
-        	mRb.AddForce(new Vector3(0.0f, -90.0f, 0.0f), ForceMode.Force);
+        	mRb.AddForce(new Vector3(0.0f, -260.0f, 0.0f), ForceMode.Force);
         }
     }
 
@@ -82,7 +85,7 @@ public class Player_Movement : NetworkBehaviour
         Vector3 direction = new Vector3(horizontal, 0.0f, vertical);
 
         // If there's an input from the player
-        if (horizontal != 0f || vertical != 0f)
+        if (direction.magnitude > 0.1f)
         {
             // Normalize input
             if (direction.magnitude > 1 || direction.magnitude < -1)
@@ -138,10 +141,10 @@ public class Player_Movement : NetworkBehaviour
 
         if (mIsJumping)
         {
-            mRb.AddForce(new Vector3(0.0f, mExtraJumpPower, 0.0f), ForceMode.Acceleration);
+            mRb.AddForce(new Vector3(0.0f, mExtraJumpPower, 0.0f), ForceMode.Impulse);
             if (Time.time - mJumpTimer > mDelayToExtraJumpForce)
             	mIsJumping = false;
-        } 
+        }
     }
 
     // Function that checks if the player is grounded

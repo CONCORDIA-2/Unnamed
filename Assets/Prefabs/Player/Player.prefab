@@ -1048,7 +1048,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740278921419122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8263168, y: 1.2822647, z: -0.5}
+  m_LocalPosition: {x: 3.0483408, y: 1.278, z: 5.083682}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4297881102747880}
@@ -1464,9 +1464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3e3a78f856ae44a8553b5754ea714f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMaxSpeed: 3
-  mInitialJumpPower: 160
-  mExtraJumpPower: 17
+  isRaven: 1
+  mMaxSpeed: 3.8
+  mInitialJumpPower: 120
+  mExtraJumpPower: 21
 --- !u!114 &114361086482042162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1636,28 +1637,11 @@ MonoBehaviour:
   otherPlayer: {fileID: 0}
   localPlayerManager: {fileID: 0}
   localPlayerManagerScript: {fileID: 0}
-  light: {fileID: 0}
-  aura: {fileID: 0}
   postProcessing: {fileID: 0}
-  sanityLevel: 100
-  distance: 0
-  auraSize: 0
-  lightBrightness: 0
-  maxAuraSize: 3
-  maxLightBrightness: 1
-  minMoveSpeed: 0.5
-  maxMoveSpeed: 3
-  maxMass: 75
-  minMass: 25
-  specialLighting: 0
-  opposedLighting: 0
   isRaven: 1
   isIncapacitated: 0
-  sanityChange: 0.5
-  auraChange: 0.03
-  lightChange: 0.01
-  massChange: 0.7
-  speedChange: 0.03
+  sanityLevel: 100
+  distance: 0
 --- !u!114 &114958409300139106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1725,7 +1709,7 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 28fa7563b9fac124c9b6a4738fbbc57d, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.35
   m_Height: 1.788121
   m_Direction: 1
   m_Center: {x: 0, y: 0.24, z: 0}
@@ -1738,7 +1722,7 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 973ff3ef25a9b5a4cafbf6a69929f560, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.29
+  m_Radius: 0.34
   m_Height: 1.9881213
   m_Direction: 1
   m_Center: {x: 0, y: 0.0959394, z: 0}
