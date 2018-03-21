@@ -38,8 +38,6 @@ public class CritterController : NetworkBehaviour
 
     private void Update()
     {
-        if (guardLocation == null)
-            guardLocation = mySpawner.guardLocation;
         if (foundPlayers && root == null)
         {
             root = BuildTree(instance);
@@ -48,12 +46,15 @@ public class CritterController : NetworkBehaviour
         {
             Spawn();
         }
-        player1Sanity = player1.GetComponent<SanityAndLight>().sanityLevel;
-        player2Sanity = player2.GetComponent<SanityAndLight>().sanityLevel;
-        if (player1Sanity <= 5 || player2Sanity <= 5)
-            separatedTooLong = true;
-        else
-            separatedTooLong = false;
+        if (foundPlayers)
+        {
+            player1Sanity = player1.GetComponent<SanityAndLight>().sanityLevel;
+            player2Sanity = player2.GetComponent<SanityAndLight>().sanityLevel;
+            if (player1Sanity <= 5 || player2Sanity <= 5)
+                separatedTooLong = true;
+            else
+                separatedTooLong = false;
+        }
         root.Process();
     }
 
