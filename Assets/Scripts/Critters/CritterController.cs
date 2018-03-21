@@ -319,7 +319,7 @@ public class Retreat : Decorator
 
     public override NodeStatus Process()
     {
-        Debug.Log("Retreating");
+        //Debug.Log("Retreating");
         NodeStatus childStatus = child.Process();
         if (childStatus == NodeStatus.RUNNING)
             return NodeStatus.RUNNING;
@@ -338,7 +338,7 @@ public class IdleOnScreen : TreeNode
 {
     public override NodeStatus Process()
     {
-        Debug.Log("Idling");
+        //Debug.Log("Idling");
         //play wandering animation
         return NodeStatus.SUCCESS;
     }
@@ -355,16 +355,14 @@ public class ProximityAttack : TreeNode
     {
         GameObject closePlayer = instance.FindClosestPlayer();
         bool inRadius = Vector3.Distance(instance.guardLocation.transform.position, closePlayer.transform.position) < instance.getAttackDistance();
-        Debug.Log("Closest player's distance to guardLocation = " + Vector3.Distance(instance.guardLocation.transform.position, closePlayer.transform.position));
+        //Debug.Log("Closest player's distance to guardLocation = " + Vector3.Distance(instance.guardLocation.transform.position, closePlayer.transform.position));
         if (!CritterController.playerIsDown && inRadius)
         {
-            Debug.Log("Proximity attack initiated");
+            //Debug.Log("Proximity attack initiated");
             return NodeStatus.SUCCESS;
         }
         else
         {
-            if (!inRadius)
-                Debug.Log("Not in radius");
             return NodeStatus.FAILURE;
         }
     }
