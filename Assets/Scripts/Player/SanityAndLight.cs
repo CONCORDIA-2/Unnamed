@@ -11,37 +11,37 @@ public class SanityAndLight : MonoBehaviour {
     private GameObject localPlayer;
     [SerializeField] private GameObject localPlayerManager;
     [SerializeField] private LocalPlayerManager localPlayerManagerScript;
-    public GameObject light;
-    public GameObject aura;
+    private GameObject light;
+    private GameObject aura;
     public PostProcessingProfile postProcessing;
 
-    public static readonly float safeRadius = 20.0f;
-    public static readonly float safeLightingRadius = 4.0f;
-
+    public bool isRaven = true;
+    public bool isIncapacitated = false;
     public float sanityLevel = 100.0f;
     public float distance;
     
-    public float auraSize = 0.0f;
-    public float lightBrightness = 0.0f;
+    private float auraSize = 0.0f;
+    private float lightBrightness = 0.0f;
 
-    public float maxAuraSize = 4.0f;
-    public float maxLightBrightness = 2.0f;
-    public float minMoveSpeed = 0.5f;
-    public float maxMoveSpeed = 3.0f;
-    public float maxMass = 50.0f;
-    public float minMass = 25.0f;
+    private float maxAuraSize = 4.0f;
+    private float maxLightBrightness = 2.0f;
+    private float minMoveSpeed = 1.5f;
+    private float maxMoveSpeed = 3.0f;
+    private float maxMass = 50.0f;
+    private float minMass = 25.0f;
+
+    private float safeRadius = 20.0f;
+    private float safeLightingRadius = 4.0f;
     
-    public bool specialLighting = false;
-    public bool opposedLighting = false;
-    public bool isRaven = true;
-    public bool isIncapacitated = false;
+    private bool specialLighting = false;
+    private bool opposedLighting = false;
 
-    public float sanityChange = 0.5f;
-    public float auraChange = 0.03f;
-    public float lightChange = 0.01f;
-    public float massChange = 0.7f;
-    public float speedChange = 0.03f;
-    private static float updateWait = 0.01f;
+    private float sanityChange = 0.5f;
+    private float auraChange = 0.03f;
+    private float lightChange = 0.01f;
+    private float massChange = 0.7f;
+    private float speedChange = 0.03f;
+    private float updateWait = 0.01f;
 
     void Start() {
 		//grab reference to the local player manager if not assigned

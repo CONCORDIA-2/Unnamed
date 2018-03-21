@@ -1637,28 +1637,11 @@ MonoBehaviour:
   otherPlayer: {fileID: 0}
   localPlayerManager: {fileID: 0}
   localPlayerManagerScript: {fileID: 0}
-  light: {fileID: 0}
-  aura: {fileID: 0}
   postProcessing: {fileID: 0}
-  sanityLevel: 100
-  distance: 0
-  auraSize: 0
-  lightBrightness: 0
-  maxAuraSize: 3
-  maxLightBrightness: 1
-  minMoveSpeed: 0.5
-  maxMoveSpeed: 3
-  maxMass: 75
-  minMass: 25
-  specialLighting: 0
-  opposedLighting: 0
   isRaven: 1
   isIncapacitated: 0
-  sanityChange: 0.5
-  auraChange: 0.03
-  lightChange: 0.01
-  massChange: 0.7
-  speedChange: 0.03
+  sanityLevel: 100
+  distance: 0
 --- !u!114 &114958409300139106
 MonoBehaviour:
   m_ObjectHideFlags: 1
