@@ -162,7 +162,7 @@ public class SanityAndLight : MonoBehaviour {
 
 	            //set postprocessing to reflect sanity levels
 	            ChromaticAberrationModel.Settings chroma = postProcessing.chromaticAberration.settings;
-	            chroma.intensity = map(sanityLevel, 100.0f, 0.0f, 0.0f, 1.0f);
+	            chroma.intensity = map(sanityLevel, 100.0f, 0.0f, 0.0f, 2.0f);
 	            postProcessing.chromaticAberration.settings = chroma;
 
 	            VignetteModel.Settings vignette = postProcessing.vignette.settings;
@@ -170,7 +170,7 @@ public class SanityAndLight : MonoBehaviour {
 	            postProcessing.vignette.settings = vignette;
 
 	            DepthOfFieldModel.Settings depth = postProcessing.depthOfField.settings;
-	            depth.focusDistance = map(sanityLevel, 100.0f, 0.0f, 7.0f, 3.0f);
+	            depth.focusDistance = map(sanityLevel, 100.0f, 0.0f, 7.0f, 2.0f);
 	            postProcessing.depthOfField.settings = depth;
 	        }
         }
