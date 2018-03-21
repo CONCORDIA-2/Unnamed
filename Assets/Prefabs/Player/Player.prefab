@@ -1465,9 +1465,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRaven: 1
-  mMaxSpeed: 4
+  mMaxSpeed: 3.8
   mInitialJumpPower: 120
-  mExtraJumpPower: 23
+  mExtraJumpPower: 21
 --- !u!114 &114361086482042162
 MonoBehaviour:
   m_ObjectHideFlags: 1
