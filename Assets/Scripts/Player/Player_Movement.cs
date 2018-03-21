@@ -7,12 +7,11 @@ public class Player_Movement : NetworkBehaviour
 	 public bool isRaven = false;
 
     [Header("Movement")]
-    public float mMaxSpeed = 3.0f;
-
+    public float mMaxSpeed = 3.8f;
    
     [Header("Jump")]
     public float mInitialJumpPower = 120f;
-    public float mExtraJumpPower = 20.5f;
+    public float mExtraJumpPower = 21f;
     private float mMaxExtraJumpTime = 0.5f;
     private float mJumpTimer = 0.0f;
     private float mDelayToExtraJumpForce = 0.20f;
@@ -33,7 +32,7 @@ public class Player_Movement : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
     	if (!isRaven)
-    		mExtraJumpPower = 28f;
+    		mExtraJumpPower = 26f;
 
         mRb = GetComponent<Rigidbody>();
         mPlayerClimbing = GetComponent<Player_Climbing>();

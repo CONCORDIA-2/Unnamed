@@ -1048,7 +1048,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740278921419122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8263168, y: 1.2822647, z: -0.5}
+  m_LocalPosition: {x: 3.0483408, y: 1.278, z: 5.083682}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4297881102747880}
@@ -1465,9 +1465,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRaven: 1
-  mMaxSpeed: 3
+  mMaxSpeed: 4
   mInitialJumpPower: 120
-  mExtraJumpPower: 20.5
+  mExtraJumpPower: 23
 --- !u!114 &114361086482042162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1709,7 +1709,7 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 28fa7563b9fac124c9b6a4738fbbc57d, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.35
   m_Height: 1.788121
   m_Direction: 1
   m_Center: {x: 0, y: 0.24, z: 0}
@@ -1722,7 +1722,7 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 973ff3ef25a9b5a4cafbf6a69929f560, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.29
+  m_Radius: 0.34
   m_Height: 1.9881213
   m_Direction: 1
   m_Center: {x: 0, y: 0.0959394, z: 0}

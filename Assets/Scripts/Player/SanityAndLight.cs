@@ -26,7 +26,7 @@ public class SanityAndLight : MonoBehaviour {
     private float maxAuraSize = 4.0f;
     private float maxLightBrightness = 2.0f;
     private float minMoveSpeed = 1.5f;
-    private float maxMoveSpeed = 3.0f;
+    private float maxMoveSpeed = 3.8f;
     private float maxMass = 50.0f;
     private float minMass = 25.0f;
 
