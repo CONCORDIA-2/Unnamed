@@ -12,7 +12,7 @@ public class Player_Movement : NetworkBehaviour
    
     [Header("Jump")]
     public float mInitialJumpPower = 120f;
-    public float mExtraJumpPower = 22f;
+    public float mExtraJumpPower = 20.5f;
     private float mMaxExtraJumpTime = 0.5f;
     private float mJumpTimer = 0.0f;
     private float mDelayToExtraJumpForce = 0.20f;
