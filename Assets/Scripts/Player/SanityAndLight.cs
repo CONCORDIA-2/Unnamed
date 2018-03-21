@@ -28,7 +28,7 @@ public class SanityAndLight : MonoBehaviour {
     public float maxLightBrightness = 2.0f;
     public float minMoveSpeed = 0.5f;
     public float maxMoveSpeed = 3.0f;
-    public float maxMass = 75.0f;
+    public float maxMass = 50.0f;
     public float minMass = 25.0f;
     
     public bool specialLighting = false;
@@ -88,7 +88,7 @@ public class SanityAndLight : MonoBehaviour {
 	            if (isIncapacitated)
 	            {
 	            	GetComponent<Rigidbody>().mass = maxMass * 2;
-	            	GetComponent<Player_Movement>().mMaxSpeed = minMoveSpeed / 2;
+	            	GetComponent<Player_Movement>().mMaxSpeed = minMoveSpeed;
 	            	sanityLevel = 0;
 
 	            	if (distance < safeLightingRadius)
@@ -104,13 +104,13 @@ public class SanityAndLight : MonoBehaviour {
 		            {
 		            	if (distance > safeLightingRadius)
 		            	{
-		            		DecreaseSanity(sanityChange * 3);
+		            		DecreaseSanity(sanityChange * 2);
 		               		IncreaseWeight();
 		            	}
 		            	else
 		            	{
 		            		//else, put mass and sanity back to normal
-		            		IncreaseSanity(sanityChange * 6);
+		            		IncreaseSanity(sanityChange * 2);
 			                DecreaseWeight();
 		            	}
 		            }
@@ -119,7 +119,7 @@ public class SanityAndLight : MonoBehaviour {
 		            	//decrease sanity if too far from partner / increase sanity if close to partner
 			            if (distance < safeRadius)
 			            {
-			                IncreaseSanity(sanityChange * 6);
+			                IncreaseSanity(sanityChange * 2);
 			                DecreaseWeight();
 			            }
 			            else DecreaseSanity(sanityChange);

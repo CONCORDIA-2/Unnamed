@@ -1467,7 +1467,7 @@ MonoBehaviour:
   isRaven: 1
   mMaxSpeed: 3
   mInitialJumpPower: 120
-  mExtraJumpPower: 20
+  mExtraJumpPower: 20.5
 --- !u!114 &114361086482042162
 MonoBehaviour:
   m_ObjectHideFlags: 1
