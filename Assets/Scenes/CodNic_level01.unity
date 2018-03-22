@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.16470589, g: 0.19607843, b: 0.23529412, a: 1}
+  m_AmbientSkyColor: {r: 0.3882353, g: 0.44705883, b: 0.5137255, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -7966,7 +7966,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 546946480}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12601acaf9af72343b85bace4eb57570, type: 3}
   m_Name: 
@@ -8039,7 +8039,7 @@ MonoBehaviour:
   MapToLDR: 0
   RemoveColorBanding: 1
   MatrixVP:
-    e00: 0.97272766
+    e00: 1.6375753
     e01: 0
     e02: 0
     e03: 0
@@ -8056,7 +8056,7 @@ MonoBehaviour:
     e32: 0.9659259
     e33: 11.216564
   LastMatrixVP:
-    e00: 0.97272766
+    e00: 1.6375753
     e01: 0
     e02: 0
     e03: 0
@@ -8151,9 +8151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb2e3579c86b744794f7efc31022126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  darknessThreshold: 0.03
+  darknessThreshold: 0.05
   brightnessThreshold: 1
-  isRaven: 1
+  isRaven: 0
 --- !u!114 &546946484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27270,7 +27270,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 0.9338235, g: 0.9065475, b: 0.8720264, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 2
   m_Range: 26.7
   m_SpotAngle: 79
   m_CookieSize: 10
