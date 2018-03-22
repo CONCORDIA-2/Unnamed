@@ -79,7 +79,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1954542993420506}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 34.323868, y: 9.288488, z: -0.75}
+  m_LocalPosition: {x: 4.6219606, y: 9.821649, z: -0.75}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 224562869710745668}
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.32352942, g: 0.74807316, b: 1, a: 0.5}
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
 --- !u!114 &114524459860342502
@@ -344,7 +344,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u201CDo you find your\nthoughts racing?\u201D"
+  m_Text: "Easily\r\nteary\r"
 --- !u!222 &222294863531194586
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -38,7 +38,7 @@ public class PauseMenuController : NetworkBehaviour
         if (!isServer)
         {
             reset.interactable = false;
-            resetText.text = "Ask host if you need to reset";
+            resetText.text = "Ask host to reset";
         }
     }
 }
