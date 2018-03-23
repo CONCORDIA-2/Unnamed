@@ -9,6 +9,7 @@ public class LocalPlayerManager : MonoBehaviour
     [SerializeField] private GameObject otherPlayerObject;
     [SerializeField] private bool isRaven;
     [SerializeField] private bool otherIsIncapacitated = false;
+    [SerializeField] private float otherSanityLevel = 100.0f;
 
     private void Start()
     {
@@ -45,6 +46,11 @@ public class LocalPlayerManager : MonoBehaviour
     {
         return otherIsIncapacitated;
     }
+    
+    public float GetOtherSanityLevel()
+    {
+        return otherSanityLevel;
+    }
 
     public void SetPlayerObject(GameObject player)
     {
@@ -64,6 +70,11 @@ public class LocalPlayerManager : MonoBehaviour
     public void SetOtherIsIncapacitated(bool toggle)
     {
         otherIsIncapacitated = toggle;
+    }
+
+    public void SetOtherSanityLevel(float level)
+    {
+        otherSanityLevel = level;
     }
 
     public void ToggleWorldCamera(bool toggle)

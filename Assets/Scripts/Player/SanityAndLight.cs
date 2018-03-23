@@ -183,6 +183,7 @@ public class SanityAndLight : NetworkBehaviour {
         sanityLevel -= change;
         if (sanityLevel < 0.0f)
             sanityLevel = 0.0f;
+        CmdSetOtherSanityLevel(gameObject, sanityLevel);
     }
 
     void IncreaseSanity(float change)
@@ -190,6 +191,7 @@ public class SanityAndLight : NetworkBehaviour {
         sanityLevel += change * 2.0f;
         if (sanityLevel > 100.0f)
             sanityLevel = 100.0f;
+        CmdSetOtherSanityLevel(gameObject, sanityLevel);
     }
 
     void DecreaseWeight()
@@ -259,10 +261,23 @@ public class SanityAndLight : NetworkBehaviour {
         RpcSetOtherIsIncapacitated(obj, toggle);
     }
 
+    [Command]
+    public void CmdSetOtherSanityLevel(GameObject obj, float level)
+    {
+        RpcSetOtherSanityLevel(obj, level);
+    }
+
     [ClientRpc]
     public void RpcSetOtherIsIncapacitated(GameObject obj, bool toggle)
     {
         if (obj != gameObject && localPlayerManagerScript)
             localPlayerManagerScript.SetOtherIsIncapacitated(toggle);
+    }
+
+    [ClientRpc]
+    public void RpcSetOtherSanityLevel(GameObject obj, float level)
+    {
+        if (obj != gameObject && localPlayerManagerScript)
+            localPlayerManagerScript.SetOtherSanityLevel(level);
     }
 }
