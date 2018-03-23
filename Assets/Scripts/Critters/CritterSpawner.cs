@@ -13,6 +13,7 @@ public class CritterSpawner : NetworkBehaviour
     public Transform spawnLocation;
     public GameObject guardLocation;
     public GameObject player1, player2;
+    public GameObject countLock;
 
     [SerializeField] private LocalPlayerManager localPlayerManagerScript;
     [SerializeField] private GameObject localPlayerManager;
@@ -35,11 +36,14 @@ public class CritterSpawner : NetworkBehaviour
     {
         if (player1 && player2 && isServer)
         {
-            if (critterCount < maxNumCritters && !spawning)
+            lock (countLock)
             {
-                spawning = true;
-                critterCount++;
-                StartCoroutine(SpawnCritter());
+                if (critterCount < maxNumCritters && !spawning)
+                {
+                    spawning = true;
+                    critterCount++;
+                    StartCoroutine(SpawnCritter());
+                }
             }
         }
         else
@@ -55,12 +59,12 @@ public class CritterSpawner : NetworkBehaviour
     public IEnumerator SpawnCritter()
     {
         yield return new WaitForSeconds(Random.Range(1, 3));  //wait 1-3 second before a spawn
-
         GameObject newCritter = Instantiate(critterPrefab, spawnLocation.position, Quaternion.identity, spawnLocation);
         newCritter.GetComponent<CritterController>().mySpawner = this;
         newCritter.GetComponent<CritterController>().setAttackDistance(attackDistance);
         newCritter.GetComponent<CritterController>().guardLocation = guardLocation;
         NetworkServer.Spawn(newCritter);
+
 
 
         spawning = false;

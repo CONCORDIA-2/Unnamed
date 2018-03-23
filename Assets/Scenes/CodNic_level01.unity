@@ -14064,7 +14064,7 @@ Prefab:
     - target: {fileID: 114842550808569048, guid: 42a16fa19268ac24ca9c9dce1012ef77,
         type: 2}
       propertyPath: m_NetworkAddress
-      value: 192.168.1.101
+      value: localhost
       objectReference: {fileID: 0}
     - target: {fileID: 114842550808569048, guid: 42a16fa19268ac24ca9c9dce1012ef77,
         type: 2}
