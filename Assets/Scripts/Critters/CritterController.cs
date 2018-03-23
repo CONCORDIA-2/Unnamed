@@ -49,7 +49,7 @@ public class CritterController : NetworkBehaviour
         if (foundPlayers)
         {
             player1Sanity = player1.GetComponent<SanityAndLight>().sanityLevel;
-            player2Sanity = player2.GetComponent<SanityAndLight>().sanityLevel;
+            player2Sanity = localPlayerManagerScript.GetOtherSanityLevel();
             if (player1Sanity <= 5 || player2Sanity <= 5)
                 separatedTooLong = true;
             else
@@ -101,7 +101,7 @@ public class CritterController : NetworkBehaviour
 
 
         root.child = sl1;
-        sl1.children[0] = sq1;
+        sl1.children[0] = sl2;
         sl1.children[1] = sq3;
         sl1.children[2] = new Retreat(FindNearestGoal(instance), instance);
 
@@ -143,10 +143,10 @@ public class CritterController : NetworkBehaviour
 
     public GameObject FindInsanePlayer()
     {
-        if (localPlayerManagerScript.OtherIsIncapacitated())
-            return player2;
-        else
+        if (player1Sanity <= player2Sanity)
             return player1;
+        else
+            return player2;
     }
 
     public float getAttackDistance()
