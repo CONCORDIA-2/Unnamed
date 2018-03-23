@@ -65,7 +65,7 @@ public class CritterController : NetworkBehaviour
             //Need to play attack animation
             playerIsDown = true;
             collision.gameObject.GetComponent<SanityAndLight>().isIncapacitated = playerIsDown;
-            collision.gameObject.GetComponent<SanityAndLight>().CmdSetOtherIsIncapacitated(collision.gameObject, playerIsDown);
+            collision.gameObject.GetComponent<SanityAndLight>().CmdSetOtherIsIncapacitated(collision.gameObject.GetComponent<SanityAndLight>().playerControllerId, playerIsDown);
             lock (mySpawner.countLock)
             {
                if (mySpawner.critterCount >= 1)
