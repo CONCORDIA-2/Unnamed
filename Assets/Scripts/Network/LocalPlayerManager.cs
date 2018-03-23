@@ -8,6 +8,7 @@ public class LocalPlayerManager : MonoBehaviour
     [SerializeField] private GameObject playerObject;
     [SerializeField] private GameObject otherPlayerObject;
     [SerializeField] private bool isRaven;
+    [SerializeField] private bool otherIsIncapacitated = false;
 
     private void Start()
     {
@@ -40,6 +41,11 @@ public class LocalPlayerManager : MonoBehaviour
         return isRaven;
     }
 
+    public bool OtherIsIncapacitated()
+    {
+        return otherIsIncapacitated;
+    }
+
     public void SetPlayerObject(GameObject player)
     {
         playerObject = player;
@@ -53,6 +59,11 @@ public class LocalPlayerManager : MonoBehaviour
     public void SetIsRaven(bool toggle)
     {
         isRaven = toggle;
+    }
+
+    public void SetOtherIsIncapacitated(bool toggle)
+    {
+        otherIsIncapacitated = toggle;
     }
 
     public void ToggleWorldCamera(bool toggle)
