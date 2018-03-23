@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 136939362882122804}
   - component: {fileID: 23149083260385516}
   - component: {fileID: 195161586398687180}
-  - component: {fileID: 114276286319706864}
-  - component: {fileID: 114755758708251352}
   - component: {fileID: 114104665322685274}
+  - component: {fileID: 114167317455711294}
+  - component: {fileID: 114813645877860276}
   m_Layer: 0
   m_Name: GuardCritter
   m_TagString: Untagged
@@ -98,13 +98,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a91bed414a8bf45a306c4cc497e359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterContact: {fileID: 0}
   agent: {fileID: 0}
   guardLocation: {fileID: 0}
   wanderRadius: 0
   wanderTimer: 0
   timer: 0
---- !u!114 &114276286319706864
+--- !u!114 &114167317455711294
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -135,8 +134,8 @@ MonoBehaviour:
     i14: 106
     i15: 141
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
---- !u!114 &114755758708251352
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114813645877860276
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -149,13 +148,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
   m_SendInterval: 0.1
-  m_SyncRotationAxis: 2
+  m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
   m_VelocityThreshold: 0.0001
   m_SnapThreshold: 5
-  m_InterpolateRotation: 10
+  m_InterpolateRotation: 1
   m_InterpolateMovement: 1
 --- !u!136 &136939362882122804
 CapsuleCollider:

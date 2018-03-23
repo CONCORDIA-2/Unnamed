@@ -108,7 +108,7 @@ public class CritterController : NetworkBehaviour
         sq1.children[1] = new Retreat(FindNearestGoal(instance), instance);
 
         sq2.children[0] = sl2;
-        sq2.children[1] = new WalkTo((instance.FindInsanePlayer()), instance); //attacking the player
+        sq2.children[1] = new WalkTo((instance.FindClosestPlayer()), instance); //attacking the player
 
         sl2.children[0] = new ProximityAttack(instance);
         sl2.children[1] = new TimedAttack(instance);
@@ -149,6 +149,11 @@ public class CritterController : NetworkBehaviour
     public float getAttackDistance()
     {
         return attackDistance;
+    }
+
+    public void setAttackDistance(float newD)
+    {
+        attackDistance = newD;
     }
 }
 

@@ -8,6 +8,7 @@ public class CritterSpawner : NetworkBehaviour
 
     public int critterCount = 0;
     public int maxNumCritters = 3;
+    public float attackDistance = 4;
     public GameObject critterPrefab;
     public Transform spawnLocation;
     public GameObject guardLocation;
@@ -32,7 +33,7 @@ public class CritterSpawner : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player1 && player2)
+        if (player1 && player2 && isServer)
         {
             if (critterCount < maxNumCritters && !spawning)
             {
@@ -57,6 +58,7 @@ public class CritterSpawner : NetworkBehaviour
 
         GameObject newCritter = Instantiate(critterPrefab, spawnLocation.position, Quaternion.identity, spawnLocation);
         newCritter.GetComponent<CritterController>().mySpawner = this;
+        newCritter.GetComponent<CritterController>().setAttackDistance(attackDistance);
         newCritter.GetComponent<CritterController>().guardLocation = guardLocation;
         NetworkServer.Spawn(newCritter);
 
