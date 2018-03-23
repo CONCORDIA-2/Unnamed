@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.PostProcessing;
 
-public class SanityAndLight : MonoBehaviour {
+public class SanityAndLight : NetworkBehaviour {
 
 	private bool beganRoutine = false;
 
@@ -94,6 +95,7 @@ public class SanityAndLight : MonoBehaviour {
 	            	if (distance < safeLightingRadius)
 	            	{
 	            		isIncapacitated = false;
+                        CmdSetOtherIsIncapacitated(playerControllerId, false);
                         CritterController.playerIsDown = false;
 	            	}
 	            }
@@ -181,6 +183,7 @@ public class SanityAndLight : MonoBehaviour {
         sanityLevel -= change;
         if (sanityLevel < 0.0f)
             sanityLevel = 0.0f;
+        CmdSetOtherSanityLevel(playerControllerId, sanityLevel);
     }
 
     void IncreaseSanity(float change)
@@ -188,6 +191,7 @@ public class SanityAndLight : MonoBehaviour {
         sanityLevel += change * 2.0f;
         if (sanityLevel > 100.0f)
             sanityLevel = 100.0f;
+        CmdSetOtherSanityLevel(playerControllerId, sanityLevel);
     }
 
     void DecreaseWeight()
@@ -250,4 +254,30 @@ public class SanityAndLight : MonoBehaviour {
     {
 		return (val - from1) / (to1 - from1) * (to2 - from2) + from2;
 	}
+
+    [Command]
+    public void CmdSetOtherIsIncapacitated(short controllerID, bool toggle)
+    {
+        RpcSetOtherIsIncapacitated(controllerID, toggle);
+    }
+
+    [Command]
+    public void CmdSetOtherSanityLevel(short controllerID, float level)
+    {
+        RpcSetOtherSanityLevel(controllerID, level);
+    }
+
+    [ClientRpc]
+    public void RpcSetOtherIsIncapacitated(short controllerID, bool toggle)
+    {
+        if (controllerID != playerControllerId && localPlayerManagerScript)
+            localPlayerManagerScript.SetOtherIsIncapacitated(toggle);
+    }
+
+    [ClientRpc]
+    public void RpcSetOtherSanityLevel(short controllerID, float level)
+    {
+        if (controllerID != playerControllerId && localPlayerManagerScript)
+            localPlayerManagerScript.SetOtherSanityLevel(level);
+    }
 }

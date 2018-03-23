@@ -15,7 +15,6 @@ public class GuardCritterController : NetworkBehaviour
     {
         wanderTimer = Random.Range(1, 3);
         agent = GetComponent<NavMeshAgent>();
-        guardLocation = GameObject.FindGameObjectWithTag("Guard").transform;
         wanderRadius = guardLocation.transform.lossyScale.x / 2.0f;
     }
 

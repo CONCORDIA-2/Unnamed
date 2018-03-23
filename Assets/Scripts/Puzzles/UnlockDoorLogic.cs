@@ -9,7 +9,8 @@ public class UnlockDoorLogic : MonoBehaviour {
     private GameObject door;
     private HingeJoint doorHinge;
     private JointLimits open;
-    public Text instructions, resolution;
+    public GameObject instructions, whatElse;
+    public Text resolution;
 
 	// Use this for initialization
 	void Start () {
@@ -27,8 +28,8 @@ public class UnlockDoorLogic : MonoBehaviour {
             complete = true;
             doorHinge.limits = open;
             doorHinge.useSpring = true;
-            if (instructions.color.a >= 0.99)  
-                 StartCoroutine(MessageFades.FadeTextToZeroAlpha(8f, instructions));
+            instructions.SetActive(false);
+            whatElse.SetActive(false);
             StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, resolution));
         }
 	}

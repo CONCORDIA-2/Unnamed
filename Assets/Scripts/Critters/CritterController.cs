@@ -19,7 +19,7 @@ public class CritterController : NetworkBehaviour
 
     public float player1Sanity, player2Sanity;
     public float acceptableDistanceToGoal = 1;
-    private float attackDistance = 4;
+    private float attackDistance;
 
     public bool foundPlayers = false;
 
@@ -65,8 +65,12 @@ public class CritterController : NetworkBehaviour
             //Need to play attack animation
             playerIsDown = true;
             collision.gameObject.GetComponent<SanityAndLight>().isIncapacitated = playerIsDown;
-            Debug.Log("Hit " + collision.gameObject.tag);
-            mySpawner.critterCount--;
+            collision.gameObject.GetComponent<SanityAndLight>().CmdSetOtherIsIncapacitated(collision.gameObject.GetComponent<SanityAndLight>().playerControllerId, playerIsDown);
+            lock (mySpawner.countLock)
+            {
+               if (mySpawner.critterCount >= 1)
+                     mySpawner.critterCount--;
+            }
             UnityEngine.Object.Destroy(instance.agent.gameObject);
         }
     }
@@ -104,15 +108,14 @@ public class CritterController : NetworkBehaviour
         sq3.children[0] = new WalkTo(instance.guardLocation, instance);   //Guarding a location
         sq3.children[1] = new IdleOnScreen();
 
-        sq1.children[0] = sq2;
-        sq1.children[1] = new Retreat(FindNearestGoal(instance), instance);
+        sq1.children[0] = new ProximityAttack(instance);
+        sq1.children[1] = new WalkTo((instance.FindClosestPlayer()), instance); //attacking the closest player
 
-        sq2.children[0] = sl2;
-        sq2.children[1] = new WalkTo((instance.FindInsanePlayer()), instance); //attacking the player
+        sq2.children[0] = new TimedAttack(instance);
+        sq2.children[1] = new WalkTo((instance.FindInsanePlayer()), instance); //attacking the insane player
 
-        sl2.children[0] = new ProximityAttack(instance);
-        sl2.children[1] = new TimedAttack(instance);
-
+        sl2.children[0] = sq1;
+        sl2.children[1] = sq2;
 
         return root;
     }
@@ -140,15 +143,32 @@ public class CritterController : NetworkBehaviour
 
     public GameObject FindInsanePlayer()
     {
-        if (player1Sanity <= player2Sanity)
-            return player1;
-        else
+        if (localPlayerManagerScript.OtherIsIncapacitated())
             return player2;
+        else
+            return player1;
     }
 
     public float getAttackDistance()
     {
         return attackDistance;
+    }
+
+    public void setAttackDistance(float newD)
+    {
+        attackDistance = newD;
+    }
+
+    public Vector3 WanderLocation(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 newDirection = Random.insideUnitSphere * dist;
+        newDirection += origin;
+
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(newDirection, out navHit, dist, layermask);
+        //Ensures that the new goal is on the navmesh, moves it onto the mesh close to the original goal if needed (found: https://forum.unity.com/threads/solved-random-wander-ai-using-navmesh.327950/)
+
+        return navHit.position;
     }
 }
 
@@ -295,6 +315,10 @@ public class WalkTo : TreeNode
     {
         //Debug.Log("Walking to: " + this.goal.name);
         instance.agent.destination = goal.transform.position;    //Move to the potentially moving goal (player, guard station, or exit)
+        if (!attackingPlayer)
+        {
+            instance.agent.destination = instance.WanderLocation(goal.transform.position, 2.5f, -1);    //wander near the guard station instead of hugging it
+        }
         bool inRadius = Vector3.Distance(instance.guardLocation.transform.position, goal.transform.position) < instance.getAttackDistance();
 
         if (instance.agent.remainingDistance < acceptableDistanceToGoal)   //Managed to hit a player (or reached the guard spot)
@@ -320,7 +344,7 @@ public class Retreat : Decorator
 
     public override NodeStatus Process()
     {
-        //Debug.Log("Retreating");
+        Debug.Log("RETREATING");
         NodeStatus childStatus = child.Process();
         if (childStatus == NodeStatus.RUNNING)
             return NodeStatus.RUNNING;
