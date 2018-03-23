@@ -95,7 +95,7 @@ public class SanityAndLight : NetworkBehaviour {
 	            	if (distance < safeLightingRadius)
 	            	{
 	            		isIncapacitated = false;
-                        CmdSetOtherIsIncapacitated(gameObject, false);
+                        CmdSetOtherIsIncapacitated(playerControllerId, false);
                         CritterController.playerIsDown = false;
 	            	}
 	            }
@@ -183,7 +183,7 @@ public class SanityAndLight : NetworkBehaviour {
         sanityLevel -= change;
         if (sanityLevel < 0.0f)
             sanityLevel = 0.0f;
-        CmdSetOtherSanityLevel(gameObject, sanityLevel);
+        CmdSetOtherSanityLevel(playerControllerId, sanityLevel);
     }
 
     void IncreaseSanity(float change)
@@ -191,7 +191,7 @@ public class SanityAndLight : NetworkBehaviour {
         sanityLevel += change * 2.0f;
         if (sanityLevel > 100.0f)
             sanityLevel = 100.0f;
-        CmdSetOtherSanityLevel(gameObject, sanityLevel);
+        CmdSetOtherSanityLevel(playerControllerId, sanityLevel);
     }
 
     void DecreaseWeight()
@@ -256,28 +256,28 @@ public class SanityAndLight : NetworkBehaviour {
 	}
 
     [Command]
-    public void CmdSetOtherIsIncapacitated(GameObject obj, bool toggle)
+    public void CmdSetOtherIsIncapacitated(short controllerID, bool toggle)
     {
-        RpcSetOtherIsIncapacitated(obj, toggle);
+        RpcSetOtherIsIncapacitated(controllerID, toggle);
     }
 
     [Command]
-    public void CmdSetOtherSanityLevel(GameObject obj, float level)
+    public void CmdSetOtherSanityLevel(short controllerID, float level)
     {
-        RpcSetOtherSanityLevel(obj, level);
+        RpcSetOtherSanityLevel(controllerID, level);
     }
 
     [ClientRpc]
-    public void RpcSetOtherIsIncapacitated(GameObject obj, bool toggle)
+    public void RpcSetOtherIsIncapacitated(short controllerID, bool toggle)
     {
-        if (obj != gameObject && localPlayerManagerScript)
+        if (controllerID != playerControllerId && localPlayerManagerScript)
             localPlayerManagerScript.SetOtherIsIncapacitated(toggle);
     }
 
     [ClientRpc]
-    public void RpcSetOtherSanityLevel(GameObject obj, float level)
+    public void RpcSetOtherSanityLevel(short controllerID, float level)
     {
-        if (obj != gameObject && localPlayerManagerScript)
+        if (controllerID != playerControllerId && localPlayerManagerScript)
             localPlayerManagerScript.SetOtherSanityLevel(level);
     }
 }
