@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.PostProcessing;
 
-public class SanityAndLight : MonoBehaviour {
+public class SanityAndLight : NetworkBehaviour {
 
 	private bool beganRoutine = false;
 
@@ -94,6 +95,7 @@ public class SanityAndLight : MonoBehaviour {
 	            	if (distance < safeLightingRadius)
 	            	{
 	            		isIncapacitated = false;
+                        CmdSetOtherIsIncapacitated(gameObject, false);
                         CritterController.playerIsDown = false;
 	            	}
 	            }
@@ -250,4 +252,17 @@ public class SanityAndLight : MonoBehaviour {
     {
 		return (val - from1) / (to1 - from1) * (to2 - from2) + from2;
 	}
+
+    [Command]
+    public void CmdSetOtherIsIncapacitated(GameObject obj, bool toggle)
+    {
+        RpcSetOtherIsIncapacitated(obj, toggle);
+    }
+
+    [ClientRpc]
+    public void RpcSetOtherIsIncapacitated(GameObject obj, bool toggle)
+    {
+        if (obj != gameObject && localPlayerManagerScript)
+            localPlayerManagerScript.SetOtherIsIncapacitated(toggle);
+    }
 }
