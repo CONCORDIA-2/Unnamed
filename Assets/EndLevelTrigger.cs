@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scrollTexture : MonoBehaviour {
+public class EndLevelTrigger : MonoBehaviour {
 
 	// public variables
-	public float m_speedScrollX = 0.5f;
-	public float m_speedScrollY = 0.5f;
-	public bool m_activate = true;
+	public GameObject m_enginePanel;
 
 	// private variables
 
@@ -22,16 +20,23 @@ public class scrollTexture : MonoBehaviour {
 	// Update is called once per frame
 	// ------------------------------------
 	void Update () {
-		if (m_activate) {
-			float offsetX = Time.time * m_speedScrollX;
-			float offsetY = Time.time * m_speedScrollY;
-
-			GetComponent<Renderer> ().material.mainTextureOffset = new Vector2 (offsetX, offsetY);
-		}
+		
 	}
 
 	// ------------------------------------
 	// Methods
 	// ------------------------------------
+	void OnTriggerEnter (Collider col) {
+		// If the trigger detact one of the player
+		if (col.gameObject.tag == "Pickable") {
+			// Debug.Log ("Collided with a player");
+			// Change the light on the engine panel
+			engineLightController panelScript = m_enginePanel.GetComponent<engineLightController> ();
+			panelScript.changeLight ();
+
+			// After all, destroy itself
+			Destroy(gameObject);
+		}
+	}
 
 }

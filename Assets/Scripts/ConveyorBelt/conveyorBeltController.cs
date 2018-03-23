@@ -6,6 +6,7 @@ public class conveyorBeltController : MonoBehaviour {
 
 	// public variables
 	public float m_conveyorSpeed = 0.5f;
+	public bool m_activate = true;
 
 	// private variables
 
@@ -27,7 +28,7 @@ public class conveyorBeltController : MonoBehaviour {
 	// Methods
 	// ------------------------------------
 	void OnCollisionStay (Collision col) {
-		if (col.gameObject != null) {
+		if (col.gameObject != null && m_activate) {
 			
 			// With translate -------------------
 			float step = m_conveyorSpeed * Time.deltaTime;
