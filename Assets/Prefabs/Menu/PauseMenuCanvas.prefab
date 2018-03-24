@@ -994,7 +994,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Reset to Checkpoint
+  m_Text: Reset Level
 --- !u!114 &114950047875957894
 MonoBehaviour:
   m_ObjectHideFlags: 1
