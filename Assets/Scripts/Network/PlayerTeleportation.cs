@@ -6,17 +6,17 @@ using UnityEngine.Networking;
 public class PlayerTeleportation : NetworkBehaviour
 {
     public LocalPlayerManager playerManager;
+    public static Transform spawnLocation;
     public GameObject instance, otherPlayer;
     private bool isPlayer = false;
     private Vector3 spawnOffset;
-
-    public static Transform spawnLocation;
 
     public static bool reset = false;
 
     // Use this for initialization
     void Awake()
     {
+        // spawnLocation = GameObject.FindGameObjectWithTag("Checkpoint").transform;   //TEMPORARY SET UP FOR CHECKPOINTS
         playerManager = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>();
         isPlayer = true;
         spawnOffset = new Vector3(0, 0, 1f);
