@@ -926,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe381166e87b31468b8c03f37e0469b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pressurePlate: {fileID: 982901817}
+  pressurePlate: {fileID: 1422448301}
   door: {fileID: 1496416061}
   raised: {fileID: 1708578292}
   lowered: {fileID: 258735583}
@@ -3491,6 +3491,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55b49fd5df203ed45842b742b8028937, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &312299668 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1787806135354914, guid: 55b49fd5df203ed45842b742b8028937,
+    type: 2}
+  m_PrefabInternal: {fileID: 312299667}
 --- !u!1 &315180645
 GameObject:
   m_ObjectHideFlags: 0
@@ -4308,7 +4313,7 @@ Prefab:
         type: 2}
       propertyPath: pressurePlate
       value: 
-      objectReference: {fileID: 1781911348}
+      objectReference: {fileID: 312299668}
     - target: {fileID: 4062775160754342, guid: cc736c92769d5334383f11c6ada446be, type: 2}
       propertyPath: m_LocalScale.y
       value: 1.29
@@ -6283,10 +6288,10 @@ MonoBehaviour:
   MapToLDR: 0
   RemoveColorBanding: 1
   MatrixVP:
-    e00: 1.4921607
+    e00: 2.3873255
     e01: 0
     e02: 0
-    e03: 8.758987
+    e03: 14.013607
     e10: -0
     e11: -1.6730326
     e12: -0.44828764
@@ -6300,10 +6305,10 @@ MonoBehaviour:
     e32: 0.9659259
     e33: 8.229805
   LastMatrixVP:
-    e00: 1.4921607
+    e00: 2.3873255
     e01: 0
     e02: 0
-    e03: 8.758987
+    e03: 14.013607
     e10: 0
     e11: 1.6730326
     e12: 0.44828764
@@ -7245,11 +7250,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4813811230009124, guid: 234d58af22d6ad54e9070d48120b77ba,
     type: 2}
   m_PrefabInternal: {fileID: 3923313}
---- !u!1 &587211502 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1206854412176620, guid: 55b49fd5df203ed45842b742b8028937,
-    type: 2}
-  m_PrefabInternal: {fileID: 535956057}
 --- !u!1 &593466903
 GameObject:
   m_ObjectHideFlags: 0
@@ -12105,11 +12105,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4411268232084568, guid: 3842030a1bd51df478dc40c1ba808dca,
     type: 2}
   m_PrefabInternal: {fileID: 1381841411}
---- !u!1 &982901817 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1206854412176620, guid: 55b49fd5df203ed45842b742b8028937,
-    type: 2}
-  m_PrefabInternal: {fileID: 375907581}
 --- !u!1001 &985124117
 Prefab:
   m_ObjectHideFlags: 0
@@ -15827,7 +15822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe381166e87b31468b8c03f37e0469b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pressurePlate: {fileID: 587211502}
+  pressurePlate: {fileID: 2020283838}
   door: {fileID: 495712980}
   raised: {fileID: 599580462}
   lowered: {fileID: 950914924}
@@ -16555,7 +16550,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 13119.824, y: 13119.824, z: 0}
+  Offset: {x: 13680.01, y: 13680.01, z: 0}
 --- !u!108 &1413569711
 Light:
   m_ObjectHideFlags: 0
@@ -16648,6 +16643,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4309501446762472, guid: 13d3980ff2ffa7845b0948a8814fbea7,
     type: 2}
   m_PrefabInternal: {fileID: 577904024}
+--- !u!1 &1422448301 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1787806135354914, guid: 55b49fd5df203ed45842b742b8028937,
+    type: 2}
+  m_PrefabInternal: {fileID: 375907581}
 --- !u!1001 &1429775876
 Prefab:
   m_ObjectHideFlags: 0
@@ -20290,11 +20290,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 234d58af22d6ad54e9070d48120b77ba, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1781911348 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1206854412176620, guid: 55b49fd5df203ed45842b742b8028937,
-    type: 2}
-  m_PrefabInternal: {fileID: 312299667}
 --- !u!4 &1784713679 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4411268232084568, guid: 3842030a1bd51df478dc40c1ba808dca,
@@ -20659,7 +20654,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 5207.5303, y: 1328.811, z: 0}
+  Offset: {x: 5432.005, y: 1384.9297, z: 0}
 --- !u!108 &1804044209
 Light:
   m_ObjectHideFlags: 0
@@ -22590,7 +22585,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 10876.788, y: 10876.788, z: 0}
+  Offset: {x: 11436.974, y: 11436.974, z: 0}
 --- !u!108 &1959463762
 Light:
   m_ObjectHideFlags: 0
@@ -22982,6 +22977,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4371887656472138, guid: edda6ec0ec874f944a392bf9f716c854,
     type: 2}
   m_PrefabInternal: {fileID: 1678627877}
+--- !u!1 &2020283838 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1787806135354914, guid: 55b49fd5df203ed45842b742b8028937,
+    type: 2}
+  m_PrefabInternal: {fileID: 535956057}
 --- !u!4 &2022256651 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4452588379783006, guid: e26a232cdcfbcc04fa94d295a24c7573,
@@ -23935,7 +23935,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 9934.881, y: 9934.881, z: 0}
+  Offset: {x: 10495.066, y: 10495.066, z: 0}
 --- !u!1001 &2110748839
 Prefab:
   m_ObjectHideFlags: 0

@@ -20,9 +20,6 @@ public class SanityAndLight : NetworkBehaviour {
     public bool isIncapacitated = false;
     public float sanityLevel = 100.0f;
     public float distance;
-    
-    private float auraSize = 0.0f;
-    private float lightBrightness = 0.0f;
 
     private float maxAuraSize = 4.0f;
     private float maxLightBrightness = 2.0f;
