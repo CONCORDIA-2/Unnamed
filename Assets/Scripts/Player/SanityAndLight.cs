@@ -275,6 +275,9 @@ public class SanityAndLight : NetworkBehaviour {
     public void RpcSetOtherSanityLevel(short controllerID, float level)
     {
         if (controllerID != playerControllerId && localPlayerManagerScript)
+        {
+            Debug.Log("Player2 sanity " + level);
             localPlayerManagerScript.SetOtherSanityLevel(level);
+        }
     }
 }
