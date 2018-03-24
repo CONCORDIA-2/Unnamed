@@ -2525,6 +2525,7 @@ Transform:
   - {fileID: 456664614}
   - {fileID: 1174519327}
   - {fileID: 1255728080}
+  - {fileID: 763924887}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6288,10 +6289,10 @@ MonoBehaviour:
   MapToLDR: 0
   RemoveColorBanding: 1
   MatrixVP:
-    e00: 2.3873255
+    e00: 4.3077574
     e01: 0
     e02: 0
-    e03: 14.013607
+    e03: 25.286547
     e10: -0
     e11: -1.6730326
     e12: -0.44828764
@@ -6305,10 +6306,10 @@ MonoBehaviour:
     e32: 0.9659259
     e33: 8.229805
   LastMatrixVP:
-    e00: 2.3873255
+    e00: 4.3077574
     e01: 0
     e02: 0
-    e03: 14.013607
+    e03: 25.286547
     e10: 0
     e11: 1.6730326
     e12: 0.44828764
@@ -9287,6 +9288,138 @@ Transform:
   m_PrefabParentObject: {fileID: 4813811230009124, guid: 234d58af22d6ad54e9070d48120b77ba,
     type: 2}
   m_PrefabInternal: {fileID: 507435259}
+--- !u!1 &763924886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 763924887}
+  - component: {fileID: 763924889}
+  - component: {fileID: 763924888}
+  m_Layer: 0
+  m_Name: Spotlight (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &763924887
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763924886}
+  m_LocalRotation: {x: 0.14088923, y: -0.012958997, z: 0.0018443391, w: 0.98993886}
+  m_LocalPosition: {x: 60.1, y: 8.3, z: -13.12}
+  m_LocalScale: {x: 15, y: 1.0000002, z: 7.000002}
+  m_Children: []
+  m_Father: {fileID: 210110633}
+  m_RootOrder: 334
+  m_LocalEulerAnglesHint: {x: 16.2, y: -1.5, z: 0}
+--- !u!114 &763924888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763924886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da396d4547fa3ff45a6bc1e4f6ca6964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoiseTexture3D: {fileID: 0}
+  NoiseScale: {x: 0.5, y: 0.5, z: 0.5}
+  NoiseVelocity: {x: 1, y: 1, z: 0}
+  LightFalloff: {fileID: 0}
+  NearPlane: 0
+  NoiseEnabled: 0
+  CustomMieScatter: 0
+  CustomExtinction: 0
+  CustomExtinctionEffect: 0
+  CustomDensity: 0
+  CustomSampleCount: 0
+  CustomColor: 0
+  CustomNoiseEnabled: 0
+  CustomNoiseTexture: 0
+  CustomNoiseScale: 0
+  CustomNoiseVelocity: 0
+  CustomNoiseContrast: 0
+  CustomFogHeightEnabled: 0
+  CustomFogHeight: 0
+  CustomFogTransitionSize: 0
+  CustomAboveFogPercent: 0
+  CustomSunSize: 0
+  CustomSunBleed: 0
+  ShadowCasting: 1
+  CustomStrength: 0
+  CustomIntensity: 0
+  CustomTintMode: 0
+  CustomTintColor: 0
+  CustomTintColor2: 0
+  CustomTintGradient: 0
+  CustomTintIntensity: 0
+  CustomMaxLightDistance: 0
+  NoiseContrast: 1
+  TintMode: 0
+  TintColor: {r: 1, g: 0, b: 0, a: 1}
+  TintColor2: {r: 0, g: 0, b: 1, a: 1}
+  TintIntensity: 0.2
+  TintGradient: 0.2
+  Intensity: 1
+  Strength: 1
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  MieScattering: 0.05
+  SunSize: 0
+  SunBleed: 1
+  Extinction: 0.01
+  Density: 0.2
+  ExtraDensity: 0.2
+  SampleCount: 4
+  Shadows: 1
+  FogHeightEnabled: 0
+  FogHeight: 5
+  FogTransitionSize: 5
+  MaxLightDistance: 128
+  AboveFogPercent: 0.1
+  Offset: {x: 3477.6218, y: 3477.6218, z: 0}
+--- !u!108 &763924889
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763924886}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 0
+  m_Color: {r: 0.9411765, g: 0.9087221, b: 0.8235294, a: 1}
+  m_Intensity: 2
+  m_Range: 58.1
+  m_SpotAngle: 37
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1001 &767829538
 Prefab:
   m_ObjectHideFlags: 0
@@ -16550,7 +16683,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 13680.01, y: 13680.01, z: 0}
+  Offset: {x: 13767.129, y: 13767.129, z: 0}
 --- !u!108 &1413569711
 Light:
   m_ObjectHideFlags: 0
@@ -20654,7 +20787,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 5432.005, y: 1384.9297, z: 0}
+  Offset: {x: 5434.794, y: 1385.627, z: 0}
 --- !u!108 &1804044209
 Light:
   m_ObjectHideFlags: 0
@@ -22585,7 +22718,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 11436.974, y: 11436.974, z: 0}
+  Offset: {x: 11524.093, y: 11524.093, z: 0}
 --- !u!108 &1959463762
 Light:
   m_ObjectHideFlags: 0
@@ -23935,7 +24068,7 @@ MonoBehaviour:
   FogTransitionSize: 5
   MaxLightDistance: 128
   AboveFogPercent: 0.1
-  Offset: {x: 10495.066, y: 10495.066, z: 0}
+  Offset: {x: 10582.186, y: 10582.186, z: 0}
 --- !u!1001 &2110748839
 Prefab:
   m_ObjectHideFlags: 0
