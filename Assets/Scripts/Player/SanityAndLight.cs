@@ -43,9 +43,10 @@ public class SanityAndLight : MonoBehaviour {
     public float speedChange = 0.03f;
     private static float updateWait = 0.01f;
 
-    void Start() {
-		//grab reference to the local player manager if not assigned
-	    localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager");
+    void Start()
+    {
+        //grab reference to the local player manager if not assigned
+        localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager");
 	    if (localPlayerManager)
 	        localPlayerManagerScript = localPlayerManager.GetComponent<LocalPlayerManager>();
 

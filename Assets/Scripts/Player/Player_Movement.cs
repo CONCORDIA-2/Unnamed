@@ -37,7 +37,7 @@ public class Player_Movement : NetworkBehaviour
         mPlayerClimbing = GetComponent<Player_Climbing>();
         mPlayerAudio = GetComponent<PlayerAudio>();
         mPlayerAnimation = GetComponent<PlayerAnimation>();
-        mDistanceToGround = GetComponent<Collider>().bounds.extents.y + 0.1f;
+        mDistanceToGround = 0.05f;
     }
 
     private void Update()
@@ -72,6 +72,15 @@ public class Player_Movement : NetworkBehaviour
 
             // Add additional downard force to ground player
         	mRb.AddForce(new Vector3(0.0f, -90.0f, 0.0f), ForceMode.Force);
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (CheckIfGrounded() && !mWasJumping)
+        {
+            mPlayerAnimation.CmdSetBool("isJumping", false);
+            mPlayerAnimation.CmdSetBool("isIdle", true);
         }
     }
 
@@ -156,7 +165,10 @@ public class Player_Movement : NetworkBehaviour
             mRb.AddForce(new Vector3(0.0f, mExtraJumpPower, 0.0f), ForceMode.Acceleration);
             if (Time.time - mJumpTimer > mDelayToExtraJumpForce)
             	mIsJumping = false;
-        } 
+        }
+
+        mPlayerAnimation.CmdSetBool("isJumping", true);
+        mPlayerAnimation.CmdSetBool("isIdle", false);
     }
 
     // Function that checks if the player is grounded

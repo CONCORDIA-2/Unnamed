@@ -66,7 +66,6 @@ public class Player_PickUpDropObject : NetworkBehaviour
         RaycastHit rayItemHit;
 
         // Check if an pickable object is in range
-        Debug.DrawRay(transform.position + new Vector3(0.0f, 0.25f, 0.0f), transform.TransformDirection(Vector3.forward), Color.blue);
         if (Physics.Raycast(transform.position + new Vector3(0.0f, 0.25f, 0.0f), transform.TransformDirection(Vector3.forward), out rayItemHit, 1f))
             if (rayItemHit.transform.gameObject.tag == "Pickable" || (rayItemHit.transform.gameObject.tag == "HeavyPickable" && mLocalPlayerSetup.IsRaven()))
             {
