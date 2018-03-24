@@ -1622,7 +1622,7 @@ MonoBehaviour:
   camControl: {fileID: 0}
   localPlayerManagerScript: {fileID: 0}
   checkInterval: 0.5
-  isRaven: 0
+  isRaven: 1
 --- !u!114 &114649507191548084
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CodNic_level01.unity
     guid: 872dc01d8e8ea9849aee4c05e98b0a01
   - enabled: 0
