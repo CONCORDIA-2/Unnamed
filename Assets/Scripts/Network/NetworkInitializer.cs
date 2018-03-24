@@ -23,13 +23,16 @@ public class NetworkInitializer : NetworkDiscovery
 
     private void Awake()
     {
+       
         hud = GetComponent<NetworkManagerHUD>();
 
+        /*
         if (useHUD)
             enabled = false;
 
         else
         {
+        */
             hud.enabled = false;
 
             broadcastKey = discoverKey;
@@ -38,7 +41,7 @@ public class NetworkInitializer : NetworkDiscovery
             showGUI = false;
             manager = GetComponent<NetworkManager>();
             manager.networkPort = port;
-        }
+       // }
 
         //connectionUI = GameObject.Find("ConnectionUI");
     }

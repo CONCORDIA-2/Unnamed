@@ -63,7 +63,7 @@ public class Player_Movement : NetworkBehaviour
         // If the player is not hanging, they can move
         if (isLocalPlayer && !PauseMenuController.isPaused)
         {
-            if (!mPlayerClimbing.GetIsHanging())
+            //if (!mPlayerClimbing.GetIsHanging())
                 Move();
 
             if (mIsJumping || mWasJumping)
