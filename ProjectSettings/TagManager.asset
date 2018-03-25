@@ -18,6 +18,7 @@ TagManager:
   - HeavyPickable
   - Checkpoint
   - ConnectionUI
+  - block rabbit
   layers:
   - Default
   - TransparentFX

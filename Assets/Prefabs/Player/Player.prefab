@@ -302,7 +302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1561004163318670
 GameObject:
   m_ObjectHideFlags: 1
@@ -465,6 +465,7 @@ GameObject:
   - component: {fileID: 4615769287781846}
   - component: {fileID: 95047798537410668}
   - component: {fileID: 136120929561140676}
+  - component: {fileID: 136971303268570186}
   - component: {fileID: 54214070398759720}
   - component: {fileID: 114576443404513342}
   - component: {fileID: 114974583198083080}
@@ -477,6 +478,7 @@ GameObject:
   - component: {fileID: 114997781362537452}
   - component: {fileID: 82742701594331298}
   - component: {fileID: 114561009887485296}
+  - component: {fileID: 114150081171003384}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1453,6 +1455,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114150081171003384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1740278921419122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2114c811c9724a42bb9cbfe6b7d71d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRaven: 1
 --- !u!114 &114261293078638124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1726,6 +1740,19 @@ CapsuleCollider:
   m_Height: 1.9881213
   m_Direction: 1
   m_Center: {x: 0, y: 0.0959394, z: 0}
+--- !u!136 &136971303268570186
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1740278921419122}
+  m_Material: {fileID: 13400000, guid: 28fa7563b9fac124c9b6a4738fbbc57d, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.35
+  m_Height: 1.788121
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.24, z: 0}
 --- !u!137 &137979499691539288
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
