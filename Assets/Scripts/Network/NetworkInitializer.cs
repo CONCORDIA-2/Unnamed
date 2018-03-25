@@ -10,7 +10,7 @@ public class NetworkInitializer : NetworkDiscovery
     [SerializeField] private NetworkManagerHUD hud;
 
     // set this to "false" when you want to get rid of the HUD
-    [SerializeField] private bool useHUD = true;
+    private bool useDefaultHUD = false;
 
     // used in testing to turn off "Host Game - Join Game" UI
     //[SerializeField] private GameObject connectionUI;
@@ -24,8 +24,9 @@ public class NetworkInitializer : NetworkDiscovery
     private void Awake()
     {
         hud = GetComponent<NetworkManagerHUD>();
+        manager = GetComponent<NetworkManager>();
 
-        if (useHUD)
+        if (useDefaultHUD)
             enabled = false;
 
         else
@@ -36,7 +37,6 @@ public class NetworkInitializer : NetworkDiscovery
             broadcastPort = discoveryPort;
             useNetworkManager = true;
             showGUI = false;
-            manager = GetComponent<NetworkManager>();
             manager.networkPort = port;
         }
 

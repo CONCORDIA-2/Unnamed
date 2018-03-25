@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17757863, g: 0.22232208, b: 0.30451748, a: 1}
+  m_IndirectSpecularColor: {r: 0.17757896, g: 0.22232233, b: 0.30451858, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -6059,7 +6059,7 @@ MonoBehaviour:
   - {fileID: 1560754256}
   waitScreen: {fileID: 762990949}
   networkManager: {fileID: 974487099}
-  isHost: 0
+  isHost: 1
 --- !u!1 &1358417499
 GameObject:
   m_ObjectHideFlags: 0
