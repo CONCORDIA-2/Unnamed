@@ -105,7 +105,7 @@ public class SanityAndLight : NetworkBehaviour {
 		            {
 		            	if (distance > safeLightingRadius)
 		            	{
-		            		DecreaseSanity(sanityChange * 2);
+		            		DecreaseSanity(sanityChange * 1.5f);
 		               		IncreaseWeight();
 		            	}
 		            	else
