@@ -21,6 +21,7 @@ public class NetworkInitializer : NetworkDiscovery
 
     private void Start()
     {
+       
         hud = GetComponent<NetworkManagerHUD>();
         connectionUI = GameObject.FindGameObjectWithTag("ConnectionUI");
 
@@ -29,6 +30,7 @@ public class NetworkInitializer : NetworkDiscovery
 
         else
         {
+        
             hud.enabled = false;
 
             broadcastKey = discoverKey;

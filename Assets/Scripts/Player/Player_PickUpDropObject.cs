@@ -26,6 +26,7 @@ public class Player_PickUpDropObject : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+        mIsRaven = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven();
         mPlayerMovement = GetComponent<Player_Movement>();
     }
 

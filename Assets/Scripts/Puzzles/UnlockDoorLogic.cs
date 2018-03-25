@@ -31,6 +31,6 @@ public class UnlockDoorLogic : MonoBehaviour {
             instructions.SetActive(false);
             whatElse.SetActive(false);
             StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, resolution));
-        }
+       }
 	}
 }

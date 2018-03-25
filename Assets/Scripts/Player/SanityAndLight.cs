@@ -42,6 +42,8 @@ public class SanityAndLight : NetworkBehaviour {
     private float updateWait = 0.01f;
 
     void Start() {
+        isRaven = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven();
+
 		//grab reference to the local player manager if not assigned
 	    localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager");
 	    if (localPlayerManager)

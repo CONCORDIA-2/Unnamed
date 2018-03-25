@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 // Author: Tri-Luong Steven Dien
 public class Player_Movement : NetworkBehaviour
 {
-	 public bool isRaven = false;
+	public bool isRaven = false;
 
     [Header("Movement")]
     public float mMaxSpeed = 3.8f;
@@ -31,6 +31,8 @@ public class Player_Movement : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+    	isRaven = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven();
+
     	if (!isRaven)
     		mExtraJumpPower = 26f;
 
@@ -63,7 +65,7 @@ public class Player_Movement : NetworkBehaviour
         // If the player is not hanging, they can move
         if (isLocalPlayer && !PauseMenuController.isPaused)
         {
-            if (!mPlayerClimbing.GetIsHanging())
+            //if (!mPlayerClimbing.GetIsHanging())
                 Move();
 
             if (mIsJumping || mWasJumping)
