@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 114460568504574970}
   m_Layer: 0
   m_Name: MetalBox
-  m_TagString: Pickable
+  m_TagString: HeavyPickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

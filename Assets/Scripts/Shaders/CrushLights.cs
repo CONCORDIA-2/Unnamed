@@ -16,6 +16,10 @@ namespace Assets.Scripts.Cam.Effects {
 
 		public bool isRaven = true;
 
+		void Start() {
+			isRaven = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven();
+		}
+
 		private Material material {
 			get {
 				if (m_material == null) {
