@@ -11,9 +11,10 @@ public class NetworkInitializer : NetworkDiscovery
     [SerializeField] private GameObject connectionUI;
 
     // set this to "false" when you want to get rid of the HUD
-    private bool useDefaultHUD = false;
+    private bool useDefaultHUD = true;
 
-    private bool initialized = true;
+    private bool connected = false;
+    private bool initialized = false;
     private string ip;
     private const short port = 7777;
     private const int discoverKey = 6674;
@@ -21,7 +22,6 @@ public class NetworkInitializer : NetworkDiscovery
 
     private void Start()
     {
-       
         hud = GetComponent<NetworkManagerHUD>();
         connectionUI = GameObject.FindGameObjectWithTag("ConnectionUI");
 
@@ -46,25 +46,24 @@ public class NetworkInitializer : NetworkDiscovery
         GetHostInfo();
         NetworkManager.singleton.networkAddress = ip;
 
-        if (NetworkIsReady())
+        if (!initialized && NetworkIsReady())
         {
-            Initialize();
-            ResetNetwork();
+            initialized = Initialize();
             StartAsServer();
             NetworkManager.singleton.StartHost();
             ToggleConnectionUI(false);
-            initialized = true;
+
+            Debug.Log("StartHost initialized = " + initialized + "; hostId = " + hostId);
         }
     }
 
     public void StartClient()
     {
-        if (NetworkIsReady())
+        if (!initialized && NetworkIsReady())
         {
-            Initialize();
-            ResetNetwork();
+            initialized = Initialize();
             StartAsClient();
-            initialized = true;
+            Debug.Log("StartClient initialized = " + initialized + "; hostId = " + hostId);
         }
     }
 
@@ -72,12 +71,16 @@ public class NetworkInitializer : NetworkDiscovery
     {
         base.OnReceivedBroadcast(fromAddress, data);
 
-        Debug.Log("received broadcast from " + fromAddress + ": " + data);
-        StopBroadcast();
+        if (!connected)
+        {
+            Debug.Log("OnReceivedBroadcast from " + fromAddress + ": " + data);
 
-        NetworkManager.singleton.networkAddress = fromAddress;
-        NetworkManager.singleton.StartClient();
-        ToggleConnectionUI(false);
+            NetworkManager.singleton.networkAddress = fromAddress;
+            NetworkManager.singleton.StartClient();
+            ToggleConnectionUI(false);
+
+            connected = true;
+        }
     }
 
     private void GetHostInfo()
@@ -97,21 +100,6 @@ public class NetworkInitializer : NetworkDiscovery
     {
         return !NetworkServer.active
             && !NetworkClient.active;
-    }
-
-    private void ResetNetwork()
-    {
-        if (initialized)
-        {
-            StopBroadcast();
-            if (isServer)
-                NetworkManager.singleton.StopHost();
-            NetworkManager.singleton.StopClient();
-            Network.Disconnect();
-            NetworkServer.Reset();
-            ToggleConnectionUI(true);
-            initialized = false;
-        }
     }
 
     private void ToggleConnectionUI(bool toggle)
