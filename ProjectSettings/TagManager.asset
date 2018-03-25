@@ -17,6 +17,7 @@ TagManager:
   - GuardCritter
   - HeavyPickable
   - Checkpoint
+  - ConnectionUI
   layers:
   - Default
   - TransparentFX

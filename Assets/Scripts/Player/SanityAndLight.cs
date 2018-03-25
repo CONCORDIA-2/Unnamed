@@ -268,7 +268,10 @@ public class SanityAndLight : NetworkBehaviour {
     public void RpcSetOtherIsIncapacitated(short controllerID, bool toggle)
     {
         if (controllerID != playerControllerId && localPlayerManagerScript)
+        {
             localPlayerManagerScript.SetOtherIsIncapacitated(toggle);
+            localPlayerManagerScript.GetOtherPlayerObject().GetComponent<SanityAndLight>().isIncapacitated = toggle;
+        }
     }
 
     [ClientRpc]
@@ -276,8 +279,8 @@ public class SanityAndLight : NetworkBehaviour {
     {
         if (controllerID != playerControllerId && localPlayerManagerScript)
         {
-            Debug.Log("Player2 sanity " + level);
             localPlayerManagerScript.SetOtherSanityLevel(level);
+            localPlayerManagerScript.GetOtherPlayerObject().GetComponent<SanityAndLight>().sanityLevel = level;
         }
     }
 }

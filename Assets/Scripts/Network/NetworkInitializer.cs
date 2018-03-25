@@ -3,17 +3,15 @@ using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.Networking;
 
-[RequireComponent(typeof(NetworkManager))]
 public class NetworkInitializer : NetworkDiscovery
 {
-    [SerializeField] private NetworkManager manager;
     [SerializeField] private NetworkManagerHUD hud;
 
-    // set this to "false" when you want to get rid of the HUD
-    [SerializeField] private bool useHUD = false;
-
     // used in testing to turn off "Host Game - Join Game" UI
-    //[SerializeField] private GameObject connectionUI;
+    [SerializeField] private GameObject connectionUI;
+
+    // set this to "false" when you want to get rid of the HUD
+    private bool useDefaultHUD = false;
 
     private bool initialized = true;
     private string ip;
@@ -21,11 +19,12 @@ public class NetworkInitializer : NetworkDiscovery
     private const int discoverKey = 6674;
     private const int discoveryPort = 57777;
 
-    private void Awake()
+    private void Start()
     {
         hud = GetComponent<NetworkManagerHUD>();
+        connectionUI = GameObject.FindGameObjectWithTag("ConnectionUI");
 
-        if (useHUD)
+        if (useDefaultHUD)
             enabled = false;
 
         else
@@ -36,25 +35,22 @@ public class NetworkInitializer : NetworkDiscovery
             broadcastPort = discoveryPort;
             useNetworkManager = true;
             showGUI = false;
-            manager = GetComponent<NetworkManager>();
-            manager.networkPort = port;
+            NetworkManager.singleton.networkPort = port;
         }
-
-        //connectionUI = GameObject.Find("ConnectionUI");
     }
 
     public void StartHost()
     {
         GetHostInfo();
-        manager.networkAddress = ip;
+        NetworkManager.singleton.networkAddress = ip;
 
         if (NetworkIsReady())
         {
             Initialize();
             ResetNetwork();
             StartAsServer();
-            manager.StartHost();
-            //ToggleConnectionUI(false);
+            NetworkManager.singleton.StartHost();
+            ToggleConnectionUI(false);
             initialized = true;
         }
     }
@@ -72,14 +68,14 @@ public class NetworkInitializer : NetworkDiscovery
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
+        base.OnReceivedBroadcast(fromAddress, data);
+
         Debug.Log("received broadcast from " + fromAddress + ": " + data);
-        manager.networkAddress = fromAddress;
-        if (!NetworkClient.active)
-        {
-            manager.StartClient();
-            StopBroadcast();
-            //ToggleConnectionUI(false);
-        }
+        StopBroadcast();
+
+        NetworkManager.singleton.networkAddress = fromAddress;
+        NetworkManager.singleton.StartClient();
+        ToggleConnectionUI(false);
     }
 
     private void GetHostInfo()
@@ -105,19 +101,20 @@ public class NetworkInitializer : NetworkDiscovery
     {
         if (initialized)
         {
+            StopBroadcast();
             if (isServer)
-                StopBroadcast();
-            manager.StopClient();
-            manager.StopHost();
+                NetworkManager.singleton.StopHost();
+            NetworkManager.singleton.StopClient();
             Network.Disconnect();
             NetworkServer.Reset();
-            //ToggleConnectionUI(true);
+            ToggleConnectionUI(true);
             initialized = false;
         }
     }
 
     private void ToggleConnectionUI(bool toggle)
     {
-        //connectionUI.SetActive(toggle);
+        if (connectionUI)
+            connectionUI.SetActive(toggle); 
     }
 }
