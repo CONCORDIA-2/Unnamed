@@ -24,7 +24,7 @@ public class CritterController : NetworkBehaviour
     public bool foundPlayers = false;
 
     public GameObject explosionPrefab;
-    public bool destroy = false;
+
     [SerializeField] private LocalPlayerManager localPlayerManagerScript;
     [SerializeField] private GameObject localPlayerManager;
 
@@ -40,13 +40,6 @@ public class CritterController : NetworkBehaviour
 
     private void Update()
     {
-        if (destroy)
-        {
-            Destroy(instance.agent.gameObject);
-            GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            NetworkServer.Spawn(explosion);
-            Destroy(explosion, 2.0f);
-        }
         if (foundPlayers && root == null)
         {
             root = BuildTree(instance);
@@ -83,6 +76,7 @@ public class CritterController : NetworkBehaviour
             UnityEngine.Object.Destroy(instance.agent.gameObject);
 
             GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            NetworkServer.Spawn(explosion);
             Destroy(explosion, 2.0f);
         }
     }
