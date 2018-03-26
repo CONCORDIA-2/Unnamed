@@ -23,6 +23,8 @@ public class CritterController : NetworkBehaviour
 
     public bool foundPlayers = false;
 
+    public GameObject explosionPrefab;
+    public bool destroy = false;
     [SerializeField] private LocalPlayerManager localPlayerManagerScript;
     [SerializeField] private GameObject localPlayerManager;
 
@@ -38,6 +40,13 @@ public class CritterController : NetworkBehaviour
 
     private void Update()
     {
+        if (destroy)
+        {
+            Destroy(instance.agent.gameObject);
+            GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            NetworkServer.Spawn(explosion);
+            Destroy(explosion, 2.0f);
+        }
         if (foundPlayers && root == null)
         {
             root = BuildTree(instance);
@@ -72,6 +81,9 @@ public class CritterController : NetworkBehaviour
                      mySpawner.critterCount--;
             }
             UnityEngine.Object.Destroy(instance.agent.gameObject);
+
+            GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(explosion, 2.0f);
         }
     }
 
@@ -169,6 +181,11 @@ public class CritterController : NetworkBehaviour
         //Ensures that the new goal is on the navmesh, moves it onto the mesh close to the original goal if needed (found: https://forum.unity.com/threads/solved-random-wander-ai-using-navmesh.327950/)
 
         return navHit.position;
+    }
+
+    public void PlaySFX_Footsteps()
+    {
+        GetComponent<AudioSource>().Play();
     }
 }
 

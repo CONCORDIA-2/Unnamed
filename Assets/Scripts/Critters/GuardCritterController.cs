@@ -44,4 +44,8 @@ public class GuardCritterController : NetworkBehaviour
         return navHit.position;
     }
 
+    public void PlaySFX_Footsteps()
+    {
+        GetComponent<AudioSource>().Play();
+    }
 }
