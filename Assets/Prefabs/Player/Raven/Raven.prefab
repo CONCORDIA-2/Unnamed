@@ -1650,7 +1650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1624815888509332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,6 +1691,7 @@ GameObject:
   - component: {fileID: 4876231170147392}
   - component: {fileID: 95104377365964166}
   - component: {fileID: 136863632806251204}
+  - component: {fileID: 136883651336314454}
   - component: {fileID: 54993096600816806}
   - component: {fileID: 114507558312316798}
   - component: {fileID: 114974247019416460}
@@ -1705,7 +1706,7 @@ GameObject:
   - component: {fileID: 114759005475899540}
   m_Layer: 0
   m_Name: Raven
-  m_TagString: Untagged
+  m_TagString: Pickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3362,7 +3363,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1765702230778876}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0.021999955}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 4876231170147392}
@@ -3572,7 +3573,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1818393457708856}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.021999996}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4876231170147392}
@@ -4676,10 +4677,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3e3a78f856ae44a8553b5754ea714f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRaven: 0
-  mMaxSpeed: 3
-  mInitialJumpPower: 160
-  mExtraJumpPower: 17
+  isRaven: 1
+  mMaxSpeed: 3.8
+  mInitialJumpPower: 120
+  mExtraJumpPower: 21
 --- !u!114 &114259514787045448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4898,10 +4899,23 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 973ff3ef25a9b5a4cafbf6a69929f560, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.29
+  m_Radius: 0.34
   m_Height: 1.9881213
   m_Direction: 1
   m_Center: {x: 0, y: 0.99, z: 0.03}
+--- !u!136 &136883651336314454
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1649313780751466}
+  m_Material: {fileID: 13400000, guid: 28fa7563b9fac124c9b6a4738fbbc57d, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.35
+  m_Height: 1.788121
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.13, z: 0}
 --- !u!136 &136910669775950034
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -37,10 +37,11 @@ public class Player_Movement : NetworkBehaviour
     	if (!isRaven)
     		mExtraJumpPower = 26f;
 
+        mDistanceToGround = GetComponent<Collider>().bounds.extents.y;
         mRb = GetComponent<Rigidbody>();
         mPlayerAudio = GetComponent<PlayerAudio>();
         mPlayerAnimation = GetComponent<PlayerAnimation>();
-        mDistanceToGround = 0.05f;
+        //mDistanceToGround = 0.05f;
     }
 
     private void Update()
