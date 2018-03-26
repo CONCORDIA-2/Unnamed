@@ -19,6 +19,15 @@ public class ItemSFX : MonoBehaviour
             FindLocalPlayer();
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+    	if (collision.relativeVelocity.magnitude > 4)
+    	{
+    		mAudioSources[0].clip = mAudioClips[Random.Range(0, mAudioClips.Length)];
+    		GetComponent<AudioSource>().Play();
+    	}
+    }
+
     public void PlaySFX()
     {
         mAudioSources[0].clip = mAudioClips[Random.Range(0, mAudioClips.Length)];

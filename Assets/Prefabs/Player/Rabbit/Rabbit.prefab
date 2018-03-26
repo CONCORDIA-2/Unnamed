@@ -875,7 +875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1852790990934080
 GameObject:
   m_ObjectHideFlags: 1
@@ -978,6 +978,7 @@ GameObject:
   - component: {fileID: 4557355672050218}
   - component: {fileID: 95761909142478336}
   - component: {fileID: 136577000819245572}
+  - component: {fileID: 136907725450715030}
   - component: {fileID: 54566153557362150}
   - component: {fileID: 114591847597033294}
   - component: {fileID: 114234094211409522}
@@ -992,7 +993,7 @@ GameObject:
   - component: {fileID: 114057989325775776}
   m_Layer: 0
   m_Name: Rabbit
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1138,7 +1139,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558324644872094}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5}
+  m_LocalPosition: {x: 0, y: 1.124, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 4557355672050218}
@@ -1980,7 +1981,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855113414142996}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5}
+  m_LocalPosition: {x: 0, y: 1.124, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4557355672050218}
@@ -2500,9 +2501,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRaven: 0
-  mMaxSpeed: 3
-  mInitialJumpPower: 160
-  mExtraJumpPower: 17
+  mMaxSpeed: 3.8
+  mInitialJumpPower: 120
+  mExtraJumpPower: 21
 --- !u!114 &114472905513848288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2687,7 +2688,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1844824775007272}
   m_Material: {fileID: 13400000, guid: 28fa7563b9fac124c9b6a4738fbbc57d, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.3
   m_Height: 1.788121
   m_Direction: 1
@@ -2701,10 +2702,23 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 973ff3ef25a9b5a4cafbf6a69929f560, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.29
+  m_Radius: 0.34
   m_Height: 1.9881213
   m_Direction: 1
   m_Center: {x: 0, y: 0.99, z: 0.03}
+--- !u!136 &136907725450715030
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1930420241932296}
+  m_Material: {fileID: 13400000, guid: 28fa7563b9fac124c9b6a4738fbbc57d, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.35
+  m_Height: 1.788121
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.13, z: 0}
 --- !u!137 &137463471358123236
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
