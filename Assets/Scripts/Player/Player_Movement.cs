@@ -27,7 +27,8 @@ public class Player_Movement : NetworkBehaviour
     private Rigidbody mRb;
 
     // Other attached script
-    private Player_Climbing mPlayerClimbing;
+    private PlayerAudio mPlayerAudio;
+    private PlayerAnimation mPlayerAnimation;
 
     public override void OnStartLocalPlayer()
     {
@@ -37,8 +38,9 @@ public class Player_Movement : NetworkBehaviour
     		mExtraJumpPower = 26f;
 
         mRb = GetComponent<Rigidbody>();
-        mPlayerClimbing = GetComponent<Player_Climbing>();
-        mDistanceToGround = GetComponent<Collider>().bounds.extents.y + 0.1f;
+        mPlayerAudio = GetComponent<PlayerAudio>();
+        mPlayerAnimation = GetComponent<PlayerAnimation>();
+        mDistanceToGround = 0.05f;
     }
 
     private void Update()
@@ -65,14 +67,22 @@ public class Player_Movement : NetworkBehaviour
         // If the player is not hanging, they can move
         if (isLocalPlayer && !PauseMenuController.isPaused)
         {
-            //if (!mPlayerClimbing.GetIsHanging())
-                Move();
+            Move();
 
             if (mIsJumping || mWasJumping)
                 Jump();
 
             // Add additional downard force to ground player
         	mRb.AddForce(new Vector3(0.0f, -260.0f, 0.0f), ForceMode.Force);
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (CheckIfGrounded() && !mWasJumping)
+        {
+            mPlayerAnimation.CmdSetBool("isJumping", false);
+            mPlayerAnimation.CmdSetBool("isIdle", true);
         }
     }
 
@@ -116,12 +126,23 @@ public class Player_Movement : NetworkBehaviour
             }
 
             mRb.velocity = new Vector3(movement.x, yMag, movement.y);
+
+            mPlayerAnimation.CmdSetBool("isRunning", true);
+            mPlayerAnimation.CmdSetBool("isIdle", false);
         }
         else
         {
         	// Stop movement if no significant movement is present
         	if (mRb.velocity.magnitude < new Vector3(0.1f, 0.1f, 0.1f).magnitude)
-    			mRb.velocity = new Vector3(0, 0, 0);
+            {
+                mRb.velocity = new Vector3(0, 0, 0);
+
+                mPlayerAnimation.CmdSetBool("isRunning", false);
+                if (!GetComponent<Animator>().GetBool("isLifting"))
+                {
+                    mPlayerAnimation.CmdSetBool("isIdle", true);
+                }
+            }
         }
     }
 
@@ -147,6 +168,9 @@ public class Player_Movement : NetworkBehaviour
             if (Time.time - mJumpTimer > mDelayToExtraJumpForce)
             	mIsJumping = false;
         }
+
+        mPlayerAnimation.CmdSetBool("isJumping", true);
+        mPlayerAnimation.CmdSetBool("isIdle", false);
     }
 
     // Function that checks if the player is grounded
@@ -165,5 +189,13 @@ public class Player_Movement : NetworkBehaviour
     public void SetWasJumping(bool wasJumping)
     {
         mWasJumping = wasJumping;
+    }
+
+    public void PlaySFX_Footsteps()
+    {
+        if (CheckIfGrounded())
+        {
+            mPlayerAudio.CmdPlayClipId(Random.Range(0, 8), false, false);
+        }
     }
 }

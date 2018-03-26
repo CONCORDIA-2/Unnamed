@@ -1,0 +1,734 @@
+fileFormatVersion: 2
+guid: 0a0ca700d09ced540afa13f2adea7e2d
+timeCreated: 1521940036
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Arm IK L
+    100002: Arm IK L_end
+    100004: Arm IK R.001
+    100006: Arm IK R.001_end
+    100008: Armature
+    100010: Bicep L
+    100012: Bicep R.001
+    100014: Bone
+    100016: Calf L
+    100018: Calf L_end
+    100020: Calf R.001
+    100022: Calf R.001_end
+    100024: Character
+    100026: Chest
+    100028: Core
+    100030: Cube.002
+    100032: Cube.003
+    100034: Elbow L
+    100036: Elbow L_end
+    100038: Elbow R.001
+    100040: Elbow R.001_end
+    100042: Forearm L
+    100044: Forearm L_end
+    100046: Forearm R.001
+    100048: Forearm R.001_end
+    100050: Head
+    100052: Head_end
+    100054: Knee L
+    100056: Knee L_end
+    100058: Knee R.001
+    100060: Knee R.001_end
+    100062: Leg L
+    100064: Leg L_end
+    100066: Leg R.001
+    100068: Leg R.001_end
+    100070: Plane
+    100072: Plane.001
+    100074: Plane.002
+    100076: Plane.003
+    100078: Plane.004
+    100080: Plane.005
+    100082: Plane.006
+    100084: Plane.007
+    100086: Plane.008
+    100088: Plane.009
+    100090: Plane.010
+    100092: Plane.011
+    100094: Plane.012
+    100096: Plane.013
+    100098: Plane.014
+    100100: Plane.015
+    100102: Plane.016
+    100104: Plane.017
+    100106: Plane.018
+    100108: Plane.019
+    100110: Plane.020
+    100112: Plane.021
+    100114: Plane.022
+    100116: Plane.023
+    100118: Plane.024
+    100120: Plane.025
+    100122: Plane.026
+    100124: Plane.027
+    100126: Plane.028
+    100128: Plane.029
+    100130: Plane.030
+    100132: Plane.031
+    100134: Plane.032
+    100136: Plane.033
+    100138: Plane.034
+    100140: Plane.035
+    100142: Plane.036
+    100144: Plane.037
+    100146: Plane.038
+    100148: Plane.039
+    100150: Plane.040
+    100152: Plane.041
+    100154: Plane.042
+    100156: Plane.043
+    100158: Plane.044
+    100160: Plane.045
+    100162: Plane.046
+    100164: Plane.047
+    100166: Plane.048
+    100168: Plane.049
+    100170: Plane.050
+    100172: Plane.051
+    100174: Plane.052
+    100176: Plane.053
+    100178: Plane.054
+    100180: Plane.055
+    100182: Plane.056
+    100184: Plane.057
+    100186: Plane.058
+    100188: Plane.059
+    100190: Plane.060
+    100192: Plane.061
+    100194: Plane.062
+    100196: Plane.063
+    100198: Plane.064
+    100200: Plane.065
+    100202: Plane.066
+    100204: Plane.067
+    100206: Plane.068
+    100208: Plane.069
+    100210: Plane.070
+    100212: Plane.071
+    100214: Plane.072
+    100216: Plane.073
+    100218: Plane.074
+    100220: Plane.075
+    100222: Plane.076
+    100224: Plane.077
+    100226: Plane.078
+    100228: Plane.079
+    100230: Plane.080
+    100232: Plane.081
+    100234: Plane.082
+    100236: Plane.083
+    100238: Plane.084
+    100240: Plane.085
+    100242: Plane.086
+    100244: Plane.087
+    100246: Plane.088
+    100248: Plane.089
+    100250: Plane.090
+    100252: Plane.091
+    100254: Plane.092
+    100256: Plane.093
+    100258: Plane.094
+    100260: Plane.095
+    100262: Plane.096
+    100264: Plane.097
+    100266: Plane.098
+    100268: Plane.099
+    100270: Plane.100
+    100272: Plane.101
+    100274: Plane.102
+    100276: Plane.103
+    100278: Plane.104
+    100280: Plane.105
+    100282: Plane.106
+    100284: Plane.107
+    100286: Plane.108
+    100288: Plane.109
+    100290: Plane.110
+    100292: Plane.111
+    100294: Plane.112
+    100296: Plane.113
+    100298: Plane.114
+    100300: Plane.115
+    100302: Plane.116
+    100304: Plane.117
+    100306: Plane.118
+    100308: Plane.119
+    100310: Plane.120
+    100312: Plane.121
+    100314: Plane.122
+    100316: Plane.123
+    100318: Plane.124
+    100320: Plane.125
+    100322: Plane.126
+    100324: Plane.127
+    100326: Plane.128
+    100328: Plane.129
+    100330: Plane.130
+    100332: Plane.131
+    100334: Plane.132
+    100336: Plane.133
+    100338: Plane.134
+    100340: Plane.135
+    100342: Plane.136
+    100344: Plane.137
+    100346: //RootNode
+    100348: Sun
+    100350: Thigh L
+    100352: Thigh R.001
+    400000: Arm IK L
+    400002: Arm IK L_end
+    400004: Arm IK R.001
+    400006: Arm IK R.001_end
+    400008: Armature
+    400010: Bicep L
+    400012: Bicep R.001
+    400014: Bone
+    400016: Calf L
+    400018: Calf L_end
+    400020: Calf R.001
+    400022: Calf R.001_end
+    400024: Character
+    400026: Chest
+    400028: Core
+    400030: Cube.002
+    400032: Cube.003
+    400034: Elbow L
+    400036: Elbow L_end
+    400038: Elbow R.001
+    400040: Elbow R.001_end
+    400042: Forearm L
+    400044: Forearm L_end
+    400046: Forearm R.001
+    400048: Forearm R.001_end
+    400050: Head
+    400052: Head_end
+    400054: Knee L
+    400056: Knee L_end
+    400058: Knee R.001
+    400060: Knee R.001_end
+    400062: Leg L
+    400064: Leg L_end
+    400066: Leg R.001
+    400068: Leg R.001_end
+    400070: Plane
+    400072: Plane.001
+    400074: Plane.002
+    400076: Plane.003
+    400078: Plane.004
+    400080: Plane.005
+    400082: Plane.006
+    400084: Plane.007
+    400086: Plane.008
+    400088: Plane.009
+    400090: Plane.010
+    400092: Plane.011
+    400094: Plane.012
+    400096: Plane.013
+    400098: Plane.014
+    400100: Plane.015
+    400102: Plane.016
+    400104: Plane.017
+    400106: Plane.018
+    400108: Plane.019
+    400110: Plane.020
+    400112: Plane.021
+    400114: Plane.022
+    400116: Plane.023
+    400118: Plane.024
+    400120: Plane.025
+    400122: Plane.026
+    400124: Plane.027
+    400126: Plane.028
+    400128: Plane.029
+    400130: Plane.030
+    400132: Plane.031
+    400134: Plane.032
+    400136: Plane.033
+    400138: Plane.034
+    400140: Plane.035
+    400142: Plane.036
+    400144: Plane.037
+    400146: Plane.038
+    400148: Plane.039
+    400150: Plane.040
+    400152: Plane.041
+    400154: Plane.042
+    400156: Plane.043
+    400158: Plane.044
+    400160: Plane.045
+    400162: Plane.046
+    400164: Plane.047
+    400166: Plane.048
+    400168: Plane.049
+    400170: Plane.050
+    400172: Plane.051
+    400174: Plane.052
+    400176: Plane.053
+    400178: Plane.054
+    400180: Plane.055
+    400182: Plane.056
+    400184: Plane.057
+    400186: Plane.058
+    400188: Plane.059
+    400190: Plane.060
+    400192: Plane.061
+    400194: Plane.062
+    400196: Plane.063
+    400198: Plane.064
+    400200: Plane.065
+    400202: Plane.066
+    400204: Plane.067
+    400206: Plane.068
+    400208: Plane.069
+    400210: Plane.070
+    400212: Plane.071
+    400214: Plane.072
+    400216: Plane.073
+    400218: Plane.074
+    400220: Plane.075
+    400222: Plane.076
+    400224: Plane.077
+    400226: Plane.078
+    400228: Plane.079
+    400230: Plane.080
+    400232: Plane.081
+    400234: Plane.082
+    400236: Plane.083
+    400238: Plane.084
+    400240: Plane.085
+    400242: Plane.086
+    400244: Plane.087
+    400246: Plane.088
+    400248: Plane.089
+    400250: Plane.090
+    400252: Plane.091
+    400254: Plane.092
+    400256: Plane.093
+    400258: Plane.094
+    400260: Plane.095
+    400262: Plane.096
+    400264: Plane.097
+    400266: Plane.098
+    400268: Plane.099
+    400270: Plane.100
+    400272: Plane.101
+    400274: Plane.102
+    400276: Plane.103
+    400278: Plane.104
+    400280: Plane.105
+    400282: Plane.106
+    400284: Plane.107
+    400286: Plane.108
+    400288: Plane.109
+    400290: Plane.110
+    400292: Plane.111
+    400294: Plane.112
+    400296: Plane.113
+    400298: Plane.114
+    400300: Plane.115
+    400302: Plane.116
+    400304: Plane.117
+    400306: Plane.118
+    400308: Plane.119
+    400310: Plane.120
+    400312: Plane.121
+    400314: Plane.122
+    400316: Plane.123
+    400318: Plane.124
+    400320: Plane.125
+    400322: Plane.126
+    400324: Plane.127
+    400326: Plane.128
+    400328: Plane.129
+    400330: Plane.130
+    400332: Plane.131
+    400334: Plane.132
+    400336: Plane.133
+    400338: Plane.134
+    400340: Plane.135
+    400342: Plane.136
+    400344: Plane.137
+    400346: //RootNode
+    400348: Sun
+    400350: Thigh L
+    400352: Thigh R.001
+    2100000: No Name
+    4300000: Plane.137
+    4300002: Plane.136
+    4300004: Plane.135
+    4300006: Plane.134
+    4300008: Plane.133
+    4300010: Plane.132
+    4300012: Plane.131
+    4300014: Plane.130
+    4300016: Plane.129
+    4300018: Plane.128
+    4300020: Plane.127
+    4300022: Plane.126
+    4300024: Plane.125
+    4300026: Plane.124
+    4300028: Plane.123
+    4300030: Plane.122
+    4300032: Plane.121
+    4300034: Plane.120
+    4300036: Plane.119
+    4300038: Plane.118
+    4300040: Plane.117
+    4300042: Plane.116
+    4300044: Plane.115
+    4300046: Plane.114
+    4300048: Plane.113
+    4300050: Plane.112
+    4300052: Plane.111
+    4300054: Plane.110
+    4300056: Plane.109
+    4300058: Plane.108
+    4300060: Plane.107
+    4300062: Plane.106
+    4300064: Plane.105
+    4300066: Plane.104
+    4300068: Plane.103
+    4300070: Plane.102
+    4300072: Plane.101
+    4300074: Plane.100
+    4300076: Plane.099
+    4300078: Plane.098
+    4300080: Plane.097
+    4300082: Plane.096
+    4300084: Plane.095
+    4300086: Plane.094
+    4300088: Plane.093
+    4300090: Plane.092
+    4300092: Plane.091
+    4300094: Plane.090
+    4300096: Plane.089
+    4300098: Plane.088
+    4300100: Plane.087
+    4300102: Plane.086
+    4300104: Plane.085
+    4300106: Plane.084
+    4300108: Plane.083
+    4300110: Plane.082
+    4300112: Plane.081
+    4300114: Plane.080
+    4300116: Plane.079
+    4300118: Plane.078
+    4300120: Plane.077
+    4300122: Plane.076
+    4300124: Plane.075
+    4300126: Plane.074
+    4300128: Plane.073
+    4300130: Plane.072
+    4300132: Plane.071
+    4300134: Plane.070
+    4300136: Plane.069
+    4300138: Plane.068
+    4300140: Plane.067
+    4300142: Plane.066
+    4300144: Plane.065
+    4300146: Plane.064
+    4300148: Plane.063
+    4300150: Plane.062
+    4300152: Plane.061
+    4300154: Plane.060
+    4300156: Plane.059
+    4300158: Plane.058
+    4300160: Plane.057
+    4300162: Plane.056
+    4300164: Plane.055
+    4300166: Plane.054
+    4300168: Plane.053
+    4300170: Plane.052
+    4300172: Plane.051
+    4300174: Plane.050
+    4300176: Plane.049
+    4300178: Plane.048
+    4300180: Plane.047
+    4300182: Plane.046
+    4300184: Plane.045
+    4300186: Plane.044
+    4300188: Plane.043
+    4300190: Plane.042
+    4300192: Plane.041
+    4300194: Plane.040
+    4300196: Plane.039
+    4300198: Plane.038
+    4300200: Plane.037
+    4300202: Plane.036
+    4300204: Plane.033
+    4300206: Plane.032
+    4300208: Plane.031
+    4300210: Plane.030
+    4300212: Plane.029
+    4300214: Plane.028
+    4300216: Plane.027
+    4300218: Plane.026
+    4300220: Plane.025
+    4300222: Plane.024
+    4300224: Plane.023
+    4300226: Plane.022
+    4300228: Plane.021
+    4300230: Plane.020
+    4300232: Plane.019
+    4300234: Plane.018
+    4300236: Plane.017
+    4300238: Plane.016
+    4300240: Plane.015
+    4300242: Plane.014
+    4300244: Plane.013
+    4300246: Plane.012
+    4300248: Plane.011
+    4300250: Plane.010
+    4300252: Plane.009
+    4300254: Plane.008
+    4300256: Plane.007
+    4300258: Plane.006
+    4300260: Plane.005
+    4300262: Plane.004
+    4300264: Plane.003
+    4300266: Plane.002
+    4300268: Plane.001
+    4300270: Cube.003
+    4300272: Plane.035
+    4300274: Plane.034
+    4300276: Plane
+    4300278: Cube.002
+    4300280: Character
+    7400000: Armature|All
+    7400002: Armature|Fall
+    7400004: Armature|Idle
+    7400006: Armature|Incap
+    7400008: Armature|IWalk
+    7400010: Armature|Jump
+    7400012: Armature|Lift
+    7400014: Armature|Run
+    9500000: //RootNode
+    10800000: Sun
+    13700000: Character
+    13700002: Cube.002
+    13700004: Cube.003
+    13700006: Plane
+    13700008: Plane.001
+    13700010: Plane.002
+    13700012: Plane.003
+    13700014: Plane.004
+    13700016: Plane.005
+    13700018: Plane.006
+    13700020: Plane.007
+    13700022: Plane.008
+    13700024: Plane.009
+    13700026: Plane.010
+    13700028: Plane.011
+    13700030: Plane.012
+    13700032: Plane.013
+    13700034: Plane.014
+    13700036: Plane.015
+    13700038: Plane.016
+    13700040: Plane.017
+    13700042: Plane.018
+    13700044: Plane.019
+    13700046: Plane.020
+    13700048: Plane.021
+    13700050: Plane.022
+    13700052: Plane.023
+    13700054: Plane.024
+    13700056: Plane.025
+    13700058: Plane.026
+    13700060: Plane.027
+    13700062: Plane.028
+    13700064: Plane.029
+    13700066: Plane.030
+    13700068: Plane.031
+    13700070: Plane.032
+    13700072: Plane.033
+    13700074: Plane.034
+    13700076: Plane.035
+    13700078: Plane.036
+    13700080: Plane.037
+    13700082: Plane.038
+    13700084: Plane.039
+    13700086: Plane.040
+    13700088: Plane.041
+    13700090: Plane.042
+    13700092: Plane.043
+    13700094: Plane.044
+    13700096: Plane.045
+    13700098: Plane.046
+    13700100: Plane.047
+    13700102: Plane.048
+    13700104: Plane.049
+    13700106: Plane.050
+    13700108: Plane.051
+    13700110: Plane.052
+    13700112: Plane.053
+    13700114: Plane.054
+    13700116: Plane.055
+    13700118: Plane.056
+    13700120: Plane.057
+    13700122: Plane.058
+    13700124: Plane.059
+    13700126: Plane.060
+    13700128: Plane.061
+    13700130: Plane.062
+    13700132: Plane.063
+    13700134: Plane.064
+    13700136: Plane.065
+    13700138: Plane.066
+    13700140: Plane.067
+    13700142: Plane.068
+    13700144: Plane.069
+    13700146: Plane.070
+    13700148: Plane.071
+    13700150: Plane.072
+    13700152: Plane.073
+    13700154: Plane.074
+    13700156: Plane.075
+    13700158: Plane.076
+    13700160: Plane.077
+    13700162: Plane.078
+    13700164: Plane.079
+    13700166: Plane.080
+    13700168: Plane.081
+    13700170: Plane.082
+    13700172: Plane.083
+    13700174: Plane.084
+    13700176: Plane.085
+    13700178: Plane.086
+    13700180: Plane.087
+    13700182: Plane.088
+    13700184: Plane.089
+    13700186: Plane.090
+    13700188: Plane.091
+    13700190: Plane.092
+    13700192: Plane.093
+    13700194: Plane.094
+    13700196: Plane.095
+    13700198: Plane.096
+    13700200: Plane.097
+    13700202: Plane.098
+    13700204: Plane.099
+    13700206: Plane.100
+    13700208: Plane.101
+    13700210: Plane.102
+    13700212: Plane.103
+    13700214: Plane.104
+    13700216: Plane.105
+    13700218: Plane.106
+    13700220: Plane.107
+    13700222: Plane.108
+    13700224: Plane.109
+    13700226: Plane.110
+    13700228: Plane.111
+    13700230: Plane.112
+    13700232: Plane.113
+    13700234: Plane.114
+    13700236: Plane.115
+    13700238: Plane.116
+    13700240: Plane.117
+    13700242: Plane.118
+    13700244: Plane.119
+    13700246: Plane.120
+    13700248: Plane.121
+    13700250: Plane.122
+    13700252: Plane.123
+    13700254: Plane.124
+    13700256: Plane.125
+    13700258: Plane.126
+    13700260: Plane.127
+    13700262: Plane.128
+    13700264: Plane.129
+    13700266: Plane.130
+    13700268: Plane.131
+    13700270: Plane.132
+    13700272: Plane.133
+    13700274: Plane.134
+    13700276: Plane.135
+    13700278: Plane.136
+    13700280: Plane.137
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

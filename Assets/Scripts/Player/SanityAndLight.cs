@@ -41,6 +41,13 @@ public class SanityAndLight : NetworkBehaviour {
     private float speedChange = 0.03f;
     private float updateWait = 0.01f;
 
+    private PlayerAnimation mPlayerAnimation;
+
+    public override void OnStartLocalPlayer()
+    {
+        mPlayerAnimation = GetComponent<PlayerAnimation>();
+    }
+
     void Start() {
         isRaven = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven();
 
@@ -91,6 +98,16 @@ public class SanityAndLight : NetworkBehaviour {
 	            	GetComponent<Player_Movement>().mMaxSpeed = minMoveSpeed;
 	            	sanityLevel = 0;
 
+                    if (GetComponent<Player_Movement>().mMaxSpeed < maxMoveSpeed && GetComponent<Player_Movement>().mMaxSpeed > 0.0f)
+                    {
+                        mPlayerAnimation.CmdSetBool("isIncapWalking", true);
+                        mPlayerAnimation.CmdSetBool("isIdle", false);
+                    }
+                    else if (GetComponent<Player_Movement>().mMaxSpeed <= 0.0f)
+                    {
+                        mPlayerAnimation.CmdSetBool("isIncap", true);
+                    }
+
 	            	if (distance < safeLightingRadius)
 	            	{
 	            		isIncapacitated = false;
@@ -100,8 +117,12 @@ public class SanityAndLight : NetworkBehaviour {
 	            }
 	            else
 	            {
-	            	//if player is in special lighting and are too far from their partner, decrease sanity and increase mass
-		            if (specialLighting)
+                    mPlayerAnimation.CmdSetBool("isIncapWalking", false);
+                    mPlayerAnimation.CmdSetBool("isIncap", false);
+                    mPlayerAnimation.CmdSetBool("isIdle", true);
+
+                    //if player is in special lighting and are too far from their partner, decrease sanity and increase mass
+                    if (specialLighting)
 		            {
 		            	if (distance > safeLightingRadius)
 		            	{

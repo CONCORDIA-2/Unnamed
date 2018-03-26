@@ -55,3 +55,6 @@ MonoBehaviour:
   worldCamera: {fileID: 0}
   playerObject: {fileID: 0}
   otherPlayerObject: {fileID: 0}
+  isRaven: 0
+  otherIsIncapacitated: 0
+  otherSanityLevel: 100
