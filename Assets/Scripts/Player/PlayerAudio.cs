@@ -45,7 +45,7 @@ public class PlayerAudio : NetworkBehaviour
         if (id < 0 || id >= audioClips.Count || audioClips[id] == null)
             return;
 
-        Debug.Log("received rpc, source is playing: " + audioSource.isPlaying);
+        //Debug.Log("received rpc, source is playing: " + audioSource.isPlaying);
 
         // interrupt current audio if specified, otherwise queue it
         if (audioSource.isPlaying)
