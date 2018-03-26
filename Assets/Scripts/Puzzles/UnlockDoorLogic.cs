@@ -25,6 +25,7 @@ public class UnlockDoorLogic : MonoBehaviour {
 
         if (!complete && FetchQuest.succeeded)
         {
+            GetComponent<AudioSource>().Play();
             complete = true;
             doorHinge.limits = open;
             doorHinge.useSpring = true;

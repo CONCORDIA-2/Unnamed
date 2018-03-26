@@ -9,17 +9,23 @@ public class Level3LockDoor : MonoBehaviour {
     public float timeToMove = 1.0f;
   
     public bool triggered = false, used = false, moving = false;
+    private bool pastState = false;
 
 	void Update () {
-        if (triggered && !moving)
+        if (pastState != triggered)
         {
-            moving = true;
-            StartCoroutine(MoveToPosition(door.transform, lowered.position, timeToMove));
-        }
-        else if (!triggered && !moving)
-        {
-            moving = true;
-            StartCoroutine(MoveToPosition(door.transform, raised.position, timeToMove));
+            pastState = triggered;
+
+            if (triggered && !moving)
+            {
+                moving = true;
+                StartCoroutine(MoveToPosition(door.transform, lowered.position, timeToMove));
+            }
+            else if (!triggered && !moving)
+            {
+                moving = true;
+                StartCoroutine(MoveToPosition(door.transform, raised.position, timeToMove));
+            }
         }
     }
 
@@ -33,6 +39,7 @@ public class Level3LockDoor : MonoBehaviour {
 
     public IEnumerator MoveToPosition(Transform transform, Vector3 position, float timeToMove)
     {
+        GetComponent<AudioSource>().Play();
         var currentPos = door.transform.position;
         var t = 0f;
         while (t < 1)

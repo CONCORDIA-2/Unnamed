@@ -21,6 +21,7 @@ public class engineLightController : MonoBehaviour {
 	// Methods
 	// ------------------------------------
 	public void changeLight () {
+		GetComponent<AudioSource>().Play();
 		m_startLight.SetActive (false);
 		m_nextLight.SetActive (true);
 	}

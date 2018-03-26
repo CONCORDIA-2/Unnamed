@@ -32,6 +32,7 @@ public class TrapDoor : MonoBehaviour
         triggered = pressurePlateScript.pressed;
         if (triggered && !used)
         {
+            GetComponent<AudioSource>().Play();
             StartCoroutine(activateDoor());
             used = true;
         }

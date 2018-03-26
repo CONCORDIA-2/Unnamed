@@ -10,6 +10,7 @@ public class DoorSlider : MonoBehaviour {
     public float timeToMove = 1.0f;
   
     public bool triggered = false, used = false, moving = false;
+    private bool pastState = false;
 
     // Use this for initialization
     void Start () {
@@ -19,21 +20,27 @@ public class DoorSlider : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         triggered = pressurePlateScript.pressed;
+        
+        if (pastState != triggered)
+        {
+            pastState = triggered;
 
-        if (triggered && !moving)
-        {
-            moving = true;
-            StartCoroutine(MoveToPosition(door.transform, raised.position, timeToMove));
-        }
-        else if (!triggered && !moving)
-        {
-            moving = true;
-            StartCoroutine(MoveToPosition(door.transform, lowered.position, timeToMove));
+            if (triggered && !moving)
+            {
+                moving = true;
+                StartCoroutine(MoveToPosition(door.transform, raised.position, timeToMove));
+            }
+            else if (!triggered && !moving)
+            {
+                moving = true;
+                StartCoroutine(MoveToPosition(door.transform, lowered.position, timeToMove));
+            }
         }
     }
 
     public IEnumerator MoveToPosition(Transform transform, Vector3 position, float timeToMove)
     {
+        GetComponent<AudioSource>().Play();
         var currentPos = transform.position;
         var t = 0f;
         while (t < 1)

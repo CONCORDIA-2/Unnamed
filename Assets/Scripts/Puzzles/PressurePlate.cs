@@ -45,6 +45,7 @@ public class PressurePlate : MonoBehaviour
     	if (collision.gameObject.tag == "Player" || (collision.gameObject.tag == "Pickable" && collision.gameObject.GetComponent<Rigidbody>().mass > 2))
     	{
     		startTime = Time.time;
+            if (!pressed) lowered.gameObject.GetComponent<AudioSource>().Play();
        		pressed = true;
         	used = true;
         	currentCollisionsCount++;
@@ -62,6 +63,7 @@ public class PressurePlate : MonoBehaviour
 	    	{
 	        startTime = Time.time;
 	        pressed = false;
+            raised.gameObject.GetComponent<AudioSource>().Play();
 	        // startTime = Time.time;
 	    	}
     	}
