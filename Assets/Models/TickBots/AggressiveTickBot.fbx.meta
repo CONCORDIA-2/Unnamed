@@ -1,16 +1,51 @@
 fileFormatVersion: 2
-guid: 503bf5b95c513664086dc99474e2f9ba
-timeCreated: 1521854851
+guid: 67e43e3eea8ffb848b91db3d44f9f12a
+timeCreated: 1522029173
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Armature
+    100004: Bone
+    100006: Bone.001
+    100008: Bone.001_end
+    100010: Bone.003L
+    100012: Bone.003L.001
+    100014: Bone.004L
+    100016: Bone.004L.001
+    100018: Bone.004L.001_end
+    100020: Bone.004L_end
+    100022: Bone.007L
+    100024: Bone.007L.001
+    100026: Bone.008L
+    100028: Bone.008L.001
+    100030: Bone.008L.001_end
+    100032: Bone.008L_end
+    100034: GuardTickBot_01
     400000: //RootNode
+    400002: Armature
+    400004: Bone
+    400006: Bone.001
+    400008: Bone.001_end
+    400010: Bone.003L
+    400012: Bone.003L.001
+    400014: Bone.004L
+    400016: Bone.004L.001
+    400018: Bone.004L.001_end
+    400020: Bone.004L_end
+    400022: Bone.007L
+    400024: Bone.007L.001
+    400026: Bone.008L
+    400028: Bone.008L.001
+    400030: Bone.008L.001_end
+    400032: Bone.008L_end
+    400034: GuardTickBot_01
     2100000: body
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: AggressiveBot_01
+    4300000: GuardTickBot_01
+    7400000: Armature|Walk_Normal
+    9500000: //RootNode
+    13700000: GuardTickBot_01
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -85,7 +120,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
