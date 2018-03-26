@@ -41,11 +41,13 @@ public class SanityAndLight : NetworkBehaviour {
     private float speedChange = 0.03f;
     private float updateWait = 0.01f;
 
+    private AudioSource[] mAudioSources;
     private PlayerAnimation mPlayerAnimation;
 
     public override void OnStartLocalPlayer()
     {
         mPlayerAnimation = GetComponent<PlayerAnimation>();
+        mAudioSources = GetComponents<AudioSource>();
     }
 
     void Start() {
@@ -94,7 +96,9 @@ public class SanityAndLight : NetworkBehaviour {
 	             //handle incapacitation
 	            if (isIncapacitated)
 	            {
-	            	GetComponent<Rigidbody>().mass = maxMass * 2;
+                    mAudioSources[2].Play();
+
+                    GetComponent<Rigidbody>().mass = maxMass * 2;
 	            	GetComponent<Player_Movement>().mMaxSpeed = minMoveSpeed;
 	            	sanityLevel = 0;
 
@@ -117,6 +121,8 @@ public class SanityAndLight : NetworkBehaviour {
 	            }
 	            else
 	            {
+                    mAudioSources[2].Stop();
+
                     mPlayerAnimation.CmdSetBool("isIncapWalking", false);
                     mPlayerAnimation.CmdSetBool("isIncap", false);
                     mPlayerAnimation.CmdSetBool("isIdle", true);

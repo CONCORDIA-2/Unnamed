@@ -6,21 +6,21 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(AudioSource))]
 public class PlayerAudio : NetworkBehaviour
 {
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource[] audioSources;
     [SerializeField] private List<AudioClip> audioClips = new List<AudioClip>();
 
     private Coroutine waitCoroutine = null;
 
     public override void OnStartLocalPlayer()
     {
-        if (!audioSource)
-            audioSource = GetComponent<AudioSource>();
+        if (audioSources.Length == 0)
+            audioSources = GetComponents<AudioSource>();
     }
 
     private void Update()
     {
-        if (!audioSource)
-            audioSource = GetComponent<AudioSource>();
+        if (audioSources.Length == 0)
+            audioSources = GetComponents<AudioSource>();
     }
 
     [Command]
@@ -54,36 +54,36 @@ public class PlayerAudio : NetworkBehaviour
         //Debug.Log("received rpc, source is playing: " + audioSource.isPlaying);
 
         // interrupt current audio if specified, otherwise queue it
-        if (audioSource.isPlaying)
+        if (audioSources[0].isPlaying)
         {
             if (interrupt)
             {
-                audioSource.Stop();
+                audioSources[0].Stop();
                 if (waitCoroutine != null)
                     StopCoroutine(waitCoroutine);
             }
             else
-                waitCoroutine = StartCoroutine(WaitUntilEndOfClip(audioSource.clip));
+                waitCoroutine = StartCoroutine(WaitUntilEndOfClip(audioSources[0].clip));
         }
 
         // switch clips and play audio
         if (oneShot)
         {
             // swap clips
-            AudioClip temp = audioSource.clip;
-            audioSource.clip = audioClips[id];
+            AudioClip temp = audioSources[0].clip;
+            audioSources[0].clip = audioClips[id];
 
             // play and wait until the clip is done playing
-            audioSource.PlayOneShot(audioClips[id]);
-            waitCoroutine = StartCoroutine(WaitUntilEndOfClip(audioSource.clip));
+            audioSources[0].PlayOneShot(audioClips[id]);
+            waitCoroutine = StartCoroutine(WaitUntilEndOfClip(audioSources[0].clip));
 
             // restore old clip
-            audioSource.clip = temp;
+            audioSources[0].clip = temp;
         }
         else
         {
-            audioSource.clip = audioClips[id];
-            audioSource.Play();
+            audioSources[0].clip = audioClips[id];
+            audioSources[0].Play();
         }
     }
 
@@ -101,36 +101,36 @@ public class PlayerAudio : NetworkBehaviour
                 audioClips.Add(clip);
 
             // interrupt current audio if specified, otherwise queue it
-            if (audioSource.isPlaying)
+            if (audioSources[0].isPlaying)
             {
                 if (interrupt)
                 {
-                    audioSource.Stop();
+                    audioSources[0].Stop();
                     if (waitCoroutine != null)
                         StopCoroutine(waitCoroutine);
                 }
                 else
-                    waitCoroutine = StartCoroutine(WaitUntilEndOfClip(audioSource.clip));
+                    waitCoroutine = StartCoroutine(WaitUntilEndOfClip(audioSources[0].clip));
             }
 
             // switch clips and play audio
             if (oneShot)
             {
                 // swap clips
-                AudioClip temp = audioSource.clip;
-                audioSource.clip = clip;
+                AudioClip temp = audioSources[0].clip;
+                audioSources[0].clip = clip;
 
                 // play and wait until the clip is done playing
-                audioSource.PlayOneShot(clip);
-                waitCoroutine = StartCoroutine(WaitUntilEndOfClip(audioSource.clip));
+                audioSources[0].PlayOneShot(clip);
+                waitCoroutine = StartCoroutine(WaitUntilEndOfClip(audioSources[0].clip));
 
                 // restore old clip
-                audioSource.clip = temp;
+                audioSources[0].clip = temp;
             }
             else
             {
-                audioSource.clip = clip;
-                audioSource.Play();
+                audioSources[0].clip = clip;
+                audioSources[0].Play();
             }
         }
         else
@@ -145,6 +145,6 @@ public class PlayerAudio : NetworkBehaviour
 
     private IEnumerator WaitUntilEndOfClip(AudioClip clip)
     {
-        yield return new WaitUntil(() => audioSource.isPlaying == false);
+        yield return new WaitUntil(() => audioSources[0].isPlaying == false);
     }
 }

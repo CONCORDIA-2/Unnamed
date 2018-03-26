@@ -22,19 +22,26 @@ public class ColliderLevel : MonoBehaviour
         if (other.gameObject == mLocalPlayer && !mTriggeredOnce)
         {
             mCurrentLevel++;
+            mTriggeredOnce = true;
+
+            if (mCurrentLevel == 0)
+            {
+                for (int i = mCurrentLevel + 2; i < mAllLevels.Length; i++)
+                {
+                    mAllLevels[i].SetActive(false);
+                }
+            }
 
             if (mCurrentLevel >= 1 && mCurrentLevel < 4)
             {
+                if (mCurrentLevel == 3)
+                {
+                    mConcreteWall.SetActive(true);
+                }
+
                 mAllLevels[mCurrentLevel - 1].SetActive(false);
+                mAllLevels[mCurrentLevel + 1].SetActive(true);
             }
-
-            if (mCurrentLevel == 3)
-            {
-                mConcreteWall.SetActive(true);
-            }
-
-            mTriggeredOnce = true;
-            mAllLevels[mCurrentLevel + 1].SetActive(true);
         }
     }
 
