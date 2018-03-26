@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class End : MonoBehaviour {
 
@@ -15,15 +17,15 @@ public class End : MonoBehaviour {
 	public bool playerOneHere = false;
 	public bool playerTwoHere = false;
 
-	public float boatSpeed = 0.8f;
+	public float boatSpeed = 1.5f;
 	public float[] boatsSpeeds;
 
 	void Start() {
-		boats = new GameObject[10];
+		//boats = new GameObject[10];
 		boatsSpeeds = new float[10];
 		for (int i = 0; i < boatsSpeeds.Length; i++)
 		{
-			boatsSpeeds[i] = Random.Range(boatSpeed + 0.3f, boatSpeed + 0.7f);
+			boatsSpeeds[i] = Random.Range(boatSpeed + 3.5f, boatSpeed + 5.5f);
 		}
 		trigger =  GetComponents<BoxCollider>()[4];
 		playerManager = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>();
@@ -36,9 +38,12 @@ public class End : MonoBehaviour {
 		if (playerOneHere && playerTwoHere && !endTriggered)
 		{
 			endTriggered = true;
+			StartCoroutine("Ending");
+
 			playerManager.GetLocalPlayerObject().GetComponent<Player_Movement>().enabled = false;
-			playerManager.GetOtherPlayerObject().GetComponent<Player_Movement>().enabled = false;
 			playerManager.GetLocalPlayerObject().transform.parent = transform;
+
+			playerManager.GetOtherPlayerObject().GetComponent<Player_Movement>().enabled = false;
 			playerManager.GetOtherPlayerObject().transform.parent = transform;
 		} 
 
@@ -66,13 +71,27 @@ public class End : MonoBehaviour {
 		//wait seconds
 		yield return new WaitForSeconds(10);
 
-		//fade text appear
+		//fade text
+		Text t = transform.Find("Canvas/Text").GetComponent<Text>();
+		for (float i = 0; i < 1.2f; i+=0.01f) {
+			yield return new WaitForSeconds(0.05f);
+			t.color = new Color(1f, 1f, 1f, i);
+		}
 
 		//wait seconds
 		yield return new WaitForSeconds(10);
 
-		//fade to black
+		//fade black
+		Image im = GameObject.Find("FinalFade").GetComponent<Image>();
+		for (float i = 0; i < 1.2f; i+=0.01f) {
+			yield return new WaitForSeconds(0.05f);
+			im.color = new Color(0f, 0f, 0f, i);
+		}
 
-		// load menu
+		//wait seconds
+		yield return new WaitForSeconds(1);
+
+		//load menu
+		SceneManager.LoadScene("Scenes/Main Menu");
 	}
 }
