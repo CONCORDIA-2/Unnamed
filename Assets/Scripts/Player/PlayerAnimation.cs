@@ -18,6 +18,12 @@ public class PlayerAnimation : NetworkBehaviour
             animator = GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        if (!animator)
+            animator = GetComponent<Animator>();
+    }
+
     [Command]
     public void CmdSetBool(string key, bool val)
     {

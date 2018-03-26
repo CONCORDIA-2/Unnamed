@@ -17,6 +17,12 @@ public class PlayerAudio : NetworkBehaviour
             audioSource = GetComponent<AudioSource>();
     }
 
+    private void Update()
+    {
+        if (!audioSource)
+            audioSource = GetComponent<AudioSource>();
+    }
+
     [Command]
     public void CmdPlayClipId(int id, bool interrupt , bool oneShot )
     {
