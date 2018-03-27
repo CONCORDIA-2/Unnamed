@@ -23,7 +23,7 @@ public class ColliderMusic : MonoBehaviour
         {
             mCurrentLevel++;
 
-            if (mCurrentLevel == 4)
+            if (mCurrentLevel == 6)
                 mCurrentLevel = 0;
 
             mLevelMusicPlayed = true;
