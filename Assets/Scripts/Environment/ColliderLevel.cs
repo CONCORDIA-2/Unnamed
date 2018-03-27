@@ -5,7 +5,7 @@ using UnityEngine;
 public class ColliderLevel : MonoBehaviour
 {
     public GameObject[] mAllLevels;
-    public GameObject mConcreteWall;
+    public GameObject mOutroDoor;
     private GameObject mLocalPlayer;
 
     private static int mCurrentLevel = -1;
@@ -36,7 +36,7 @@ public class ColliderLevel : MonoBehaviour
             {
                 if (mCurrentLevel == 3)
                 {
-                    mConcreteWall.SetActive(true);
+                    mOutroDoor.SetActive(true);
                 }
 
                 mAllLevels[mCurrentLevel - 1].SetActive(false);

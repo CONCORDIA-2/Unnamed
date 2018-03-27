@@ -22,10 +22,6 @@ public class ColliderMusic : MonoBehaviour
         if (other.gameObject == mLocalPlayer && !mLevelMusicPlayed)
         {
             mCurrentLevel++;
-
-            if (mCurrentLevel == 6)
-                mCurrentLevel = 0;
-
             mLevelMusicPlayed = true;
             PlayMusic();
         }
