@@ -71,13 +71,13 @@ MonoBehaviour:
   m_NetworkPort: 7777
   m_ServerBindToIP: 0
   m_ServerBindAddress: 
-  m_NetworkAddress: 192.168.1.102
+  m_NetworkAddress: localhost
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 1740278921419122, guid: 2309f536ac3e5f7438964c4cff9f88f5,
+  m_PlayerPrefab: {fileID: 1930420241932296, guid: 8cba074bbab8f19488d33500e9f54dec,
     type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
@@ -86,6 +86,11 @@ MonoBehaviour:
   m_SpawnPrefabs:
   - {fileID: 1740278921419122, guid: 2309f536ac3e5f7438964c4cff9f88f5, type: 2}
   - {fileID: 1597780948808598, guid: 7710f3ca2b6995041b0dc40cb2352db6, type: 2}
+  - {fileID: 1573619757412920, guid: fc49a08e695eddb40a756d3d0bad3421, type: 2}
+  - {fileID: 1954542993420506, guid: 612666b3d7a48f749bb6120869b3ae7b, type: 2}
+  - {fileID: 1866187687459488, guid: a4cc031cb9152f94c9c5d5eecb022e16, type: 2}
+  - {fileID: 1787843117975920, guid: c21ff56f10b058049adc06beb9a22c3a, type: 2}
+  - {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
