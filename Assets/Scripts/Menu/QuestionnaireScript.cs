@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class QuestionnaireScript : MonoBehaviour {
-    
+public class QuestionnaireScript : NetworkBehaviour
+{
+
     //storage for all questions by category
     public GameObject[] dualQuestions, ravenQuestions, rabbitQuestions;
     public GameObject waitScreen;
@@ -18,15 +19,17 @@ public class QuestionnaireScript : MonoBehaviour {
     public bool isHost;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         //load the first question
         loadQuestion1();
-	}
+    }
 
     //the method called whenever the player answers a question. Value of answer is 1 for left hand answer, -1 for right hand answer
     public void processAnswer(int answer)
     {
-        if (answer == 1 || answer == -1) {
+        if (answer == 1 || answer == -1)
+        {
             switch (questionCount)
             {
                 case 1:
@@ -51,6 +54,7 @@ public class QuestionnaireScript : MonoBehaviour {
                 case 4:
                     if (answer == 1)
                         deciderScore++;
+                    QuestionnaireDataStorage.score = deciderScore;
                     loadWaitScreen();
                     break;
             }
@@ -100,19 +104,34 @@ public class QuestionnaireScript : MonoBehaviour {
         questionCount++;
     }
 
-    //
+    //start the game if hosting, join it if not. Once both players connect, load the next scene
     private void loadWaitScreen()
     {
         rabbitQuestions[currentQuestion].SetActive(false);
         waitScreen.SetActive(true);
         if (isHost)
+        {
             networkManager.GetComponent<NetworkInitializer>().StartHost();
+            StartCoroutine(waitForClient(networkManager.GetComponent<NetworkManager>()));
+        }
         else
+        {
             networkManager.GetComponent<NetworkInitializer>().StartClient();
+        }
     }
 
-    public class ReadyMessage : MessageBase
+    //dead until scene transition issues are sorted out
+    IEnumerator waitForClient(NetworkManager nm)
     {
-
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            print("Searching for other player");
+            if (nm.numPlayers == 2)
+            {
+                NetworkManager.singleton.ServerChangeScene("TutorialLevel");
+                yield break;
+            }
+        }
     }
 }

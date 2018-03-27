@@ -86,4 +86,10 @@ public class LocalPlayerSetup : NetworkBehaviour
     {
         return isRaven;
     }
+
+    public void SetIsRaven(bool toggle)
+    {
+        isRaven = toggle;
+        localPlayerManagerScript.SetIsRaven(toggle);
+    }
 }
