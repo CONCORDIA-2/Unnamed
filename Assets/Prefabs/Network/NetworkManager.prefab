@@ -69,7 +69,7 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1930420241932296, guid: 8cba074bbab8f19488d33500e9f54dec, type: 2}
-  - {fileID: 1649313780751466, guid: d3bbb4f24496b16459d831617a7e8bdb, type: 2}
+  - {fileID: 1927307466422056, guid: d3bbb4f24496b16459d831617a7e8bdb, type: 2}
   - {fileID: 1597780948808598, guid: 7710f3ca2b6995041b0dc40cb2352db6, type: 2}
   - {fileID: 1573619757412920, guid: fc49a08e695eddb40a756d3d0bad3421, type: 2}
   - {fileID: 1954542993420506, guid: 612666b3d7a48f749bb6120869b3ae7b, type: 2}
