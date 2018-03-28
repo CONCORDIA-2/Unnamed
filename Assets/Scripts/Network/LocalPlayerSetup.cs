@@ -33,6 +33,8 @@ public class LocalPlayerSetup : NetworkBehaviour
             camControl.SetCameraTarget(transform);
 
             SetPlayerComponents(gameObject.name.Contains("Raven"));
+
+            localPlayerManagerScript.ToggleWorldCamera(false);
         }
     }
 

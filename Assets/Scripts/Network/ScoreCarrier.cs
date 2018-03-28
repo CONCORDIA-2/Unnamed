@@ -2,7 +2,7 @@
 
 public class ScoreCarrier : MonoBehaviour
 {
-    public int score;
+    public bool isHost;
 
     private void Awake()
     {

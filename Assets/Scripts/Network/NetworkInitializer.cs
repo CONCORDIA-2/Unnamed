@@ -8,7 +8,7 @@ public class NetworkInitializer : NetworkDiscovery
     [SerializeField] private NetworkManagerHUD hud;
 
     // used in testing to turn off "Host Game - Join Game" UI
-    [SerializeField] private GameObject connectionUI;
+    //[SerializeField] private GameObject connectionUI;
 
     // set this to "false" when you want to get rid of the HUD
     private bool useDefaultHUD = false;
@@ -20,13 +20,13 @@ public class NetworkInitializer : NetworkDiscovery
     private const int discoverKey = 6674;
     private const int discoveryPort = 57777;
 
-    //private int clientScore;
+    private bool isHost;
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
         hud = GetComponent<NetworkManagerHUD>();
-        connectionUI = GameObject.FindGameObjectWithTag("ConnectionUI");
+        //connectionUI = GameObject.FindGameObjectWithTag("ConnectionUI");
 
         if (useDefaultHUD)
             enabled = false;
@@ -43,8 +43,13 @@ public class NetworkInitializer : NetworkDiscovery
             NetworkManager.singleton.networkPort = port;
         }
 
-        //clientScore = GameObject.FindGameObjectWithTag("ScoreCarrier").GetComponent<ScoreCarrier>().score;
-        //Debug.Log("Client score: " + clientScore);
+        isHost = GameObject.FindGameObjectWithTag("ScoreCarrier").GetComponent<ScoreCarrier>().isHost;
+        Debug.Log("isHost: " + isHost);
+
+        if (isHost)
+            StartHost();
+        else
+            StartClient();
     }
 
     public void StartHost()
@@ -57,7 +62,7 @@ public class NetworkInitializer : NetworkDiscovery
             initialized = Initialize();
             StartAsServer();
             NetworkManager.singleton.StartHost();
-            ToggleConnectionUI(false);
+            //ToggleConnectionUI(false);
 
             Debug.Log("StartHost initialized = " + initialized + "; hostId = " + hostId);
 
@@ -87,7 +92,7 @@ public class NetworkInitializer : NetworkDiscovery
 
             NetworkManager.singleton.networkAddress = fromAddress;
             NetworkManager.singleton.StartClient();
-            ToggleConnectionUI(false);
+            //ToggleConnectionUI(false);
 
             //QuestionnaireDataStorage msg = new QuestionnaireDataStorage();
             //msg.score = clientScore;
@@ -116,9 +121,9 @@ public class NetworkInitializer : NetworkDiscovery
             && !NetworkClient.active;
     }
 
-    private void ToggleConnectionUI(bool toggle)
-    {
-        if (connectionUI)
-            connectionUI.SetActive(toggle); 
-    }
+    //private void ToggleConnectionUI(bool toggle)
+    //{
+    //    if (connectionUI)
+    //        connectionUI.SetActive(toggle); 
+    //}
 }

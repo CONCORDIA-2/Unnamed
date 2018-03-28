@@ -14,7 +14,7 @@ public class LocalPlayerManager : MonoBehaviour
     private void Start()
     {
         worldCamera = GameObject.FindGameObjectWithTag("WorldCamera");
-        ToggleWorldCamera(false);
+        //ToggleWorldCamera(false);
     }
 
     public GameObject GetPlayerCameraObject()

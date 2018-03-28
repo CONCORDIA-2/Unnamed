@@ -21,6 +21,8 @@ TagManager:
   - block rabbit
   - NetworkManager
   - ScoreCarrier
+  - WaitingForPlayer
+  - Loading
   layers:
   - Default
   - TransparentFX
