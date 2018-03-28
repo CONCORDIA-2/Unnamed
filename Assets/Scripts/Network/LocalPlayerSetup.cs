@@ -44,7 +44,7 @@ public class LocalPlayerSetup : NetworkBehaviour
         {
             // periodically check if other player is still connected/has connected
             checkTimer += Time.deltaTime;
-            if (checkTimer >= checkInterval)
+            if (checkTimer >= checkInterval && otherPlayerObject == null)
             {
                 FindOtherPlayerObject();
                 checkTimer = 0.0f;
@@ -64,6 +64,8 @@ public class LocalPlayerSetup : NetworkBehaviour
 
                 // set the other player object in the local player manager
                 localPlayerManagerScript.SetOtherPlayerObject(otherPlayerObject);
+                PauseMenuController.isPaused = false;
+                break;
             }
         }
     }

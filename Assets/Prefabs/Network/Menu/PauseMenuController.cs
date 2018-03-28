@@ -21,6 +21,7 @@ public class PauseMenuController : NetworkBehaviour
                 Resume();
             else
                 Pause();
+            Debug.Log("Paused: " + isPaused);
         }
     }
 

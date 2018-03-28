@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class CustomNetworkManager : NetworkManager
 {
@@ -19,6 +20,7 @@ public class CustomNetworkManager : NetworkManager
         //NetworkServer.RegisterHandler(QuestionnaireDataStorage.id, OnScoreMsg);
         //clientScore = GameObject.FindGameObjectWithTag("ScoreCarrier").GetComponent<ScoreCarrier>().score;
         NetworkServer.RegisterHandler(CharacterMsg.id, OnCharacterMsg);
+        PauseMenuController.isPaused = true;
     }
 
     public override void OnClientConnect(NetworkConnection conn)
@@ -168,14 +170,18 @@ public class CustomNetworkManager : NetworkManager
             GameObject player = Instantiate(players[conn], startPositions[conn.connectionId].position, startPositions[conn.connectionId].rotation);
             DontDestroyOnLoad(player);
             NetworkServer.AddPlayerForConnection(conn, player, 0);
-            ++readyPlayers;
             Debug.Log("Added player for connection: " + conn);
         }
+    }
 
-        if (readyPlayers == 2 && !sceneSet)
+    public override void OnClientSceneChanged(NetworkConnection conn)
+    {
+        base.OnClientSceneChanged(conn);
+        if (SceneManager.GetActiveScene().name == "Main Menu" && PlayerPrefs.GetInt("GameFinished") == 1)
         {
-            sceneSet = true;
-            ServerChangeScene("TheGame");
+            GameObject.FindGameObjectWithTag("Menu").SetActive(false);
+            GameObject.FindGameObjectWithTag("MenuEndGame").SetActive(true);
         }
+
     }
 }

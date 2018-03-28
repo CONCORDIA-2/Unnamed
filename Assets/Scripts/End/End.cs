@@ -91,7 +91,8 @@ public class End : MonoBehaviour {
 		//wait seconds
 		yield return new WaitForSeconds(1);
 
-		//load menu
-		SceneManager.LoadScene("Scenes/Main Menu");
+        //load menu
+        PlayerPrefs.SetInt("GameFinished", 1);
+		SceneManager.LoadSceneAsync("Main Menu");
 	}
 }

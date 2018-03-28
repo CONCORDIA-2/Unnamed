@@ -24,6 +24,7 @@ public class NetworkInitializer : NetworkDiscovery
 
     private void Start()
     {
+        PlayerPrefs.SetInt("GameFinished", 0);
         DontDestroyOnLoad(gameObject);
         hud = GetComponent<NetworkManagerHUD>();
         //connectionUI = GameObject.FindGameObjectWithTag("ConnectionUI");

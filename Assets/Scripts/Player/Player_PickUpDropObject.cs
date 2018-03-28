@@ -45,6 +45,11 @@ public class Player_PickUpDropObject : NetworkBehaviour
                     CmdPickupObject(mObjectInRange);
             }
         }
+        
+        if (!mPlayerAnimation)
+            mPlayerAnimation = GetComponent<PlayerAnimation>();
+        if (!mPlayerMovement)
+            mPlayerMovement = GetComponent<Player_Movement>();
 
         if (mObjectInHands)
         {

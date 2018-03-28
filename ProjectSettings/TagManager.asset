@@ -23,6 +23,8 @@ TagManager:
   - ScoreCarrier
   - WaitingForPlayer
   - Loading
+  - MenuEndGame
+  - Menu
   layers:
   - Default
   - TransparentFX
