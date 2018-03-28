@@ -11,7 +11,7 @@ public class NetworkInitializer : NetworkDiscovery
     [SerializeField] private GameObject connectionUI;
 
     // set this to "false" when you want to get rid of the HUD
-    private bool useDefaultHUD = true;
+    private bool useDefaultHUD = false;
 
     private bool connected = false;
     private bool initialized = false;
@@ -20,8 +20,11 @@ public class NetworkInitializer : NetworkDiscovery
     private const int discoverKey = 6674;
     private const int discoveryPort = 57777;
 
+    //private int clientScore;
+
     private void Start()
     {
+        DontDestroyOnLoad(gameObject);
         hud = GetComponent<NetworkManagerHUD>();
         connectionUI = GameObject.FindGameObjectWithTag("ConnectionUI");
 
@@ -39,6 +42,9 @@ public class NetworkInitializer : NetworkDiscovery
             showGUI = false;
             NetworkManager.singleton.networkPort = port;
         }
+
+        //clientScore = GameObject.FindGameObjectWithTag("ScoreCarrier").GetComponent<ScoreCarrier>().score;
+        //Debug.Log("Client score: " + clientScore);
     }
 
     public void StartHost()
@@ -54,6 +60,10 @@ public class NetworkInitializer : NetworkDiscovery
             ToggleConnectionUI(false);
 
             Debug.Log("StartHost initialized = " + initialized + "; hostId = " + hostId);
+
+            //QuestionnaireDataStorage msg = new QuestionnaireDataStorage();
+            //msg.score = clientScore;
+            //NetworkManager.singleton.client.Send(QuestionnaireDataStorage.id, msg);
         }
     }
 
@@ -78,6 +88,10 @@ public class NetworkInitializer : NetworkDiscovery
             NetworkManager.singleton.networkAddress = fromAddress;
             NetworkManager.singleton.StartClient();
             ToggleConnectionUI(false);
+
+            //QuestionnaireDataStorage msg = new QuestionnaireDataStorage();
+            //msg.score = clientScore;
+            //NetworkManager.singleton.client.Send(QuestionnaireDataStorage.id, msg);
 
             connected = true;
         }

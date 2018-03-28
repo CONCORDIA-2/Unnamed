@@ -19,6 +19,8 @@ TagManager:
   - Checkpoint
   - ConnectionUI
   - block rabbit
+  - NetworkManager
+  - ScoreCarrier
   layers:
   - Default
   - TransparentFX

@@ -109,7 +109,7 @@ public class SanityAndLight : NetworkBehaviour {
                     }
                     else if (GetComponent<Player_Movement>().mMaxSpeed <= 0.0f)
                     {
-                        mPlayerAnimation.CmdSetBool("isIncap", true);
+                        mPlayerAnimation.CmdSetBool("isIncapacitated", true);
                     }
 
 	            	if (distance < safeLightingRadius)
@@ -124,7 +124,7 @@ public class SanityAndLight : NetworkBehaviour {
                     mAudioSources[2].Stop();
 
                     mPlayerAnimation.CmdSetBool("isIncapWalking", false);
-                    mPlayerAnimation.CmdSetBool("isIncap", false);
+                    mPlayerAnimation.CmdSetBool("isIncapacitated", false);
                     mPlayerAnimation.CmdSetBool("isIdle", true);
 
                     //if player is in special lighting and are too far from their partner, decrease sanity and increase mass
@@ -282,21 +282,21 @@ public class SanityAndLight : NetworkBehaviour {
 	}
 
     [Command]
-    public void CmdSetOtherIsIncapacitated(short controllerID, bool toggle)
+    public void CmdSetOtherIsIncapacitated(int controllerId, bool toggle)
     {
-        RpcSetOtherIsIncapacitated(controllerID, toggle);
+        RpcSetOtherIsIncapacitated(controllerId, toggle);
     }
 
     [Command]
-    public void CmdSetOtherSanityLevel(short controllerID, float level)
+    public void CmdSetOtherSanityLevel(int controllerId, float level)
     {
-        RpcSetOtherSanityLevel(controllerID, level);
+        RpcSetOtherSanityLevel(controllerId, level);
     }
 
     [ClientRpc]
-    public void RpcSetOtherIsIncapacitated(short controllerID, bool toggle)
+    public void RpcSetOtherIsIncapacitated(int controllerId, bool toggle)
     {
-        if (controllerID != playerControllerId && localPlayerManagerScript)
+        if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             localPlayerManagerScript.SetOtherIsIncapacitated(toggle);
             localPlayerManagerScript.GetOtherPlayerObject().GetComponent<SanityAndLight>().isIncapacitated = toggle;
@@ -304,9 +304,9 @@ public class SanityAndLight : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void RpcSetOtherSanityLevel(short controllerID, float level)
+    public void RpcSetOtherSanityLevel(int controllerId, float level)
     {
-        if (controllerID != playerControllerId && localPlayerManagerScript)
+        if (controllerId != playerControllerId && localPlayerManagerScript!= null)
         {
             localPlayerManagerScript.SetOtherSanityLevel(level);
             localPlayerManagerScript.GetOtherPlayerObject().GetComponent<SanityAndLight>().sanityLevel = level;

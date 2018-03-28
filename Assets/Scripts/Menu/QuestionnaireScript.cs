@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine;
+//using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
-public class QuestionnaireScript : NetworkBehaviour
+public class QuestionnaireScript : MonoBehaviour
 {
 
     //storage for all questions by category
@@ -15,7 +14,7 @@ public class QuestionnaireScript : NetworkBehaviour
     //questionCount is the total number of questions which have been presented to the player
     private int deciderScore, currentQuestion, questionCount;
 
-    public GameObject networkManager;
+    //public GameObject networkManager;
     public bool isHost;
 
     // Use this for initialization
@@ -54,8 +53,8 @@ public class QuestionnaireScript : NetworkBehaviour
                 case 4:
                     if (answer == 1)
                         deciderScore++;
-                    QuestionnaireDataStorage.score = deciderScore;
-                    loadWaitScreen();
+                    loadHostClientScene();
+                    //loadWaitScreen();
                     break;
             }
         }
@@ -104,34 +103,54 @@ public class QuestionnaireScript : NetworkBehaviour
         questionCount++;
     }
 
-    //start the game if hosting, join it if not. Once both players connect, load the next scene
-    private void loadWaitScreen()
+    private void loadHostClientScene()
     {
-        rabbitQuestions[currentQuestion].SetActive(false);
-        waitScreen.SetActive(true);
-        if (isHost)
-        {
-            networkManager.GetComponent<NetworkInitializer>().StartHost();
-            StartCoroutine(waitForClient(networkManager.GetComponent<NetworkManager>()));
-        }
-        else
-        {
-            networkManager.GetComponent<NetworkInitializer>().StartClient();
-        }
+        GameObject.FindGameObjectWithTag("ScoreCarrier").GetComponent<ScoreCarrier>().score = deciderScore;
+        SceneManager.LoadSceneAsync("NetworkTest");
     }
 
+    //public void startHost()
+    //{
+    //    //SceneManager.LoadSceneAsync("Intro");
+    //    //waitScreen.SetActive(true);
+    //    networkManager.GetComponent<NetworkInitializer>().StartHost();
+    //}
+
+    //public void startClient()
+    //{
+    //    //SceneManager.LoadSceneAsync("Intro");
+    //    //waitScreen.SetActive(true);
+    //    networkManager.GetComponent<NetworkInitializer>().StartClient();
+    //}
+
+    //start the game if hosting, join it if not. Once both players connect, load the next scene
+    //private void loadWaitScreen()
+    //{
+    //    rabbitQuestions[currentQuestion].SetActive(false);
+    //    waitScreen.SetActive(true);
+    //    if (isHost)
+    //    {
+    //        networkManager.GetComponent<NetworkInitializer>().StartHost(deciderScore);
+    //        //StartCoroutine(waitForClient(networkManager.GetComponent<NetworkManager>()));
+    //    }
+    //    else
+    //    {
+    //        networkManager.GetComponent<NetworkInitializer>().StartClient(deciderScore);
+    //    }
+    //}
+
     //dead until scene transition issues are sorted out
-    IEnumerator waitForClient(NetworkManager nm)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1);
-            print("Searching for other player");
-            if (nm.numPlayers == 2)
-            {
-                NetworkManager.singleton.ServerChangeScene("TutorialLevel");
-                yield break;
-            }
-        }
-    }
+    //IEnumerator waitForClient(NetworkManager nm)
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(1);
+    //        print("Searching for other player");
+    //        if (nm.numPlayers == 2)
+    //        {
+    //            NetworkManager.singleton.ServerChangeScene("TheGame");
+    //            yield break;
+    //        }
+    //    }
+    //}
 }

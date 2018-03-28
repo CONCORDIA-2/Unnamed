@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine.Networking;
 
-public class QuestionnaireDataStorage : MonoBehaviour {
-    public static int score;
+public class QuestionnaireDataStorage : MessageBase
+{
+    public const short id = 6675;
+    public int score;
 }

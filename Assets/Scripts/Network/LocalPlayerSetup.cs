@@ -31,6 +31,8 @@ public class LocalPlayerSetup : NetworkBehaviour
             if (!camControl)
                 camControl = camObject.GetComponent<CameraControl>();
             camControl.SetCameraTarget(transform);
+
+            SetPlayerComponents(gameObject.name.Contains("Raven"));
         }
     }
 

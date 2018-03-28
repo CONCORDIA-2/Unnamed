@@ -74,6 +74,7 @@ public class LocalPlayerManager : MonoBehaviour
 
     public void SetOtherSanityLevel(float level)
     {
+        Debug.Log(level);
         otherSanityLevel = level;
     }
 
