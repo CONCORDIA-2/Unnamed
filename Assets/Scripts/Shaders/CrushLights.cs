@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts.Cam.Effects {
 	
@@ -15,10 +16,6 @@ namespace Assets.Scripts.Cam.Effects {
 		public float brightnessThreshold = 0.9f;
 
 		public bool isRaven = true;
-
-		void Start() {
-			isRaven = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven();
-		}
 
 		private Material material {
 			get {
@@ -37,7 +34,10 @@ namespace Assets.Scripts.Cam.Effects {
 		}
 
 		public void OnRenderImage(RenderTexture src, RenderTexture dest) {
-			if (material) Graphics.Blit(src, dest, material);
+			if (GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().GetLocalPlayerObject()) {
+				isRaven = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven();
+				if (material) Graphics.Blit(src, dest, material);
+			}
 		}
 	}
 }
