@@ -411,49 +411,49 @@ public class SanityAndLight : NetworkBehaviour {
     }
 
     [Command]
-    public void CmdSetOtherOpposedLighting(int controllerId, bool value)
+    public void CmdSetOtherOpposedLighting(int controllerId, bool val)
     {
-        RpcSetOtherOpposedLighting(controllerId, value);
+        RpcSetOtherOpposedLighting(controllerId, val);
     }
 
     [ClientRpc]
-    public void RpcSetOtherOpposedLighting(int controllerId, bool value)
+    public void RpcSetOtherOpposedLighting(int controllerId, bool val)
     {
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
             SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
 
-            sal.opposedLighting = value;
+            sal.opposedLighting = val;
         }
     }
 
     [Command]
-    public void CmdSetOtherSpecialLighting(int controllerId, bool value)
+    public void CmdSetOtherSpecialLighting(int controllerId, bool val)
     {
-        RpcSetOtherSpecialLighting(controllerId, value);
+        RpcSetOtherSpecialLighting(controllerId, val);
     }
 
     [ClientRpc]
-    public void RpcSetOtherSpecialLighting(int controllerId, bool value)
+    public void RpcSetOtherSpecialLighting(int controllerId, bool val)
     {
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
             SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
 
-            sal.specialLighting = value;
+            sal.specialLighting = val;
         }
     }
 
     [Command]
-    public void CmdSetLightIntensity(int controllerId, float value)
+    public void CmdSetLightIntensity(int controllerId, float val)
     {
-        RpcSetLightIntensity(controllerId, value);
+        RpcSetLightIntensity(controllerId, val);
     }
 
     [ClientRpc]
-    public void RpcSetLightIntensity(int controllerId, float value)
+    public void RpcSetLightIntensity(int controllerId, float val)
     {
         Debug.Log("setting light intensity");
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
@@ -461,18 +461,18 @@ public class SanityAndLight : NetworkBehaviour {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
             SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
 
-            sal.light.GetComponent<Light>().intensity = value;
+            sal.light.GetComponent<Light>().intensity = val;
         }
     }
 
     [Command]
-    public void CmdSetAuraSize(int controllerId, float value)
+    public void CmdSetAuraSize(int controllerId, float val)
     {
-        RpcSetAuraSize(controllerId, value);
+        RpcSetAuraSize(controllerId, val);
     }
 
     [ClientRpc]
-    public void RpcSetAuraSize(int controllerId, float value)
+    public void RpcSetAuraSize(int controllerId, float val)
     {
         Debug.Log("setting aura size");
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
@@ -480,7 +480,7 @@ public class SanityAndLight : NetworkBehaviour {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
             SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
 
-            sal.aura.transform.localScale = new Vector3(value, value, value);
+            sal.aura.transform.localScale = new Vector3(val, val, val);
         }
     }
 }
