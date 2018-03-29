@@ -27,7 +27,13 @@ public class FetchQuest : MonoBehaviour {
         }
 
         if (!playerScript)
-            playerScript = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().GetLocalPlayerObject().GetComponent<Player_PickUpDropObject>();
+        {
+            GameObject localPlayer = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().GetLocalPlayerObject();
+            if (localPlayer)
+            {
+                playerScript = localPlayer.GetComponent<Player_PickUpDropObject>();
+            }
+        }
 
         if (f1 && f2 && f3 && f4 && f5)
             succeeded = true;

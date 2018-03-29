@@ -358,7 +358,12 @@ public class SanityAndLight : NetworkBehaviour {
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             localPlayerManagerScript.SetOtherIsIncapacitated(toggle);
-            localPlayerManagerScript.GetOtherPlayerObject().GetComponent<SanityAndLight>().isIncapacitated = toggle;
+
+            GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
+            if (otherPlayer)
+            {
+                otherPlayer.GetComponent<SanityAndLight>().isIncapacitated = toggle;
+            }
         }
     }
 
@@ -368,7 +373,12 @@ public class SanityAndLight : NetworkBehaviour {
         if (controllerId != playerControllerId && localPlayerManagerScript!= null)
         {
             localPlayerManagerScript.SetOtherSanityLevel(level);
-            localPlayerManagerScript.GetOtherPlayerObject().GetComponent<SanityAndLight>().sanityLevel = level;
+
+            GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
+            if (otherPlayer)
+            {
+                otherPlayer.GetComponent<SanityAndLight>().sanityLevel = level;
+            }
         }
     }
 
@@ -385,9 +395,11 @@ public class SanityAndLight : NetworkBehaviour {
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
-            SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
-
-            sal.light.SetActive(toggle);
+            if (otherPlayer)
+            {
+                SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
+                sal.light.SetActive(toggle);
+            }
         }
     }
 
@@ -404,9 +416,11 @@ public class SanityAndLight : NetworkBehaviour {
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
-            SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
-
-            sal.light.SetActive(toggle);
+            if (otherPlayer)
+            {
+                SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
+                sal.light.SetActive(toggle);
+            }
         }
     }
 
@@ -422,9 +436,11 @@ public class SanityAndLight : NetworkBehaviour {
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
-            SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
-
-            sal.opposedLighting = val;
+            if (otherPlayer)
+            {
+                SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
+                sal.opposedLighting = val;
+            }
         }
     }
 
@@ -440,9 +456,11 @@ public class SanityAndLight : NetworkBehaviour {
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
-            SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
-
-            sal.specialLighting = val;
+            if (otherPlayer)
+            {
+                SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
+                sal.specialLighting = val;
+            }
         }
     }
 
@@ -459,9 +477,11 @@ public class SanityAndLight : NetworkBehaviour {
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
-            SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
-
-            sal.light.GetComponent<Light>().intensity = val;
+            if (otherPlayer)
+            {
+                SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
+                sal.light.GetComponent<Light>().intensity = val;
+            }
         }
     }
 
@@ -478,9 +498,11 @@ public class SanityAndLight : NetworkBehaviour {
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
-            SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
-
-            sal.aura.transform.localScale = new Vector3(val, val, val);
+            if (otherPlayer)
+            {
+                SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
+                sal.aura.transform.localScale = new Vector3(val, val, val);
+            }
         }
     }
 }
