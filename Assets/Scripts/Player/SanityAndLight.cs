@@ -12,8 +12,8 @@ public class SanityAndLight : NetworkBehaviour {
     private GameObject localPlayer;
     [SerializeField] private GameObject localPlayerManager;
     [SerializeField] private LocalPlayerManager localPlayerManagerScript;
-    private GameObject light;
-    private GameObject aura;
+    public GameObject light;
+    public GameObject aura;
     public PostProcessingProfile postProcessing;
 
     public bool isRaven = true;
@@ -48,29 +48,49 @@ public class SanityAndLight : NetworkBehaviour {
     {
         mPlayerAnimation = GetComponent<PlayerAnimation>();
         mAudioSources = GetComponents<AudioSource>();
-    }
 
-    void Start() {
         isRaven = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven();
 
-		//grab reference to the local player manager if not assigned
-	    localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager");
-	    if (localPlayerManager)
-	        localPlayerManagerScript = localPlayerManager.GetComponent<LocalPlayerManager>();
+        //grab reference to the local player manager if not assigned
+        localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager");
+        if (localPlayerManager)
+            localPlayerManagerScript = localPlayerManager.GetComponent<LocalPlayerManager>();
 
-		otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
-		localPlayer = localPlayerManagerScript.GetLocalPlayerObject();
+        otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
+        localPlayer = localPlayerManagerScript.GetLocalPlayerObject();
 
-		//get post processing
-		postProcessing = localPlayerManagerScript.GetPlayerCameraObject().gameObject.GetComponent<PostProcessingBehaviour>().profile;
+        //get post processing
+        postProcessing = localPlayerManagerScript.GetPlayerCameraObject().gameObject.GetComponent<PostProcessingBehaviour>().profile;
 
-		//get aura effects
-		light = transform.Find("Light").gameObject;
-		aura = transform.Find("Aura").gameObject;
+        //get aura effects
+        light = transform.Find("Light").gameObject;
+        aura = transform.Find("Aura").gameObject;
 
-		light.SetActive(false);
-		aura.SetActive(false);
+        light.SetActive(false);
+        aura.SetActive(false);
     }
+
+  //  void Start() {
+  //      isRaven = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven();
+
+		////grab reference to the local player manager if not assigned
+	 //   localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager");
+	 //   if (localPlayerManager)
+	 //       localPlayerManagerScript = localPlayerManager.GetComponent<LocalPlayerManager>();
+
+		//otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
+		//localPlayer = localPlayerManagerScript.GetLocalPlayerObject();
+
+		////get post processing
+		//postProcessing = localPlayerManagerScript.GetPlayerCameraObject().gameObject.GetComponent<PostProcessingBehaviour>().profile;
+
+		////get aura effects
+		//light = transform.Find("Light").gameObject;
+		//aura = transform.Find("Aura").gameObject;
+
+		//light.SetActive(false);
+		//aura.SetActive(false);
+  //  }
 
     //begin routine if both players have been found
 	void Update() {
@@ -162,29 +182,37 @@ public class SanityAndLight : NetworkBehaviour {
 	            		light.SetActive(true);
 	            		if (light.GetComponent<Light>().intensity < maxLightBrightness)
 	            			light.GetComponent<Light>().intensity += lightChange;
+                        CmdSetLightIntensity(playerControllerId, light.GetComponent<Light>().intensity);
 	            	}
 	            	else
 	            	{
 	            		aura.SetActive(true);
 	            		if (aura.transform.localScale.x < maxAuraSize)
 	            			aura.transform.localScale += new Vector3(auraChange, auraChange, auraChange);
+                        CmdSetAuraSize(playerControllerId, aura.transform.localScale.x);
 	            	}
 	            }
 	            else
 	            {
 	            	if (isRaven)
 	            	{
-	            		if (light.GetComponent<Light>().intensity > 0.0f)
-	            			light.GetComponent<Light>().intensity -= lightChange;
-	            		else
-	            			light.SetActive(false);
+                        if (light.GetComponent<Light>().intensity > 0.0f)
+                        {
+                            light.GetComponent<Light>().intensity -= lightChange;
+                            CmdSetLightIntensity(playerControllerId, light.GetComponent<Light>().intensity);
+                        }
+                        else
+                            light.SetActive(false);
 	            	}
 	            	else
 	            	{
-	            		if (aura.transform.localScale.x > 0.0f)
-	            			aura.transform.localScale -= new Vector3(auraChange, auraChange, auraChange);
-	            		else
-	            			aura.SetActive(false);
+                        if (aura.transform.localScale.x > 0.0f)
+                        {
+                            aura.transform.localScale -= new Vector3(auraChange, auraChange, auraChange);
+                            CmdSetAuraSize(playerControllerId, aura.transform.localScale.x);
+                        }
+                        else
+                            aura.SetActive(false);
 	            	}
 	            }
 
@@ -244,17 +272,20 @@ public class SanityAndLight : NetworkBehaviour {
         if (isRaven)
         {
             if (collision.gameObject.tag == "LitArea")
-            	specialLighting = true;
+                specialLighting = true;
             else if (collision.gameObject.tag == "DarkArea")
-            	opposedLighting = true;
+                opposedLighting = true;
         }
         else
         {
             if (collision.gameObject.tag == "DarkArea")
-            	specialLighting = true;
+                specialLighting = true;
             else if (collision.gameObject.tag == "LitArea")
-				opposedLighting = true;
+            {
+                opposedLighting = true;
+            }
         }
+        CmdSetOtherOpposedLighting(playerControllerId, opposedLighting);
     }
 
     //on collision exit with collider specific to client, toggle specialLighting flag and appropriate aura response
@@ -263,17 +294,18 @@ public class SanityAndLight : NetworkBehaviour {
         if (isRaven)
         {
             if (collision.gameObject.tag == "LitArea")
-            	specialLighting = false;
+                specialLighting = false;
             else if (collision.gameObject.tag == "DarkArea")
-            	opposedLighting = false;
+                opposedLighting = false;
         }
         else
         {
             if (collision.gameObject.tag == "DarkArea")
-				specialLighting = false;
-			else if (collision.gameObject.tag == "LitArea")
-            	opposedLighting = false;
+                specialLighting = false;
+            else if (collision.gameObject.tag == "LitArea")
+                opposedLighting = false;
         }
+        CmdSetOtherOpposedLighting(playerControllerId, opposedLighting);
     }
 
     float map (float val, float from1, float to1, float from2, float to2)
@@ -310,6 +342,95 @@ public class SanityAndLight : NetworkBehaviour {
         {
             localPlayerManagerScript.SetOtherSanityLevel(level);
             localPlayerManagerScript.GetOtherPlayerObject().GetComponent<SanityAndLight>().sanityLevel = level;
+        }
+    }
+
+    [Command]
+    public void CmdSetOtherOpposedLighting(int controllerId, bool value)
+    {
+        RpcSetOtherOpposedLighting(controllerId, value);
+    }
+
+    [ClientRpc]
+    public void RpcSetOtherOpposedLighting(int controllerId, bool value)
+    {
+        if (controllerId != playerControllerId && localPlayerManagerScript != null)
+        {
+            GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
+            SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
+
+            sal.opposedLighting = value;
+        }
+    }
+
+    [Command]
+    public void CmdSetLightIntensity(int controllerId, float value)
+    {
+        RpcSetLightIntensity(controllerId, value);
+    }
+
+    [ClientRpc]
+    public void RpcSetLightIntensity(int controllerId, float value)
+    {
+        if (controllerId != playerControllerId && localPlayerManagerScript != null)
+        {
+            GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
+            SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
+
+            if (sal.opposedLighting)
+            {
+                if (sal.isRaven)
+                {
+                    sal.light.SetActive(true);
+                    sal.light.GetComponent<Light>().intensity = value;
+                }
+            }
+            else
+            {
+                if (sal.isRaven)
+                {
+                    if (sal.light.GetComponent<Light>().intensity > 0.0f)
+                        sal.light.GetComponent<Light>().intensity = value;
+                    else
+                        sal.light.SetActive(false);
+                }
+            }
+        }
+    }
+
+    [Command]
+    public void CmdSetAuraSize(int controllerId, float value)
+    {
+        RpcSetAuraSize(controllerId, value);
+    }
+
+    [ClientRpc]
+    public void RpcSetAuraSize(int controllerId, float value)
+    {
+        if (controllerId != playerControllerId && localPlayerManagerScript != null)
+        {
+            GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
+            SanityAndLight sal = otherPlayer.GetComponent<SanityAndLight>();
+
+            if (sal.opposedLighting)
+            {
+                if (!sal.isRaven)
+                {
+                    sal.aura.SetActive(true);
+                    if (sal.aura.transform.localScale.x < maxAuraSize)
+                        sal.aura.transform.localScale = new Vector3(value, value, value);
+                }
+            }
+            else
+            {
+                if (!sal.isRaven)
+                {
+                    if (sal.aura.transform.localScale.x > 0.0f)
+                        sal.aura.transform.localScale = new Vector3(value, value, value);
+                    else
+                        sal.aura.SetActive(false);
+                }
+            }
         }
     }
 }
