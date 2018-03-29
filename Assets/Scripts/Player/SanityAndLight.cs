@@ -134,6 +134,7 @@ public class SanityAndLight : NetworkBehaviour {
                     }
                     else if (GetComponent<Player_Movement>().mMaxSpeed <= 0.0f)
                     {
+                        mPlayerAnimation.CmdSetBool("isIncapWalking", false);
                         mPlayerAnimation.CmdSetBool("isIncapacitated", true);
                     }
 
@@ -148,9 +149,12 @@ public class SanityAndLight : NetworkBehaviour {
 	            {
                     mAudioSources[2].Stop();
 
-                    mPlayerAnimation.CmdSetBool("isIncapWalking", false);
-                    mPlayerAnimation.CmdSetBool("isIncapacitated", false);
-                    mPlayerAnimation.CmdSetBool("isIdle", true);
+                    if (GetComponent<Animator>().GetBool("isIncapWalking") || GetComponent<Animator>().GetBool("isIncapacitated"))
+                    {
+                        mPlayerAnimation.CmdSetBool("isIncapWalking", false);
+                        mPlayerAnimation.CmdSetBool("isIncapacitated", false);
+                        mPlayerAnimation.CmdSetBool("isIdle", true);
+                    }
 
                     //if player is in special lighting and are too far from their partner, decrease sanity and increase mass
                     if (specialLighting)
