@@ -10,7 +10,8 @@ public class FetchQuest : MonoBehaviour {
     public static bool succeeded = false, whatElseVisible = false;
     public Text quote1, quote2, quote3, quote4, quote5;
     public GameObject whatElse;
-    private int numComplete = 0;
+    public int numComplete = 0;
+    private Player_PickUpDropObject playerScript;
 
 	// Use this for initialization
 	void Start () {	
@@ -24,6 +25,9 @@ public class FetchQuest : MonoBehaviour {
             whatElseVisible = true;
             StartCoroutine(WaitAndSetActive(whatElse, true));
         }
+
+        if (!playerScript)
+            playerScript = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().GetLocalPlayerObject().GetComponent<Player_PickUpDropObject>();
 
         if (f1 && f2 && f3 && f4 && f5)
             succeeded = true;
@@ -40,30 +44,35 @@ public class FetchQuest : MonoBehaviour {
                 numComplete++;
                 collision.gameObject.SetActive(false);
                 StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, quote1));
+                playerScript.CmdFetchQuest(collision.gameObject, 1);
                 break;
             case fetch2:
                 f2 = true;
                 numComplete++;
                 collision.gameObject.SetActive(false);
                 StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, quote2));
+                playerScript.CmdFetchQuest(collision.gameObject, 2);
                 break;
             case fetch3:
                 f3 = true;
                 numComplete++;
                 collision.gameObject.SetActive(false);
                 StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, quote3));
+                playerScript.CmdFetchQuest(collision.gameObject, 3);
                 break;
             case fetch4:
                 f4 = true;
                 numComplete++;
                 collision.gameObject.SetActive(false);
                 StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, quote4));
+                playerScript.CmdFetchQuest(collision.gameObject, 4);
                 break;
             case fetch5:
                 f5 = true;
                 numComplete++;
                 collision.gameObject.SetActive(false);
                 StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, quote5));
+                playerScript.CmdFetchQuest(collision.gameObject, 5);
                 break;
         }
     }

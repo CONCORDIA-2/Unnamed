@@ -25,6 +25,7 @@ TagManager:
   - Loading
   - MenuEndGame
   - Menu
+  - Receptor
   layers:
   - Default
   - TransparentFX

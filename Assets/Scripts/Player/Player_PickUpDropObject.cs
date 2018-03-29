@@ -201,4 +201,43 @@ public class Player_PickUpDropObject : NetworkBehaviour
         if (pickable)
             pickable.SetPickable(toggle);
     }
+
+    [Command]
+    public void CmdFetchQuest(GameObject obj, int num)
+    {
+        RpcFetchQuest(obj, num);
+    }
+
+    [ClientRpc]
+    public void RpcFetchQuest(GameObject obj, int num)
+    {
+        GameObject receptor = GameObject.FindGameObjectWithTag("Receptor");
+        FetchQuest fq = receptor.GetComponent<FetchQuest>();
+
+        ++fq.numComplete;
+        switch (num)
+        {
+            case 1:
+                fq.f1 = true;
+                StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, fq.quote1));
+                break;
+            case 2:
+                fq.f2 = true;
+                StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, fq.quote2));
+                break;
+            case 3:
+                fq.f3 = true;
+                StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, fq.quote3));
+                break;
+            case 4:
+                fq.f4 = true;
+                StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, fq.quote4));
+                break;
+            case 5:
+                fq.f5 = true;
+                StartCoroutine(MessageFades.FadeTextToFullAlpha(6f, fq.quote5));
+                break;
+        }
+        obj.SetActive(false);
+    }
 }

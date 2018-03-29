@@ -381,6 +381,7 @@ public class SanityAndLight : NetworkBehaviour {
     [ClientRpc]
     public void RpcToggleLight(int controllerId, bool toggle)
     {
+        Debug.Log("toggling light");
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
@@ -399,6 +400,7 @@ public class SanityAndLight : NetworkBehaviour {
     [ClientRpc]
     public void RpcToggleAura(int controllerId, bool toggle)
     {
+        Debug.Log("toggling aura");
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
@@ -453,6 +455,7 @@ public class SanityAndLight : NetworkBehaviour {
     [ClientRpc]
     public void RpcSetLightIntensity(int controllerId, float value)
     {
+        Debug.Log("setting light intensity");
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
@@ -471,6 +474,7 @@ public class SanityAndLight : NetworkBehaviour {
     [ClientRpc]
     public void RpcSetAuraSize(int controllerId, float value)
     {
+        Debug.Log("setting aura size");
         if (controllerId != playerControllerId && localPlayerManagerScript != null)
         {
             GameObject otherPlayer = localPlayerManagerScript.GetOtherPlayerObject();
