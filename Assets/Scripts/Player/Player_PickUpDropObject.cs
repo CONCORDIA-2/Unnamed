@@ -74,12 +74,12 @@ public class Player_PickUpDropObject : NetworkBehaviour
 
         // Check if an pickable object is in range
         if (Physics.Raycast(transform.position + new Vector3(0.0f, 0.25f, 0.0f), transform.TransformDirection(Vector3.forward), out rayItemHit, 1f))
-            if (rayItemHit.transform.gameObject.tag == "Pickable" || (rayItemHit.transform.gameObject.tag == "Heavy Pickable" && GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven()))
+            if (rayItemHit.transform.gameObject.tag == "Pickable" || (rayItemHit.transform.gameObject.tag == "HeavyPickable" && GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven()))
             {
                 mObjectInRange = rayItemHit.transform.gameObject;
                 return;
             }
-            else if (rayItemHit.transform.gameObject.tag == "Heavy Pickable" && !GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven())
+            else if (rayItemHit.transform.gameObject.tag == "HeavyPickable" && !GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>().IsRaven())
             {
                 // Display feedback > Rabbit cannot pick up heavy objects
             }
