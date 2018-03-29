@@ -31,14 +31,16 @@ public class UniqueMessage : NetworkBehaviour
         if (localPlayerManager.IsRaven()) displayMessage = raven;
         else displayMessage = rabbit;
 
-        while (!set) //&& isLocalPlayer)
-        {
+        //Debug.Log(localPlayerManager.IsRaven);
+
+        //while (!set) //&& isLocalPlayer)
+        //{
             isRaven = localPlayerManager.IsRaven();
             if (isRaven)
                 wallMessage.text = displayMessage;
             else
                 wallMessage.text = displayMessage;
             set = true;
-        }
+        //}
 	}
 }
