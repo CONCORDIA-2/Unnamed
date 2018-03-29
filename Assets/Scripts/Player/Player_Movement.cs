@@ -66,7 +66,7 @@ public class Player_Movement : NetworkBehaviour
     private void FixedUpdate()
     {
     	//HARDCODE FORCE MASS TO 25
-    	mRb.mass = 25f;
+        if (isLocalPlayer) mRb.mass = 25f;
 
         // If the player is not hanging, they can move
         if (isLocalPlayer && !PauseMenuController.isPaused)
@@ -83,10 +83,13 @@ public class Player_Movement : NetworkBehaviour
 
     private void LateUpdate()
     {
-        if (CheckIfGrounded() && !mWasJumping)
+        if (isLocalPlayer)
         {
-            mPlayerAnimation.CmdSetBool("isJumping", false);
-            mPlayerAnimation.CmdSetBool("isIdle", true);
+            if (CheckIfGrounded() && !mWasJumping)
+            {
+                mPlayerAnimation.CmdSetBool("isJumping", false);
+                mPlayerAnimation.CmdSetBool("isIdle", true);
+            }
         }
     }
 

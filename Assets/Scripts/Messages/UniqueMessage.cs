@@ -9,6 +9,7 @@ public class UniqueMessage : NetworkBehaviour
     public string raven, rabbit;
     public LocalPlayerManager localPlayerManager;
     public GameObject player;
+    private string displayMessage;
 
     // Use this for initialization
     public override void OnStartLocalPlayer()
@@ -26,13 +27,17 @@ public class UniqueMessage : NetworkBehaviour
             localPlayerManager = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<LocalPlayerManager>();
             player = localPlayerManager.GetLocalPlayerObject();
         }
-        if (!set) //&& isLocalPlayer)
+
+        if (localPlayerManager.IsRaven()) displayMessage = raven;
+        else displayMessage = rabbit;
+
+        while (!set) //&& isLocalPlayer)
         {
             isRaven = localPlayerManager.IsRaven();
             if (isRaven)
-                wallMessage.text = raven;
+                wallMessage.text = displayMessage;
             else
-                wallMessage.text = rabbit;
+                wallMessage.text = displayMessage;
             set = true;
         }
 	}
