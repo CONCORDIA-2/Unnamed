@@ -75,7 +75,9 @@ MonoBehaviour:
   - {fileID: 1954542993420506, guid: 612666b3d7a48f749bb6120869b3ae7b, type: 2}
   - {fileID: 1866187687459488, guid: a4cc031cb9152f94c9c5d5eecb022e16, type: 2}
   - {fileID: 1787843117975920, guid: c21ff56f10b058049adc06beb9a22c3a, type: 2}
+  - {fileID: 1951042064077366, guid: 529c09845e5513e46b69d41c620954d0, type: 2}
   - {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9, type: 2}
+  - {fileID: 1093953224534796, guid: a3f3432d2d8911949aebdb6cb40f9c74, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -168,4 +170,3 @@ MonoBehaviour:
   m_OffsetX: 0
   m_OffsetY: 0
   hud: {fileID: 0}
-  connectionUI: {fileID: 0}

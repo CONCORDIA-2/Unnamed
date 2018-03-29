@@ -12,6 +12,7 @@ public class LocalPlayerSetup : NetworkBehaviour
     [SerializeField] private bool isRaven;
 
     private float checkTimer = 0.0f;
+    private bool gameStarted = false;
 
     public override void OnStartLocalPlayer()
     {
@@ -44,7 +45,7 @@ public class LocalPlayerSetup : NetworkBehaviour
         {
             // periodically check if other player is still connected/has connected
             checkTimer += Time.deltaTime;
-            if (checkTimer >= checkInterval && otherPlayerObject == null)
+            if (checkTimer >= checkInterval)
             {
                 FindOtherPlayerObject();
                 checkTimer = 0.0f;
@@ -64,7 +65,11 @@ public class LocalPlayerSetup : NetworkBehaviour
 
                 // set the other player object in the local player manager
                 localPlayerManagerScript.SetOtherPlayerObject(otherPlayerObject);
-                PauseMenuController.isPaused = false;
+                if (!gameStarted)
+                {
+                    PauseMenuController.isPaused = false;
+                    gameStarted = true;
+                }
                 break;
             }
         }
