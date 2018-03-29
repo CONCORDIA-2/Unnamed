@@ -65,6 +65,9 @@ public class Player_Movement : NetworkBehaviour
 
     private void FixedUpdate()
     {
+    	//HARDCODE FORCE MASS TO 25
+    	mRb.mass = 25f;
+
         // If the player is not hanging, they can move
         if (isLocalPlayer && !PauseMenuController.isPaused)
         {

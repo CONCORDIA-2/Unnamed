@@ -37,7 +37,7 @@ public class CameraControl : MonoBehaviour
             // place the camera slightly ahead of the player
             Vector3 playerFront = player.forward.normalized;
             targetCamPos = new Vector3(targetCamPos.x + frontFactor * playerFront.x,
-                targetCamPos.y,
+                targetCamPos.y + 2f,
                 targetCamPos.z + frontFactor * playerFront.z);
 
             // if the other player is in game, move the camera to include their character
