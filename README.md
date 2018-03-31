@@ -10,3 +10,5 @@ Ubisoft Game Lab Competition repository.
 - [Post Processing Stack.](https://assetstore.unity.com/packages/essentials/post-processing-stack-83912)
 
 - [Next-Gen Soft-Shadows.](https://assetstore.unity.com/packages/vfx/shaders/next-gen-soft-shadows-79454)
+
+- [Hx Volumetric Lighting.](https://assetstore.unity.com/packages/vfx/shaders/fullscreen-camera-effects/hx-volumetric-lighting-67665)
