@@ -21,10 +21,12 @@ public class ItemSFX : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-    	if (collision.relativeVelocity.magnitude > 4)
-    	{
-    		mAudioSources[0].clip = mAudioClips[Random.Range(0, mAudioClips.Length)];
-    		GetComponent<AudioSource>().Play();
+    	if (this.gameObject.GetComponent<Pickable>().isPickable) {
+    		if (collision.relativeVelocity.magnitude > 4)
+	    	{
+	    		mAudioSources[0].clip = mAudioClips[Random.Range(0, mAudioClips.Length)];
+	    		GetComponent<AudioSource>().Play();
+	    	}
     	}
     }
 

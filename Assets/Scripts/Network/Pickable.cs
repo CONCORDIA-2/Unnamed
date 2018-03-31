@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class Pickable : NetworkBehaviour
 {
-    [SerializeField][SyncVar] private bool isPickable = true;
+    [SerializeField][SyncVar] public bool isPickable = true;
 
     [SerializeField] private Rigidbody rb;
     [SerializeField] private NetworkTransform ntwrkT;
@@ -35,9 +35,9 @@ public class Pickable : NetworkBehaviour
             | RigidbodyConstraints.FreezeRotationZ);
 
         // switch between sync modes when picked up (since physics are disabled)
-        ntwrkT.transformSyncMode = toggle
+        /*ntwrkT.transformSyncMode = toggle
             ? NetworkTransform.TransformSyncMode.SyncRigidbody3D
-            : NetworkTransform.TransformSyncMode.SyncTransform;
+            : NetworkTransform.TransformSyncMode.SyncTransform;*/
 
         isPickable = toggle;
 

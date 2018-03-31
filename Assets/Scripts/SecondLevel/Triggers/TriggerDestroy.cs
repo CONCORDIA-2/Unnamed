@@ -9,7 +9,7 @@ public class TriggerDestroy : MonoBehaviour {
 	// ------------------------------------
 	void OnTriggerEnter (Collider col) {
 		// Destroy any pickable objects that pass throught the trigger
-		if (col.gameObject.tag == "Pickable") {
+		if (col.gameObject.tag == "NutSpawn") {
 			Destroy (col.gameObject);
 		}
 	}
